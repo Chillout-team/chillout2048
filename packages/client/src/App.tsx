@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import './App.scss';
+import Input from './components/common/input/Input';
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,7 @@ function App() {
 
     fetchServerData();
   }, []);
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>;
+  return <Input />;
 }
 
 export default App;
