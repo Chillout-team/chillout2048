@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.scss';
-import Input from './components/common/input/Input';
 
 function App() {
   useEffect(() => {
@@ -13,30 +12,7 @@ function App() {
 
     fetchServerData();
   }, []);
-
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-
-  return (
-    <>
-      <Input
-        id="input"
-        onChange={e => setLogin(e.target.value)}
-        value={login}
-        type="text"
-        placeholder="login"
-      />
-      <Input
-        id="password"
-        onChange={e => setPassword(e.target.value)}
-        value={password}
-        type="password"
-        placeholder="password"
-        errorText="wrong password"
-        error={true}
-      />
-    </>
-  );
+  return <div className="App">Вот тут будет жить ваше приложение :)</div>;
 }
 
 export default App;
