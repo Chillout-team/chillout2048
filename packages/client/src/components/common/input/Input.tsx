@@ -16,24 +16,24 @@ interface InputInterface
   onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
 }
 
-export const Input = (payload: InputInterface) => {
+export const Input = (props: InputInterface) => {
   return (
     <div
       className={
-        payload.error
+        props.error
           ? cls.input_container + ' ' + cls.__error
           : cls.input_container
       }>
-      <input className={cls.input} {...payload} placeholder=" " />
+      <input className={cls.input} {...props} placeholder=" " />
 
-      {payload.placeholder && (
-        <label className={cls.placeholder} htmlFor={payload.id}>
-          {payload.placeholder}
+      {props.placeholder && (
+        <label className={cls.placeholder} htmlFor={props.id}>
+          {props.placeholder}
         </label>
       )}
 
-      {payload.errorText && (
-        <label className={cls.input_error}>{payload.errorText}</label>
+      {props.errorText && (
+        <label className={cls.input_error}>{props.errorText}</label>
       )}
     </div>
   );
