@@ -10,17 +10,12 @@ interface ButtonInterface
 }
 
 export const Button = (props: ButtonInterface) => {
+  const { size, color, children, ...other } = props;
   return (
     <button
-      {...props}
-      className={
-        cls.button +
-        ' ' +
-        cls[`__${props.size}`] +
-        ' ' +
-        cls[`__${props.color}`]
-      }>
-      {props.children}
+      {...other}
+      className={cls.button + ' ' + cls[`__${size}`] + ' ' + cls[`__${color}`]}>
+      {children}
     </button>
   );
 };
