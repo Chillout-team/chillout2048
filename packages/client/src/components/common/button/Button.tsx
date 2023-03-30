@@ -9,18 +9,18 @@ interface ButtonInterface
   disabled?: boolean;
 }
 
-export const Button = (payload: ButtonInterface) => {
+export const Button = (props: ButtonInterface) => {
   return (
     <button
-      {...payload}
+      {...props}
       className={
         cls.button +
         ' ' +
-        cls[`__${payload.size}`] +
+        cls[`__${props.size}`] +
         ' ' +
-        cls[`__${payload.color}`]
+        cls[`__${props.color}`]
       }>
-      {payload.children}
+      {props.children}
     </button>
   );
 };
