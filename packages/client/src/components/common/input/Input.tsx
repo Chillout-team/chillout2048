@@ -17,24 +17,21 @@ interface InputInterface
 }
 
 export const Input = (props: InputInterface) => {
+  const { id, error, placeholder, errorText, ...other } = props;
   return (
     <div
       className={
-        props.error
-          ? cls.input_container + ' ' + cls.__error
-          : cls.input_container
+        error ? cls.input_container + ' ' + cls.__error : cls.input_container
       }>
-      <input className={cls.input} {...props} placeholder=" " />
+      <input className={cls.input} {...other} placeholder=" " />
 
-      {props.placeholder && (
-        <label className={cls.placeholder} htmlFor={props.id}>
-          {props.placeholder}
+      {placeholder && (
+        <label className={cls.placeholder} htmlFor={id}>
+          {placeholder}
         </label>
       )}
 
-      {props.errorText && (
-        <label className={cls.input_error}>{props.errorText}</label>
-      )}
+      {errorText && <label className={cls.input_error}>{errorText}</label>}
     </div>
   );
 };
