@@ -2,7 +2,7 @@ interface InputInterface
   extends Omit<React.HTMLProps<HTMLInputElement>, 'size'> {
   id: string;
   value: string;
-  type?: 'text' | 'email' | 'password';
+  type: 'text' | 'email' | 'password';
   placeholder?: string;
   success?: boolean;
   error?: boolean;
