@@ -1,7 +1,15 @@
-import ButtonInterface from '../../../types/ButtonType.ts';
 import cls from './Button.module.scss';
 
-export default (payload: ButtonInterface) => {
+interface ButtonInterface
+  extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
+  onClick: () => void;
+  size: 'small' | 'medium' | 'big';
+  color: 'green' | 'orange' | 'red' | 'yellow';
+  type: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+}
+
+export const Button = (payload: ButtonInterface) => {
   return (
     <button
       {...payload}
