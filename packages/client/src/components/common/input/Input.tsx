@@ -6,7 +6,7 @@ export default (payload: InputInterface) => {
     <div
       className={
         payload.error
-          ? cls.input_container + ' ' + cls._error
+          ? cls.input_container + ' ' + cls.__error
           : cls.input_container
       }>
       <input className={cls.input} {...payload} placeholder=" " />
