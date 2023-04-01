@@ -1,50 +1,49 @@
 .button {
-    font-family: "Inter";
-    font-style: normal;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 0 auto;
+  font-family: 'Inter';
+  font-style: normal;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .__green {
-    background: #04780f;
+  background: #04780f;
 }
 
 .__orange {
-    background: #da6d00;
+  background: #da6d00;
 }
 
 .__red {
-    background: #ff0000;
+  background: #ff0000;
 }
 
 .__yellow {
-    background: #ffb800;
+  background: #ffb800;
 }
 
 .__big {
-    width: 300px;
-    height: 90px;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 36px;
-    border-radius: 13px;
+  width: 300px;
+  height: 90px;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  border-radius: 13px;
 }
 
 .__medium {
-    width: 280px;
-    height: 37px;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
+  width: 280px;
+  height: 37px;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 15px;
 }
 
 .__small {
-    width: 135px;
-    height: 40px;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
+  width: 135px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
 }
