@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.scss';
+import { Profile } from './components/profile/Profile';
 
 function App() {
   useEffect(() => {
@@ -12,7 +14,12 @@ function App() {
 
     fetchServerData();
   }, []);
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>;
+  return <div className='App'>
+    <Routes>
+        <Route path='/'/>
+        <Route path='/profile' element={<Profile/>} />
+    </Routes>
+  </div>;
 }
 
 export default App;

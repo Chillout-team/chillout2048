@@ -1,3 +1,17 @@
+:root {
+  --light-background-color: rgba(175, 233, 180, 43%);
+  --dark-background-color: #477A4C;
+  --main-text-color: #1e1e1e;
+  --border-color: #A7D6AC;
+  --light-text-color: #999;
+  --dark-text-color: #04780F;
+  --button-color: #DA6D00;
+  --light-button-color: #ffb800;
+  --button-text: #FFF;
+  --number-clor: #71685F;
+  --warning-color: #f00;
+}
+
 /* Указываем box sizing */
 *,
 *::before,
@@ -47,6 +61,7 @@ ol[class] {
 li {
   list-style-type: none; /* Убираем маркеры */
 }
+
 ul {
   padding: 0;
   margin: 0;

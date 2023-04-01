@@ -1,26 +1,26 @@
 .button {
   font-family: 'Inter';
   font-style: normal;
-  color: white;
+  color: var(--button-text);
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .__green {
-  background: #04780f;
+  background: var(--dark-text-color);
 }
 
 .__orange {
-  background: #da6d00;
+  background: var(--button-color);
 }
 
 .__red {
-  background: #ff0000;
+  background: var(--warning-color);
 }
 
 .__yellow {
-  background: #ffb800;
+  background: var(--light-button-color);
 }
 
 .__big {
