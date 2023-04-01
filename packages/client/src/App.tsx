@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "./App.scss";
-import { Registration } from "./components/registration/Registration";
 
 function App() {
     useEffect(() => {
