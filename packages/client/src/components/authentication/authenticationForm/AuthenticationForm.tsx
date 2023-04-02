@@ -1,5 +1,6 @@
 import cls from "./AuthenticationForm.module.scss";
 import { Button } from "../../common/button/Button";
+import { Form } from "formik";
 
 type Props = {
     title: string;
@@ -12,7 +13,7 @@ type Props = {
 export const AuthenticationForm = (props: Props) => {
     const { children, buttonTitle, goToRegistration, goToHome, title } = props;
     return (
-        <form action="" className={cls.form}>
+        <Form className={cls.form}>
             <div>
                 <h1>{title}</h1>
                 {children}
@@ -38,6 +39,6 @@ export const AuthenticationForm = (props: Props) => {
                     </a>
                 )}
             </div>
-        </form>
+        </Form>
     );
 };
