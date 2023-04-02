@@ -10,7 +10,7 @@ export default {
     },
     moduleNameMapper: {
         '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$':
-            '<rootDir>/style-mock.js',
+            '<rootDir>/src/assets/mocks/style-mock.js',
         '\\.(css|sass|scss)$': '<rootDir>/src/assets/mocks/style-mock.js',
     },
 };
