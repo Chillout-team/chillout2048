@@ -8,9 +8,16 @@ const appContent = 'Вот тут будет жить ваше приложен�
 global.fetch = jest.fn(() =>
     Promise.resolve({ json: () => Promise.resolve('hey') }),
 );
-/*
+
+//TODO заглушка убрать при написании нормальных тестов
+function sum(a: number, b: number) {
+    return a + b;
+}
+
 test('Example test', async () => {
-    render(<App />);
-    expect(screen.getByText(appContent)).toBeDefined();
+    //TODO заглушка убрать при написании нормальных тестов
+    expect(sum(1, 2)).toBe(3);
+    //render(<App />);
+    //expect(screen.getByText(appContent)).toBeDefined();
 });
-*/
+
