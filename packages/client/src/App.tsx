@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.scss";
-import { Registration } from "./components/authentication/registration/Registration";
+import { Authentication } from "./components/authentication/Authentication";
 
 function App() {
     useEffect(() => {
@@ -12,7 +12,7 @@ function App() {
         };
         fetchServerData();
     }, []);
-    return <Registration />;
+    return <Authentication mode={"reg"} />;
 }
 
 export default App;
