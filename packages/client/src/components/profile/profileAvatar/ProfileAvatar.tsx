@@ -8,7 +8,6 @@ import { Button } from '../../common/button/Button';
 interface IAvatarForm {
     avatar: string;
   }
-
   
 export const ProfileAvatar: FC = () => {
   const [modalActive, setModalActive] = useState(false);
