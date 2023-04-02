@@ -1,70 +1,70 @@
 .link {
-  position: relative;
-  display: block;
-  margin: 60px auto 20px;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-
-  &:hover {
-    background-color: var(--number-clor);
-  }
-
-  &:hover .avatar {
-    opacity: 0.4;
-  }
-
-  &:hover .text {
+    position: relative;
     display: block;
-  }
+    margin: 60px auto 20px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: var(--number-clor);
+    }
+
+    &:hover .avatar {
+        opacity: 0.4;
+    }
+
+    &:hover .text {
+        display: block;
+    }
 }
 
 .text {
-  display: none;
-  position: absolute;
-  text-align: center;
-  width: 130px;
-  height: 130px;
-  top: 50px;
-  left: 0;
-  color: var(--button-text);
+    display: none;
+    position: absolute;
+    text-align: center;
+    width: 130px;
+    height: 130px;
+    top: 50px;
+    left: 0;
+    color: var(--button-text);
 }
 
 .avatar {
-  display: block;
-  margin: 60px auto 20px;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  font-size: 0;
+    display: block;
+    margin: 60px auto 20px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    font-size: 0;
 }
 
 .modal_file {
-  text-align: center;
-  font-size: 16px;
-  line-height: 16px;
-  color: var(--button-color);
-  margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    color: var(--button-color);
+    margin-bottom: 20px;
 }
 
 .modal_input {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
 }
 
 .modal_lable {
-  cursor: pointer;
-  display: block;
-  margin-bottom: 45px;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-  text-decoration-line: underline;
-  color: var(--dark-text-color);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 45px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: var(--dark-text-color);
 }
 
 .modal_button {
-  width: 280px;
-  margin: 20px auto;
+    width: 280px;
+    margin: 20px auto;
 }
