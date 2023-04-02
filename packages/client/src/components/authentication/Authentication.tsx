@@ -14,14 +14,16 @@ type Props = {
 
 export const Authentication = (props: Props) => {
     const { mode } = props;
+    const { title, goToRegistration, goToHome, buttonTitle, inputs } =
+        data[mode];
     return (
         <Main>
             <AuthenticationForm
-                title={"Регистрация"}
-                buttonTitle={"Авторизоваться"}
-                goToRegistration={true}
-                goToHome={true}>
-                {data[mode].map(({ id, value, labelText, type }) => {
+                title={title}
+                buttonTitle={buttonTitle}
+                goToRegistration={goToRegistration}
+                goToHome={goToHome}>
+                {inputs.map(({ id, value, labelText, type }) => {
                     return (
                         <InputForm
                             id={id}
