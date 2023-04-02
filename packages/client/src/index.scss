@@ -1,15 +1,30 @@
 :root {
-  --light-background-color: rgba(175, 233, 180, 43%);
-  --dark-background-color: #477A4C;
-  --main-text-color: #1e1e1e;
-  --border-color: #A7D6AC;
-  --light-text-color: #999;
-  --dark-text-color: #04780F;
-  --button-color: #DA6D00;
-  --light-button-color: #ffb800;
-  --button-text: #FFF;
-  --number-clor: #71685F;
-  --warning-color: #f00;
+  --color-green: #04780F;
+  --color-middle-green: rgba(175, 233, 180, 43%);
+  --color-light-blue-green: #A7D6AC;
+  --color-light-green: #DDF4E0;
+  --color-dark-green: #477A4C;
+  --color-orange: #DA6D00;
+  --color-white-smoke: #F5F5F5;
+  --color-white: #FFF;
+  --color-black: #000000;
+  --color-light-gray: #999;
+  --color-dark-gray: #1e1e1e;
+  --color-brown: #71685F;
+  --color-red: #f00;
+  --color-yellow: #ffb800;
+
+  --light-background-color: var(--color-middle-green);
+  --dark-background-color: var(--color-dark-green);
+  --main-text-color: var(--color-dark-gray); 
+  --border-color: var(--color-light-blue-green);
+  --light-text-color: var(--color-light-gray);
+  --dark-text-color: var(--color-green);
+  --button-color: var(--color-orange);
+  --light-button-color: var(--color-yellow);
+  --button-text: var(--color-white);
+  --number-clor: var(--color-brown)F;
+  --warning-color: (--color-red);
 }
 
 /* Указываем box sizing */

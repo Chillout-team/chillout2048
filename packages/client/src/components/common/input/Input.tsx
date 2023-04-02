@@ -17,7 +17,6 @@ interface InputInterface
 }
 
 export const Input = (props: InputInterface) => {
-  const [field] = useField(props.id);
   const {
     id,
     containerClassName,
@@ -29,6 +28,9 @@ export const Input = (props: InputInterface) => {
     errorText,
     ...other
   } = props;
+  
+  const [field] = useField(id);
+  
   return (
     <div className={containerClassName}>
       <input

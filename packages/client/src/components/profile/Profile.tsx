@@ -5,11 +5,9 @@ import { ProfileAvatar } from './profileAvatar/ProfileAvatar';
 import { ProfileForm } from './profileForm/ProfileForm';
 
 export const Profile: FC = () => {
-    return <>
-        <Main>
-            <Header isAuth={ true } userName='Иван' />
-            <ProfileAvatar />
-            <ProfileForm />
-        </Main>
-    </>
+  return <Main>
+    <Header isAuth={ true } userName='Иван' />
+    <ProfileAvatar />
+    <ProfileForm />
+  </Main>
 }
