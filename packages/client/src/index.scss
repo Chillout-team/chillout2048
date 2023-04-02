@@ -1,5 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+:root {
+    --color-green: #04780f;
+    --color-middle-green: rgba(175, 233, 180, 43%);
+    --color-light-blue-green: #a7d6ac;
+    --color-light-green: #ddf4e0;
+    --color-dark-green: #477a4c;
+    --color-orange: #da6d00;
+    --color-white-smoke: #f5f5f5;
+    --color-white: #fff;
+    --color-black: #000000;
+    --color-light-gray: #999;
+    --color-dark-gray: #1e1e1e;
+    --color-brown: #71685f;
+    --color-red: #f00;
+    --color-yellow: #ffb800;
+
+    --light-background-color: var(--color-middle-green);
+    --dark-background-color: var(--color-dark-green);
+    --main-text-color: var(--color-dark-gray);
+    --border-color: var(--color-light-blue-green);
+    --light-text-color: var(--color-light-gray);
+    --dark-text-color: var(--color-green);
+    --button-color: var(--color-orange);
+    --light-button-color: var(--color-yellow);
+    --button-text: var(--color-white);
+    --number-color: var(--color-brown);
+    --warning-color: var(--color-red);
+}
+
+/* Указываем box sizing */
 *,
 *::before,
 *::after {
@@ -49,6 +79,7 @@ ol[class] {
 li {
     list-style-type: none; /* Убираем маркеры */
 }
+
 ul {
     padding: 0;
     margin: 0;

@@ -1,27 +1,26 @@
 .button {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
-    color: white;
+    color: var(--button-text);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin: 0 auto;
 }
 
 .__green {
-    background: #04780f;
+    background: var(--dark-text-color);
 }
 
 .__orange {
-    background: #da6d00;
+    background: var(--button-color);
 }
 
 .__red {
-    background: #ff0000;
+    background: var(--warning-color);
 }
 
 .__yellow {
-    background: #ffb800;
+    background: var(--light-button-color);
 }
 
 .__big {
@@ -37,8 +36,8 @@
     width: 280px;
     height: 37px;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
+    font-size: 17px;
+    line-height: 15px;
 }
 
 .__small {

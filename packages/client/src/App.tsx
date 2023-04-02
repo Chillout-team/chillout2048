@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.scss";
+import { Profile } from "./components/profile/Profile";
 import { Authentication } from "./components/authentication/Authentication";
 
 function App() {
@@ -10,9 +12,23 @@ function App() {
             const data = await response.json();
             console.log(data);
         };
+
         fetchServerData();
     }, []);
-    return <Authentication mode={"reg"} />;
+    return (
+        <Routes>
+            <Route path="/" />
+            <Route path="/profile" element={<Profile />} />
+            <Route
+                path="/authorization"
+                element={<Authentication mode="auth" />}
+            />
+            <Route
+                path="/registration"
+                element={<Authentication mode="reg" />}
+            />
+        </Routes>
+    );
 }
 
 export default App;
