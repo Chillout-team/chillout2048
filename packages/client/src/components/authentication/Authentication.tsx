@@ -3,6 +3,9 @@ import { AuthenticationForm } from "./authenticationForm/AuthenticationForm";
 import { InputForm } from "./inputForm/InputForm";
 import { reg, auth } from "./AuthenticationData";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { AuthRequest } from "../../store/AuthSlice";
+import { AppDispatch } from "../../store/Store";
 
 const data = {
     reg,
@@ -27,11 +30,12 @@ export const Authentication = (props: Props) => {
     const { title, goToRegistration, goToHome, buttonTitle, inputs } =
         data[mode];
 
-    const submit = (
-        values: IProfileForm,
-        { setSubmitting }: { setSubmitting: (issubmitting: boolean) => void },
-    ) => {
-        console.log({ values, setSubmitting });
+    const useAuthDispatch: () => AppDispatch = useDispatch;
+    const dispatch = useAuthDispatch();
+
+    const submit = (values: IProfileForm) => {
+        const path: string = mode === "reg" ? "/auth/signup" : "/auth/signin";
+        dispatch(AuthRequest({ data: values, path }));
     };
 
     return (
@@ -51,17 +55,13 @@ export const Authentication = (props: Props) => {
                     buttonTitle={buttonTitle}
                     goToRegistration={goToRegistration}
                     goToHome={goToHome}>
-                    {inputs.map(({ id, value, labelText, type }, index) => {
+                    {inputs.map(({ id, labelText, type }, index) => {
                         return (
                             <InputForm
                                 key={index}
                                 id={id}
-                                value={value}
                                 labelText={labelText}
                                 type={type}
-                                onChange={() => {
-                                    console.log("click");
-                                }}
                             />
                         );
                     })}

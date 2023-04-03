@@ -3,7 +3,7 @@ import { useField } from "formik";
 export interface InputInterface
     extends Omit<React.HTMLProps<HTMLInputElement>, "size"> {
     id: string;
-    value: string;
+    value?: string;
     type?: "text" | "email" | "password";
     containerClassName?: string;
     inputClassName?: string;
@@ -13,7 +13,7 @@ export interface InputInterface
     placeholder?: string;
     disabled?: boolean;
     errorText?: string;
-    onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+    onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const Input = (props: InputInterface) => {
