@@ -1,26 +1,35 @@
-import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import './App.scss';
-import { Profile } from './components/profile/Profile';
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Profile } from "./components/profile/Profile";
+import { getUser } from "./controllers/authController";
 
 function App() {
-    useEffect(() => {
-        const fetchServerData = async () => {
-            const url = `http://localhost:${__SERVER_PORT__}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            console.log(data);
-        };
+    const [appState, setAppState] = useState({
+        isAuth: false,
+        user: {
+            email: "",
+            login: "",
+            first_name: "",
+            second_name: "",
+            display_name: "",
+            phone: "",
+        },
+    });
 
-        fetchServerData();
-    }, []);
+    useEffect(() => {
+        getUser().then(data => {
+            setAppState({
+                isAuth: true,
+                user: data,
+            });
+        });
+    }, [setAppState]);
+
     return (
-        <div className="App">
-            <Routes>
-                <Route path="/" />
-                <Route path="/profile" element={<Profile />} />
-            </Routes>
-        </div>
+        <Routes>
+            <Route path="/" />
+            <Route path="/profile" element={<Profile {...appState.user} />} />
+        </Routes>
     );
 }
 

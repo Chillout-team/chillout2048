@@ -1,46 +1,49 @@
-import React, { FC } from 'react';
-import cls from './ProfileForm.module.scss';
-import { Formik, Form, Field } from 'formik';
-import { Input } from '../../common/input/Input';
-import { Button } from '../../common/button/Button';
-import { Link } from 'react-router-dom';
+import React, { Dispatch, FC, SetStateAction } from "react";
+import cls from "./ProfileForm.module.scss";
+import { Formik, Form, Field } from "formik";
+import { Input } from "../../common/input/Input";
+import { Button } from "../../common/button/Button";
+import { Link } from "react-router-dom";
+import { IUserData } from "../../../types/types";
+import { changeProfile } from "../../../controllers/userController";
 
 interface IFormEditProfile
-    extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
-    toggle: boolean;
-    onToggle: () => void;
-}
-
-interface IProfileForm {
-    email: string;
-    login: string;
+    extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
     first_name: string;
     second_name: string;
     display_name: string;
+    login: string;
+    email: string;
     phone: string;
+    toggle: boolean;
+    setLogin: Dispatch<SetStateAction<string>>;
+    onToggle: () => void;
 }
 
 export const FormEditProfile: FC<IFormEditProfile> = props => {
     const { toggle, onToggle } = props;
 
-    const submit = (
-        values: IProfileForm,
-        { setSubmitting }: { setSubmitting: (issubmitting: boolean) => void },
-    ) => {
-        console.log({ values, setSubmitting });
+    const initialValues = {
+        email: props.email,
+        login: props.login,
+        first_name: props.first_name,
+        second_name: props.second_name,
+        display_name: props.display_name,
+        phone: props.phone,
+    };
+
+    const submit = (values: IUserData) => {
+        changeProfile(values).then(data => {
+            if (data) props.setLogin(data.login);
+            console.log(data);
+        });
     };
 
     return (
         <>
             <Formik
-                initialValues={{
-                    email: 'pochta@yandex.ru',
-                    login: 'ivanivanov',
-                    first_name: 'Иван',
-                    second_name: 'Иванов',
-                    display_name: 'Иван',
-                    phone: '+79099673030',
-                }}
+                initialValues={initialValues}
+                enableReinitialize={true}
                 onSubmit={submit}>
                 {() => (
                     <Form className={cls.form}>
@@ -119,7 +122,7 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
                         <div
                             className={
                                 toggle
-                                    ? cls.button + ' ' + cls.hidden
+                                    ? cls.button + " " + cls.hidden
                                     : cls.button
                             }>
                             <Button
@@ -136,9 +139,9 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
 
             <Link
                 className={
-                    toggle ? cls.link_back + ' ' + cls.hidden : cls.link_back
+                    toggle ? cls.link_back + " " + cls.hidden : cls.link_back
                 }
-                to={''}
+                to={""}
                 onClick={onToggle}>
                 Назад
             </Link>
