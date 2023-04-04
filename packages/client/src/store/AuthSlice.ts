@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { URL } from "../consts/common";
 
 interface IProfileForm {
     email: string;
@@ -20,17 +21,13 @@ export const AuthRequest = createAsyncThunk(
     async function (payload: Payload, thunkApi) {
         const { data, path } = payload;
         try {
-            const response = await axios.post(
-                `https://ya-praktikum.tech/api/v2${path}`,
-                data,
-                {
-                    headers: {
-                        "content-type": "application/json",
-                        "Access-Control-Allow-Methods": "GET, POST, PUT",
-                        "Access-Control-Allow-Headers": "content-type",
-                    },
+            const response = await axios.post(`${URL}${path}`, data, {
+                headers: {
+                    "content-type": "application/json",
+                    "Access-Control-Allow-Methods": "GET, POST, PUT",
+                    "Access-Control-Allow-Headers": "content-type",
                 },
-            );
+            });
             return response.data;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

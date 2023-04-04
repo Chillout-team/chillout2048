@@ -48,7 +48,7 @@ export const Authentication: FC<TAuthenticationProps> = ({ mode }) => {
                     display_name: "",
                     phone: "",
                     password: "",
-                    password_repite: "",
+                    password_repeat: "",
                 }}
                 onSubmit={submit}>
                 <AuthenticationForm
