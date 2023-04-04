@@ -5,9 +5,18 @@ import { FormEditProfile } from "./FormEditProfile";
 import { FormEditPassword } from "./FormEditPasswor";
 import { IUserData } from "../../../types/types";
 
-type IProfileForm = IUserData & { setLogin: Dispatch<SetStateAction<string>> };
+type TProfileForm = IUserData & { setLogin: Dispatch<SetStateAction<string>> };
 
-export const ProfileForm: FC<IProfileForm> = props => {
+export const ProfileForm: FC<TProfileForm> = ({
+    first_name,
+    second_name,
+    display_name,
+    login,
+    email,
+    phone,
+    setLogin
+}) => {
+    
     const [toggle, setToggle] = useState(true);
     const [isProfileForm, setProfileForm] = useState(true);
 
@@ -20,19 +29,19 @@ export const ProfileForm: FC<IProfileForm> = props => {
 
     return (
         <div className={cls.container}>
-            <h1 className={cls.title}>{props.login}</h1>
+            <h1 className={cls.title}>{login}</h1>
 
             {isProfileForm ? (
                 <FormEditProfile
                     toggle={toggle}
                     onToggle={onToggle}
-                    first_name={props.first_name}
-                    second_name={props.second_name}
-                    display_name={props.display_name}
-                    login={props.login}
-                    email={props.email}
-                    phone={props.phone}
-                    setLogin={props.setLogin}
+                    first_name={first_name}
+                    second_name={second_name}
+                    display_name={display_name}
+                    login={login}
+                    email={email}
+                    phone={phone}
+                    setLogin={setLogin}
                 />
             ) : (
                 <FormEditPassword toggle={toggle} toggleForm={toggleForm} />

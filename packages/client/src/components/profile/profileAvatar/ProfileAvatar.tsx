@@ -11,7 +11,7 @@ interface IAvatarForm {
     setAvatar: Dispatch<SetStateAction<string>>;
 }
 
-export const ProfileAvatar: FC<IAvatarForm> = props => {
+export const ProfileAvatar: FC<IAvatarForm> = ({avatar, setAvatar}) => {
     const [modalActive, setModalActive] = useState(false);
 
     const initialValues = {
@@ -25,7 +25,7 @@ export const ProfileAvatar: FC<IAvatarForm> = props => {
         const formData = new FormData(e.currentTarget);
 
         changeAvatar(formData).then(data => {
-            props.setAvatar(`${YANDEX_API_URL}resources${data.avatar}`);
+            setAvatar(`${YANDEX_API_URL}resources${data.avatar}`);
         });
 
         setModalActive(false);
@@ -36,7 +36,7 @@ export const ProfileAvatar: FC<IAvatarForm> = props => {
             <a className={cls.link} onClick={() => setModalActive(true)}>
                 <img
                     className={cls.avatar}
-                    src={props.avatar}
+                    src={avatar}
                     alt="Avatar"
                     width="130"
                     height="130"

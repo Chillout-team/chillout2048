@@ -18,8 +18,7 @@ interface IPasswordForm {
     confirmPassword: string;
 }
 
-export const FormEditPassword: FC<IFormEditPassword> = props => {
-    const { toggle, toggleForm } = props;
+export const FormEditPassword: FC<IFormEditPassword> = ({ toggle, toggleForm }) => {
 
     const initialValues: IPasswordForm = {
         oldPassword: "",

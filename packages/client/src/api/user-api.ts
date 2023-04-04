@@ -1,8 +1,8 @@
-import { Indexed, IUserData } from "../types/types";
+import { TIndexed, IUserData } from "../types/types";
 import { baseAPI } from "./api";
 
 export const userAPI = {
-    async changeProfile(data: Indexed) {
+    async changeProfile(data: TIndexed) {
         return baseAPI.put<IUserData>(`/user/profile`, JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export const userAPI = {
             },
         });
     },
-    async changePassword(data: Indexed): Promise<unknown> {
+    async changePassword(data: TIndexed): Promise<unknown> {
         return baseAPI.put("/user/password", JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json",

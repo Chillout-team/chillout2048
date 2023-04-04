@@ -20,23 +20,33 @@ interface IFormEditProfile
     onToggle: () => void;
 }
 
-export const FormEditProfile: FC<IFormEditProfile> = props => {
-    const { toggle, onToggle } = props;
+export const FormEditProfile: FC<IFormEditProfile> = ({ 
+    first_name,
+    second_name,
+    display_name,
+    login,
+    email,
+    phone,
+    toggle,
+    setLogin,
+    onToggle 
+}) => {
 
     const initialValues = {
-        email: props.email,
-        login: props.login,
-        first_name: props.first_name,
-        second_name: props.second_name,
-        display_name: props.display_name,
-        phone: props.phone,
+        email: email,
+        login: login,
+        first_name: first_name,
+        second_name: second_name,
+        display_name: display_name,
+        phone: phone,
     };
 
     const submit = (values: IUserData) => {
         changeProfile(values).then(data => {
-            if (data) props.setLogin(data.login);
+            if (data) setLogin(data.login);
             console.log(data);
         });
+        onToggle();
     };
 
     return (
@@ -129,7 +139,6 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
                                 size="medium"
                                 color="orange"
                                 type="submit"
-                                onClick={onToggle}
                                 children="Сохранить"
                             />
                         </div>

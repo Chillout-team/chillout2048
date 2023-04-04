@@ -1,4 +1,4 @@
-export type Indexed<T = any> = {
+export type TIndexed<T = any> = {
     [key in string]: T;
 };
 
