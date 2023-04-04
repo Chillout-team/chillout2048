@@ -23,7 +23,7 @@ export const MainPage: FC = () => {
                     onClick={() => {
                         return;
                     }}
-                    children="Сохранить"
+                    children="Начать игру!"
                 />
                 <GamePic class={cls.img} />
 
