@@ -1,20 +1,23 @@
 import { useField } from "formik";
-
-export interface InputInterface
-    extends Omit<React.HTMLProps<HTMLInputElement>, "size"> {
+export interface InputInterface {
     id: string;
-    value: string;
+    name: string;
+    value?: string;
     type?: "text" | "email" | "password";
     containerClassName?: string;
     inputClassName?: string;
     labelClassName?: string;
     errorClassName?: string;
     labelText?: string;
+    form?: TForm;
     placeholder?: string;
     disabled?: boolean;
-    errorText?: string;
-    onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+    onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
+
+type TForm = {
+    errors: Record<string, string>;
+};
 
 export const Input = (props: InputInterface) => {
     const {
@@ -25,7 +28,7 @@ export const Input = (props: InputInterface) => {
         errorClassName,
         placeholder = " ",
         labelText,
-        errorText,
+        form,
         ...other
     } = props;
 
@@ -47,7 +50,9 @@ export const Input = (props: InputInterface) => {
                 </label>
             )}
 
-            {errorText && <label className={errorClassName}>{errorText}</label>}
+            {form?.errors[id] && (
+                <label className={errorClassName}>{form.errors[id]}</label>
+            )}
         </div>
     );
 };

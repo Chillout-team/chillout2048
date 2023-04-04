@@ -20,9 +20,6 @@ export const AuthenticationForm = (props: Props) => {
             </div>
             <div>
                 <Button
-                    onClick={() => {
-                        console.log("click");
-                    }}
                     size={"medium"}
                     color={"green"}
                     type={"submit"}>
