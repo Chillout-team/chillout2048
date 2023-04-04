@@ -32,8 +32,9 @@ export const AuthRequest = createAsyncThunk(
                 },
             );
             return response.data;
-        } catch (error: unknown) {
-            return thunkApi.rejectWithValue(error);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            return thunkApi.rejectWithValue(error.message);
         }
     },
 );
