@@ -1,6 +1,7 @@
-import { useEffect } from "react";
-import "./App.scss";
-import { Authentication } from "./components/authentication/Authentication";
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import './App.scss';
+import { Profile } from './components/profile/Profile';
 
 function App() {
     useEffect(() => {
@@ -12,7 +13,14 @@ function App() {
         };
         fetchServerData();
     }, []);
-    return <Authentication mode={"reg"} />;
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" />
+                <Route path="/profile" element={<Profile />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

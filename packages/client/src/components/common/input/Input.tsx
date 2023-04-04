@@ -1,3 +1,5 @@
+import { useField } from 'formik';
+
 export interface InputInterface
     extends Omit<React.HTMLProps<HTMLInputElement>, "size"> {
     id: string;
@@ -26,10 +28,12 @@ export const Input = (props: InputInterface) => {
         errorText,
         ...other
     } = props;
+    const [field] = useField(id);
     return (
         <div className={containerClassName}>
             <input
                 className={inputClassName}
+                {...field}
                 {...other}
                 placeholder={placeholder}
                 name={id}
