@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
-import cls from './ProfileForm.module.scss';
-import { Formik, Form, Field } from 'formik';
-import { Input } from '../../common/input/Input';
-import { Button } from '../../common/button/Button';
-import { Link } from 'react-router-dom';
+import React, { FC } from "react";
+import cls from "./ProfileForm.module.scss";
+import { Formik, Form, Field } from "formik";
+import { Input } from "../../common/input/Input";
+import { Button } from "../../common/button/Button";
+import { Link } from "react-router-dom";
 
 interface IFormEditPassword
-    extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
+    extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
     toggle: boolean;
     toggleForm: () => void;
 }
@@ -31,9 +31,9 @@ export const FormEditPassword: FC<IFormEditPassword> = props => {
         <>
             <Formik
                 initialValues={{
-                    oldPassword: 'hhhhh',
-                    newPassword: '',
-                    confirmPassword: '',
+                    oldPassword: "hhhhh",
+                    newPassword: "",
+                    confirmPassword: "",
                 }}
                 onSubmit={submit}>
                 {() => (
@@ -74,7 +74,7 @@ export const FormEditPassword: FC<IFormEditPassword> = props => {
                         <div
                             className={
                                 toggle
-                                    ? cls.button + ' ' + cls.hidden
+                                    ? cls.button + " " + cls.hidden
                                     : cls.button
                             }>
                             <Button
@@ -91,9 +91,9 @@ export const FormEditPassword: FC<IFormEditPassword> = props => {
 
             <Link
                 className={
-                    toggle ? cls.link_back + ' ' + cls.hidden : cls.link_back
+                    toggle ? cls.link_back + " " + cls.hidden : cls.link_back
                 }
-                to={''}
+                to={""}
                 onClick={toggleForm}>
                 Назад
             </Link>

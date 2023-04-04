@@ -1,4 +1,4 @@
-import cls from './Main.module.scss';
+import cls from "./Main.module.scss";
 
 type Props = {
     extraClass?: string;
@@ -6,6 +6,6 @@ type Props = {
 };
 
 export const Main = (props: Props) => {
-    const { children, extraClass = '' } = props;
-    return <main className={cls.main + ' ' + extraClass}>{children}</main>;
+    const { children, extraClass = "" } = props;
+    return <main className={cls.main + " " + extraClass}>{children}</main>;
 };

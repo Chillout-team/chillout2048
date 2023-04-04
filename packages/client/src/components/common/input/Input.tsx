@@ -1,4 +1,4 @@
-import { useField } from 'formik';
+import { useField } from "formik";
 
 export interface InputInterface
     extends Omit<React.HTMLProps<HTMLInputElement>, "size"> {
