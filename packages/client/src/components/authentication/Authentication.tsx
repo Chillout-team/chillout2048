@@ -51,25 +51,23 @@ export const Authentication: FC<TAuthenticationProps> = ({ mode }) => {
                     password_repite: "",
                 }}
                 onSubmit={submit}>
-                {() => (
-                    <AuthenticationForm
-                        title={title}
-                        buttonTitle={buttonTitle}
-                        goToRegistration={goToRegistration}
-                        goToHome={goToHome}>
-                        {inputs.map(({ id, labelText, type }, index) => {
-                            return (
-                                <InputForm
-                                    key={index}
-                                    name={id}
-                                    id={id}
-                                    labelText={labelText}
-                                    type={type}
-                                />
-                            );
-                        })}
-                    </AuthenticationForm>
-                )}
+                <AuthenticationForm
+                    title={title}
+                    buttonTitle={buttonTitle}
+                    goToRegistration={goToRegistration}
+                    goToHome={goToHome}>
+                    {inputs.map(({ id, labelText, type }, index) => {
+                        return (
+                            <InputForm
+                                key={index}
+                                name={id}
+                                id={id}
+                                labelText={labelText}
+                                type={type}
+                            />
+                        );
+                    })}
+                </AuthenticationForm>
             </Formik>
         </Main>
     );
