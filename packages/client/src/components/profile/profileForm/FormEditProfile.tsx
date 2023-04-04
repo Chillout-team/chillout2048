@@ -33,12 +33,12 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
 }) => {
 
     const initialValues = {
-        email: email,
-        login: login,
-        first_name: first_name,
-        second_name: second_name,
-        display_name: display_name,
-        phone: phone,
+        email: email || '',
+        login: login || '',
+        first_name: first_name || '',
+        second_name: second_name || '',
+        display_name: display_name || '',
+        phone: phone || '',
     };
 
     const submit = (values: IUserData) => {
