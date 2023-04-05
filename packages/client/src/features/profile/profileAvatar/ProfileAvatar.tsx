@@ -1,8 +1,8 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import cls from "./ProfileAvatar.module.scss";
-import { Modal } from "../../common/popup/Modal";
+import { Modal } from "../../../components/common/popup/Modal";
 import { Field, Form, Formik } from "formik";
-import { Button } from "../../common/button/Button";
+import { Button } from "../../../components/common/button/Button";
 import { changeAvatar } from "../../../controllers/userController";
 import { YANDEX_API_URL } from "../../../consts/common";
 
@@ -11,14 +11,16 @@ interface IAvatarForm {
     setAvatar: Dispatch<SetStateAction<string>>;
 }
 
-export const ProfileAvatar: FC<IAvatarForm> = ({avatar, setAvatar}) => {
+export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
     const [modalActive, setModalActive] = useState(false);
 
     const initialValues = {
         avatar: "",
     };
 
-    const submit = (values: { avatar: string }) => { values; };
+    const submit = (values: { avatar: string }) => {
+        values;
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();

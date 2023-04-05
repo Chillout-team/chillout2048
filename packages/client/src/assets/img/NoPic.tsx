@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-interface INoPic extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
+interface INoPic {
     class?: string;
 }
 

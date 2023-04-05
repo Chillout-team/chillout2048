@@ -5,6 +5,8 @@ export const getUser = async () => {
         const res = await authAPI.user();
         return res.data;
     } catch (err) {
-        console.error((err as Error).message + ". Авторизуйтесь чтобы появились данные");
+        console.error(
+            `${(err as Error).message}. Авторизуйтесь чтобы появились данные`,
+        );
     }
 };

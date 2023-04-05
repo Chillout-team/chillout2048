@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Profile } from "./components/profile/Profile";
+import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
+import { URL } from "./consts/common";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -27,8 +28,11 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" />
-            <Route path="/profile" element={<Profile {...appState.user} />} />
+            <Route path={URL.home} />
+            <Route
+                path={URL.profile}
+                element={<Profile {...appState.user} />}
+            />
         </Routes>
     );
 }

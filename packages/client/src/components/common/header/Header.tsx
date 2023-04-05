@@ -8,12 +8,15 @@ type Props = {
     extraClass?: string;
 };
 
-export const Header = (props: Props) => {
-    const { isAuth, userName, avatar, extraClass = "" } = props;
-
+export const Header = ({
+    isAuth,
+    userName,
+    avatar,
+    extraClass = "",
+}: Props) => {
     if (isAuth) {
         return (
-            <header className={cls.header + " " + extraClass}>
+            <header className={`${cls.header} ${extraClass}`}>
                 <nav>
                     <div>
                         <Link to={"/"}>Домой</Link>
@@ -39,7 +42,7 @@ export const Header = (props: Props) => {
         );
     }
     return (
-        <header className={cls.header + " " + extraClass}>
+        <header className={`${cls.header} ${extraClass}`}>
             <nav>
                 <div>
                     <Link to={"/"}>Форум</Link>
