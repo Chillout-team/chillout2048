@@ -1,7 +1,7 @@
 import cls from "./Button.module.scss";
 
 interface IButton {
-    onClick?: () => void;
+    onClick?: (event: React.FormEvent) => void;
     size: "small" | "medium" | "big";
     color: "green" | "orange" | "red" | "yellow";
     type: "button" | "submit" | "reset";
