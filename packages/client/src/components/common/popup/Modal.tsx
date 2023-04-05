@@ -1,7 +1,7 @@
-import { Dispatch, FC, SetStateAction } from 'react';
-import cls from './Modal.module.scss';
+import { Dispatch, FC, SetStateAction } from "react";
+import cls from "./Modal.module.scss";
 
-interface IPopup extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
+interface IPopup extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
     title: string;
     active: boolean;
     children?: React.ReactNode;
@@ -13,11 +13,11 @@ export const Modal: FC<IPopup> = props => {
 
     return (
         <div
-            className={active ? cls.modal + ' ' + cls.active : cls.modal}
+            className={active ? cls.modal + " " + cls.active : cls.modal}
             onClick={() => setActive(false)}>
             <div
                 className={
-                    active ? cls.content + ' ' + cls.active : cls.content
+                    active ? cls.content + " " + cls.active : cls.content
                 }
                 onClick={e => e.stopPropagation()}>
                 <h1 className={cls.title}>{title}</h1>
