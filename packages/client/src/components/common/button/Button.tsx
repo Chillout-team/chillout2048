@@ -1,16 +1,15 @@
 import cls from "./Button.module.scss";
 
-interface ButtonInterface
-    extends Omit<React.HTMLProps<HTMLButtonElement>, "size"> {
+interface IButton {
     onClick?: () => void;
     size: "small" | "medium" | "big";
     color: "green" | "orange" | "red" | "yellow";
     type: "button" | "submit" | "reset";
     disabled?: boolean;
+    children?: React.ReactNode;
 }
 
-export const Button = (props: ButtonInterface) => {
-    const { size, color, children, ...other } = props;
+export const Button = ({ size, color, children, ...other }: IButton) => {
     return (
         <button
             {...other}

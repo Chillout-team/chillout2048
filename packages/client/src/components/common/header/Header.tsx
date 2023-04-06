@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 type Props = {
     isAuth: boolean;
     userName?: string;
+    avatar?: string;
     extraClass?: string;
 };
 
-export const Header = (props: Props) => {
-    const { isAuth, userName, extraClass = "" } = props;
-
+export const Header = ({
+    isAuth,
+    userName,
+    avatar,
+    extraClass = "",
+}: Props) => {
     if (isAuth) {
         return (
             <header className={`${cls.header} ${extraClass}`}>
@@ -22,7 +26,12 @@ export const Header = (props: Props) => {
                     <div>
                         <Link to={"/profile"} className={cls.link_user}>
                             <div>
-                                <img />
+                                <img
+                                    src={avatar}
+                                    alt="Avatar"
+                                    width="34"
+                                    height="34"
+                                />
                             </div>
                             {userName}
                         </Link>

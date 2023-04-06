@@ -1,8 +1,8 @@
 import { useField } from "formik";
-export interface InputInterface {
+ 
+interface IInput {
     id: string;
-    name: string;
-    value?: string;
+    value: string;
     type?: "text" | "email" | "password";
     containerClassName?: string;
     inputClassName?: string;
@@ -19,7 +19,7 @@ type TForm = {
     errors: Record<string, string>;
 };
 
-export const Input = (props: InputInterface) => {
+export const Input = (props: IInput) => {
     const {
         id,
         containerClassName,
@@ -31,7 +31,6 @@ export const Input = (props: InputInterface) => {
         form,
         ...other
     } = props;
-
     const [field] = useField(id);
 
     return (
