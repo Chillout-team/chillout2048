@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import cls from './ProfileForm.module.scss';
 import { Formik, Form, Field } from 'formik';
-import { Input } from '../../common/input/Input';
-import { Button } from '../../common/button/Button';
+import { Input } from '@/components/common/input/Input';
+import { Button } from '@/components/common/button/Button';
 import { Link } from 'react-router-dom';
 
 interface IFormEditPassword

@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
-import cls from './ProfileAvatar.module.scss';
-import { NoPic } from '../../../assets/img/NoPic';
-import { Modal } from '../../common/popup/Modal';
-import { Field, Form, Formik } from 'formik';
-import { Button } from '../../common/button/Button';
+import { FC, useState } from "react";
+import cls from "./ProfileAvatar.module.scss";
+import { NoPic } from "@/assets/img/NoPic";
+import { Modal } from "@/components/common/popup/Modal";
+import { Field, Form, Formik } from "formik";
+import { Button } from "@/components/common/button/Button";
 
 interface IAvatarForm {
     avatar: string;
@@ -11,7 +11,7 @@ interface IAvatarForm {
 
 export const ProfileAvatar: FC = () => {
     const [modalActive, setModalActive] = useState(false);
-    const [modalFile, setmodalFile] = useState('');
+    const [modalFile, setmodalFile] = useState("");
 
     const selectFile = (e: React.FormEvent<HTMLInputElement>) =>
         setmodalFile(e.currentTarget.value);
@@ -39,7 +39,7 @@ export const ProfileAvatar: FC = () => {
                 title="Загрузите файл">
                 <Formik
                     initialValues={{
-                        avatar: '',
+                        avatar: "",
                     }}
                     onSubmit={submit}>
                     {() => (

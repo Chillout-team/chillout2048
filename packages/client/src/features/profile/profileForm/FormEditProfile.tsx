@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
-import cls from './ProfileForm.module.scss';
-import { Formik, Form, Field } from 'formik';
-import { Input } from '../../common/input/Input';
-import { Button } from '../../common/button/Button';
-import { Link } from 'react-router-dom';
+import React, { FC } from "react";
+import cls from "./ProfileForm.module.scss";
+import { Formik, Form, Field } from "formik";
+import { Input } from "@/components/common/input/Input";
+import { Button } from "@/components/common/button/Button";
+import { Link } from "react-router-dom";
 
 interface IFormEditProfile
-    extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
+    extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
     toggle: boolean;
     onToggle: () => void;
 }
@@ -34,12 +34,12 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
         <>
             <Formik
                 initialValues={{
-                    email: 'pochta@yandex.ru',
-                    login: 'ivanivanov',
-                    first_name: 'Иван',
-                    second_name: 'Иванов',
-                    display_name: 'Иван',
-                    phone: '+79099673030',
+                    email: "pochta@yandex.ru",
+                    login: "ivanivanov",
+                    first_name: "Иван",
+                    second_name: "Иванов",
+                    display_name: "Иван",
+                    phone: "+79099673030",
                 }}
                 onSubmit={submit}>
                 {() => (
@@ -119,7 +119,7 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
                         <div
                             className={
                                 toggle
-                                    ? cls.button + ' ' + cls.hidden
+                                    ? cls.button + " " + cls.hidden
                                     : cls.button
                             }>
                             <Button
@@ -136,9 +136,9 @@ export const FormEditProfile: FC<IFormEditProfile> = props => {
 
             <Link
                 className={
-                    toggle ? cls.link_back + ' ' + cls.hidden : cls.link_back
+                    toggle ? cls.link_back + " " + cls.hidden : cls.link_back
                 }
-                to={''}
+                to={""}
                 onClick={onToggle}>
                 Назад
             </Link>
