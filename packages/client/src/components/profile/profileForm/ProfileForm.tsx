@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import cls from './ProfileForm.module.scss';
-import { Link } from 'react-router-dom';
-import { FormEditProfile } from './FormEditProfile';
-import { FormEditPassword } from './FormEditPasswor';
+import React, { FC, useState } from "react";
+import cls from "./ProfileForm.module.scss";
+import { Link } from "react-router-dom";
+import { FormEditProfile } from "./FormEditProfile";
+import { FormEditPassword } from "./FormEditPasswor";
 
 export const ProfileForm: FC = () => {
     const [toggle, setToggle] = useState(true);
@@ -25,14 +25,14 @@ export const ProfileForm: FC = () => {
                 <FormEditPassword toggle={toggle} toggleForm={toggleForm} />
             )}
 
-            <div className={toggle ? cls.links : cls.links + ' ' + cls.hidden}>
-                <Link className={cls.link} to={''} onClick={onToggle}>
+            <div className={toggle ? cls.links : cls.links + " " + cls.hidden}>
+                <Link className={cls.link} to={""} onClick={onToggle}>
                     Изменить данные
                 </Link>
-                <Link className={cls.link} to={''} onClick={toggleForm}>
+                <Link className={cls.link} to={""} onClick={toggleForm}>
                     Изменить пароль
                 </Link>
-                <Link className={cls.link} to={'/'}>
+                <Link className={cls.link} to={"/"}>
                     Выйти
                 </Link>
             </div>

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import './App.scss';
-import { Profile } from './components/profile/Profile';
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.scss";
+import { Profile } from "./components/profile/Profile";
 
 function App() {
     useEffect(() => {
@@ -11,7 +11,6 @@ function App() {
             const data = await response.json();
             console.log(data);
         };
-
         fetchServerData();
     }, []);
     return (
