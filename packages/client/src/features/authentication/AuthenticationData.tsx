@@ -53,7 +53,7 @@ export const AuthenticationData: Record<string, AuthenticationForm> = {
                 type: "password",
             },
             {
-                id: "password_repite",
+                id: "password_repeat",
                 value: "fasdfsadf",
                 labelText: "Пароль (ещё раз)",
                 type: "password",
