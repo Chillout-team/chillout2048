@@ -1,8 +1,8 @@
 export const ROUTES = {
-  HOME: {
-    path: '/',
-  },
-  PROFILE: {
-    path: "/profile",
-  },
+    HOME: {
+        path: "/",
+    },
+    PROFILE: {
+        path: "/profile",
+    },
 };
