@@ -1,32 +1,48 @@
-import { FC, useState } from 'react';
-import cls from './ProfileAvatar.module.scss';
-import { NoPic } from '../../../assets/img/NoPic';
-import { Modal } from '../../common/popup/Modal';
-import { Field, Form, Formik } from 'formik';
-import { Button } from '../../common/button/Button';
+import { Dispatch, FC, SetStateAction, useState } from "react";
+import cls from "./ProfileAvatar.module.scss";
+import { Modal } from "@/components/common/popup/Modal";
+import { Field, Form, Formik } from "formik";
+import { Button } from "@/components/common/button/Button";
+import { changeAvatar } from "@/controllers/userController";
+import { YANDEX_API_URL } from "@/consts/common";
 
 interface IAvatarForm {
-    avatar: string;
+    avatar?: string;
+    setAvatar: Dispatch<SetStateAction<string>>;
 }
 
-export const ProfileAvatar: FC = () => {
+export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
     const [modalActive, setModalActive] = useState(false);
-    const [modalFile, setmodalFile] = useState('');
 
-    const selectFile = (e: React.FormEvent<HTMLInputElement>) =>
-        setmodalFile(e.currentTarget.value);
+    const initialValues = {
+        avatar: "",
+    };
 
-    const submit = (
-        values: IAvatarForm,
-        { setSubmitting }: { setSubmitting: (issubmitting: boolean) => void },
-    ) => {
-        console.log({ values, setSubmitting });
+    const submit = (values: { avatar: string }) => {
+        values;
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+
+        changeAvatar(formData).then(data => {
+            setAvatar(`${YANDEX_API_URL}resources${data.avatar}`);
+        });
+
+        setModalActive(false);
     };
 
     return (
         <div>
             <a className={cls.link} onClick={() => setModalActive(true)}>
-                <NoPic class={cls.avatar} />
+                <img
+                    className={cls.avatar}
+                    src={avatar}
+                    alt="Avatar"
+                    width="130"
+                    height="130"
+                />
                 <span className={cls.text}>
                     Поменять
                     <br />
@@ -38,18 +54,15 @@ export const ProfileAvatar: FC = () => {
                 setActive={setModalActive}
                 title="Загрузите файл">
                 <Formik
-                    initialValues={{
-                        avatar: '',
-                    }}
+                    initialValues={initialValues}
+                    enableReinitialize={true}
                     onSubmit={submit}>
                     {() => (
-                        <Form className={cls.form}>
-                            <p className={cls.modal_file}>{modalFile}</p>
+                        <Form className={cls.form} onSubmit={handleSubmit}>
                             <Field
                                 name="avatar"
                                 type="file"
                                 id="avatar"
-                                onChange={selectFile}
                                 className={cls.modal_input}
                             />
 
