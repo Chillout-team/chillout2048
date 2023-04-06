@@ -1,4 +1,4 @@
-import { authAPI } from "../api/auth-api";
+import { authAPI } from "@/api/auth-api";
 
 export const getUser = async () => {
     try {

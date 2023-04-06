@@ -3,7 +3,7 @@ import cls from "./ProfileForm.module.scss";
 import { Link } from "react-router-dom";
 import { FormEditProfile } from "./FormEditProfile";
 import { FormEditPassword } from "./FormEditPasswor";
-import { IUserData } from "../../../types/types";
+import { IUserData } from "@/types/types";
 
 type TProfileForm = {
     user: IUserData;

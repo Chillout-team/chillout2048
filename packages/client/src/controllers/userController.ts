@@ -1,5 +1,5 @@
-import { userAPI } from "../api/user-api";
-import { TIndexed } from "../types/types";
+import { userAPI } from "@/api/user-api";
+import { TIndexed } from "@/types/types";
 
 export const changeAvatar = async (data: FormData) => {
     try {

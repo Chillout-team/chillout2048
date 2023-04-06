@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import noPic from "../../assets/img/no-pic.svg";
-import { YANDEX_API_URL } from "../../consts/common";
-import { IUserData } from "../../types/types";
-import { Header } from "../../components/common/header/Header";
-import { Main } from "../../components/common/main/Main";
-import { ProfileAvatar } from "./profileAvatar/ProfileAvatar";
+import noPic from "@/assets/img/no-pic.svg";
+import { YANDEX_API_URL } from "@/consts/common";
+import { IUserData } from "@/types/types";
+import { Header } from "@/components/common/header/Header";
+import { Main } from "@/components/common/main/Main";
 import { ProfileForm } from "./profileForm/ProfileForm";
+import { ProfileAvatar } from "./profileAvatar/ProfileAvatar";
 
 export const Profile: FC<IUserData> = ({
     first_name,

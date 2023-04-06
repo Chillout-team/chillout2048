@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
-import { URL } from "./consts/common";
+import { ROUTES } from "./router/routes";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -28,9 +28,9 @@ function App() {
 
     return (
         <Routes>
-            <Route path={URL.home} />
+            <Route path={ROUTES.HOME.path} />
             <Route
-                path={URL.profile}
+                path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
         </Routes>

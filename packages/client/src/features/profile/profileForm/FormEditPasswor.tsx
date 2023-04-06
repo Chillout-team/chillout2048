@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import cls from "./ProfileForm.module.scss";
 import { Formik, Form, Field } from "formik";
-import { Input } from "../../../components/common/input/Input";
-import { Button } from "../../../components/common/button/Button";
+import { Input } from "@/components/common/input/Input";
+import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
-import { changePassword } from "../../../controllers/userController";
+import { changePassword } from "@/controllers/userController";
 
 interface IFormEditPassword {
     toggle: boolean;

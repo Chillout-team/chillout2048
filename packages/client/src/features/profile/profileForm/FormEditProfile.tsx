@@ -1,11 +1,11 @@
 import React, { Dispatch, FC, SetStateAction } from "react";
 import cls from "./ProfileForm.module.scss";
 import { Formik, Form, Field } from "formik";
-import { Input } from "../../../components/common/input/Input";
-import { Button } from "../../../components/common/button/Button";
+import { Input } from "@/components/common/input/Input";
+import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
-import { IUserData } from "../../../types/types";
-import { changeProfile } from "../../../controllers/userController";
+import { IUserData } from "@/types/types";
+import { changeProfile } from "@/controllers/userController";
 
 interface IFormEditProfile {
     user: IUserData;
@@ -34,7 +34,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
     const submit = (values: IUserData) => {
         changeProfile(values).then(data => {
             if (data) setLogin(data.login);
-            console.log(data);
+            //console.log(data);
         });
         onToggle();
     };

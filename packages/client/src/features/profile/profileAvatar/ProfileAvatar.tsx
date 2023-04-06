@@ -1,10 +1,10 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import cls from "./ProfileAvatar.module.scss";
-import { Modal } from "../../../components/common/popup/Modal";
+import { Modal } from "@/components/common/popup/Modal";
 import { Field, Form, Formik } from "formik";
-import { Button } from "../../../components/common/button/Button";
-import { changeAvatar } from "../../../controllers/userController";
-import { YANDEX_API_URL } from "../../../consts/common";
+import { Button } from "@/components/common/button/Button";
+import { changeAvatar } from "@/controllers/userController";
+import { YANDEX_API_URL } from "@/consts/common";
 
 interface IAvatarForm {
     avatar?: string;
