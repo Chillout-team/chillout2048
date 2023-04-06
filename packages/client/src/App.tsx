@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
+import { Authentication } from "./features/authentication/Authentication";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -29,6 +30,14 @@ function App() {
     return (
         <Routes>
             <Route path={ROUTES.HOME.path} />
+            <Route
+                path={ROUTES.SINGIN.path}
+                element={<Authentication mode={"auth"} />}
+            />
+            <Route
+                path={ROUTES.SINGUP.path}
+                element={<Authentication mode={"reg"} />}
+            />
             <Route
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
