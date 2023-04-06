@@ -6,6 +6,7 @@ import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
 import { IUserData } from "@/types/types";
 import { changeProfile } from "@/controllers/userController";
+import { ProfileSchema } from "@/utils/validator/Validator";
 
 interface IFormEditProfile {
     user: IUserData;
@@ -44,6 +45,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
+                validationSchema={ProfileSchema}
                 onSubmit={submit}>
                 {() => (
                     <Form className={cls.form}>
