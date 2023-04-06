@@ -14,9 +14,9 @@ export const Button = (props: ButtonInterface) => {
     return (
         <button
             {...other}
-            className={
-                cls.button + " " + cls[`__${size}`] + " " + cls[`__${color}`]
-            }>
+            className={`${cls.button} ${cls[`__${size}`]} ${
+                cls[`__${color}`]
+            }`}>
             {children}
         </button>
     );

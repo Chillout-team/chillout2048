@@ -1,20 +1,15 @@
 import { Main } from "../common/main/Main";
 import { AuthenticationForm } from "./authenticationForm/AuthenticationForm";
 import { InputForm } from "./inputForm/InputForm";
-import { reg, auth } from "./AuthenticationData";
+import { AuthenticationData } from "./AuthenticationData";
 import { Formik } from "formik";
 import { AuthRequest } from "../../store/AuthSlice";
 import { useAuthDispatch } from "../../store/Store";
 import { FC } from "react";
 
-const data = {
-    reg,
-    auth,
-};
-
-type TAuthenticationProps = {
+interface IAuthenticationProps {
     mode: "auth" | "reg";
-};
+}
 
 interface IProfileForm {
     email: string;
@@ -26,13 +21,11 @@ interface IProfileForm {
     password: string;
 }
 
-export const Authentication: FC<TAuthenticationProps> = ({ mode }) => {
+export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
     const { title, goToRegistration, goToHome, buttonTitle, inputs } =
-        data[mode];
-
+        AuthenticationData[mode];
     const dispatch = useAuthDispatch();
-
-    const submit = (values: IProfileForm) => {
+    const onSubmit = (values: IProfileForm) => {
         const path: string = mode === "reg" ? "/auth/signup" : "/auth/signin";
         dispatch(AuthRequest({ data: values, path }));
     };
@@ -50,7 +43,7 @@ export const Authentication: FC<TAuthenticationProps> = ({ mode }) => {
                     password: "",
                     password_repeat: "",
                 }}
-                onSubmit={submit}>
+                onSubmit={onSubmit}>
                 <AuthenticationForm
                     title={title}
                     buttonTitle={buttonTitle}

@@ -11,14 +11,14 @@ interface IProfileForm {
     phone: string;
 }
 
-interface Payload {
+interface IPayload {
     data: IProfileForm;
     path: string;
 }
 
 export const AuthRequest = createAsyncThunk(
     "auth/AuthRequest",
-    async function (payload: Payload, thunkApi) {
+    async function (payload: IPayload, thunkApi) {
         const { data, path } = payload;
         try {
             const response = await axios.post(`${URL}${path}`, data, {
@@ -29,9 +29,10 @@ export const AuthRequest = createAsyncThunk(
                 },
             });
             return response.data;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            return thunkApi.rejectWithValue(error.message);
+        } catch (error) {
+            if (error instanceof Error) {
+                return thunkApi.rejectWithValue(error.message);
+            }
         }
     },
 );
