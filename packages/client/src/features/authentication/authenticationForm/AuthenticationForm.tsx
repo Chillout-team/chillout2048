@@ -1,5 +1,5 @@
 import cls from "./AuthenticationForm.module.scss";
-import { Button } from "../../common/button/Button";
+import { Button } from "@/components/common/button/Button";
 import { Form } from "formik";
 
 type Props = {
@@ -19,10 +19,7 @@ export const AuthenticationForm = (props: Props) => {
                 {children}
             </div>
             <div>
-                <Button
-                    size={"medium"}
-                    color={"green"}
-                    type={"submit"}>
+                <Button size={"medium"} color={"green"} type={"submit"}>
                     {buttonTitle}
                 </Button>
                 {goToRegistration && (

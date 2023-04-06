@@ -1,5 +1,5 @@
 import cls from "./InputForm.module.scss";
-import { Input, InputInterface } from "../../common/input/Input";
+import { Input, InputInterface } from "@/components/common/input/Input";
 import { Field } from "formik";
 
 export const InputForm = (props: InputInterface) => {

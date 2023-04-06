@@ -1,10 +1,10 @@
-import { Main } from "../common/main/Main";
+import { Main } from "@/components/common/main/Main";
 import { AuthenticationForm } from "./authenticationForm/AuthenticationForm";
 import { InputForm } from "./inputForm/InputForm";
 import { AuthenticationData } from "./AuthenticationData";
 import { Formik } from "formik";
-import { AuthRequest } from "../../store/AuthSlice";
-import { useAuthDispatch } from "../../store/Store";
+import { AuthRequest } from "@/store/AuthSlice";
+import { useAuthDispatch } from "@/store/Store";
 import { FC } from "react";
 
 interface IAuthenticationProps {

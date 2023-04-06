@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { URL } from "../consts/common";
+import { URL } from "@/consts/common";
 
 interface IProfileForm {
     email: string;
