@@ -178,9 +178,10 @@ export const ProfileSchema = yup.object().shape({
         .string()
         .min(3)
         .max(20)
-        .matches(isLatinAlphabet, "Текст ошибки")
+        .matches(isLatinAlphabet, "Только латинский алфавит")
         .test(
             "isNotCyrillic",
+            "Только латинский алфавит",
             value => !isCyrillicAlphabet.test(value as string),
         )
         .test(
@@ -194,7 +195,7 @@ export const ProfileSchema = yup.object().shape({
             value => !isSpaces.test(value as string),
         )
         .typeError(
-            "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов",
+            "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
         )
         .required("Обязательно для заполнения"),
     email: yup
@@ -205,7 +206,10 @@ export const ProfileSchema = yup.object().shape({
         .required("Обязательно для заполнения"),
     first_name: yup
         .string()
-        .matches(isFirstLetterIsUppercase, "Текст ошибки")
+        .matches(
+            isFirstLetterIsUppercase,
+            "Должен начинаться с заглавной буквы",
+        )
         .test(
             "isNotSpecialCharacters",
             "Использовать смецсимволы запрещено",
@@ -216,7 +220,11 @@ export const ProfileSchema = yup.object().shape({
             "Использовать пробелы запрещено",
             value => !isSpaces.test(value as string),
         )
-        .test("isNotNumber", value => !isNumber.test(value as string))
+        .test(
+            "isNotNumber",
+            "Использовать пробелы запрещено",
+            value => !isNumber.test(value as string),
+        )
         .typeError(
             "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов",
         )
@@ -234,7 +242,11 @@ export const ProfileSchema = yup.object().shape({
             "Использовать пробелы запрещено",
             value => !isSpaces.test(value as string),
         )
-        .test("isNotNumber", value => !isNumber.test(value as string))
+        .test(
+            "isNotNumber",
+            "В этом поле цифры недопустимы ",
+            value => !isNumber.test(value as string),
+        )
         .typeError(
             "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов",
         )
@@ -274,7 +286,7 @@ export const ProfileSchema = yup.object().shape({
 });
 
 export const NewPasswordSchema = yup.object().shape({
-    old_password: yup
+    oldPassword: yup
         .string()
         .min(8)
         .max(40)
@@ -289,7 +301,7 @@ export const NewPasswordSchema = yup.object().shape({
             "В данное поле принимается: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра",
         )
         .required("Обязательно для заполнения"),
-    new_password: yup
+    newPassword: yup
         .string()
         .min(8)
         .max(40)
@@ -304,7 +316,7 @@ export const NewPasswordSchema = yup.object().shape({
             "В данное поле принимается: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра",
         )
         .required("Обязательно для заполнения"),
-    new_password_repeat: yup
+    confirmPassword: yup
         .string()
         .oneOf([yup.ref("new_password")], "Пароли не совпадают")
         .required("Обязательно для заполнения"),
