@@ -1,0 +1,24 @@
+.extra {
+    padding: 15px 65px;
+}
+
+.sub {
+    font-weight: 700;
+}
+
+.head {
+    display: flex;
+    align-items: baseline;
+    color: var(--color-green);
+    h1 {
+        font-weight: 700;
+        font-size: 87px;
+        line-height: 105px;
+    }
+    h3 {
+        margin-left: 20px;
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 36px;
+    }
+}
