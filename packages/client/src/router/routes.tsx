@@ -14,4 +14,10 @@ export const ROUTES = {
     LEADERBOARD: {
         path: "/leaderboard",
     },
+    FORUM: {
+        path: "/forum",
+        TOPIC: {
+            path: "/forum/:id",
+        },
+    },
 };

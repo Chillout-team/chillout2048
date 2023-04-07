@@ -1,0 +1,25 @@
+.pageTitle {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: var(--color-green);
+    padding: 15px 24px;
+}
+
+.forumInner {
+    font-size: 13px;
+    position: relative;
+
+    .forumHeader {
+        position: relative;
+        background-color: var(--color-light-blue-green);
+
+        .forumTitle {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 18px;
+            color: var(--color-white);
+            padding: 13px 16px 16px 16px;
+        }
+    }
+}

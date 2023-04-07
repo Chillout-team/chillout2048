@@ -5,6 +5,7 @@ import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
 import { Authentication } from "./features/authentication/Authentication";
 import { Leaderboard } from "./features/leaderboard/Leaderboard";
+import { Forum } from "./features/forum/Forum";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -44,6 +45,12 @@ function App() {
                 element={<Profile {...appState.user} />}
             />
             <Route path={ROUTES.LEADERBOARD.path} element={<Leaderboard />} />
+            <Route
+                path={ROUTES.PROFILE.path}
+                element={<Profile {...appState.user} />}
+            />
+            <Route path={ROUTES.FORUM.TOPIC.path} element={<Forum />} />
+            <Route path={ROUTES.FORUM.path} element={<Forum />} />
         </Routes>
     );
 }
