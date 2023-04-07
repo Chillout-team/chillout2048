@@ -11,4 +11,7 @@ export const ROUTES = {
     PROFILE: {
         path: "/profile",
     },
+    LEADERBOARD: {
+        path: "/leaderboard",
+    },
 };

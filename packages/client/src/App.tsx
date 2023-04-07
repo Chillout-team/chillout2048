@@ -4,6 +4,7 @@ import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
 import { Authentication } from "./features/authentication/Authentication";
+import { Leaderboard } from "./features/leaderboard/Leaderboard";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -42,6 +43,7 @@ function App() {
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
+            <Route path={ROUTES.LEADERBOARD.path} element={<Leaderboard />} />
         </Routes>
     );
 }
