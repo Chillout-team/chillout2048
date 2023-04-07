@@ -14,7 +14,10 @@ export const ROUTES = {
     FORUM: {
         path: "/forum",
         TOPIC: {
-            path: "/forum/:id"
-        }
+            path: "/forum/:id",
+        },
+    },
+    ERROR_PAGE: {
+        path: "/500",
     },
 };
