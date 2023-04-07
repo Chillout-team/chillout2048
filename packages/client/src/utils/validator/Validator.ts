@@ -241,9 +241,10 @@ export const ProfileSchema = yup.object().shape({
         .required("Обязательно для заполнения"),
     phone: yup
         .string()
-        .matches(isPhone, "Текст ошибки")
+        .matches(isPhone, "Неверный формат номера телефона")
         .test(
             "isNotNumber",
+            "В номере телефона должны присутствовать только цифры",
             value =>
                 !isLatinAlphabet.test(value as string) &&
                 !isCyrillicAlphabet.test(value as string),
