@@ -21,7 +21,6 @@ export const Forum: FC = () => {
         setForumData(formDataMock);
     }, [formDataMock]);
 
-    /** Обработчик клика по элементу в списке тем форума. */
     const handleClickTopic = useCallback((id: string) => {
         navigate(`/forum/${id}`);
     }, []);
