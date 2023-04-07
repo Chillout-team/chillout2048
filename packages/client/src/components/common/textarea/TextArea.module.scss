@@ -1,0 +1,18 @@
+.textArea {
+    padding: 10px 20px 0 20px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: var(--color-white);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-brown);
+    resize: vertical;
+}
+
+.errorTextArea {
+    font-size: 12px;
+    padding: 10px 20px;
+    color: var(--warning-color);
+}

@@ -11,4 +11,10 @@ export const ROUTES = {
     PROFILE: {
         path: "/profile",
     },
+    FORUM: {
+        path: "/forum",
+        TOPIC: {
+            path: "/forum/:id"
+        }
+    },
 };
