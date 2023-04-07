@@ -21,8 +21,10 @@
 }
 
 .item {
+    position: relative;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .label {
@@ -84,3 +86,15 @@
 .hidden {
     display: none;
 }
+
+.error_label {
+    position: absolute;
+    font-style: normal;
+    color: var(--color-red);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    top: 38px;
+    right: 0;
+}
+

@@ -58,6 +58,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -70,6 +71,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -82,6 +84,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -94,6 +97,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -106,6 +110,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -118,6 +123,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 

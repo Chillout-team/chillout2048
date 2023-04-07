@@ -54,6 +54,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -65,6 +66,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -76,6 +78,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
