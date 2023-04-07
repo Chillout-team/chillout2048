@@ -47,14 +47,8 @@ function App() {
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
-            <Route
-                path={ROUTES.FORUM.TOPIC.path}
-                element={<Forum />}
-            />
-            <Route
-                path={ROUTES.FORUM.path}
-                element={<Forum />}
-            />
+            <Route path={ROUTES.FORUM.TOPIC.path} element={<Forum />} />
+            <Route path={ROUTES.FORUM.path} element={<Forum />} />
         </Routes>
     );
 }

@@ -8,6 +8,7 @@ interface ITextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 /** Компонент поля ввода текста. */
 export const TextArea: FC<ITextAreaProps> = (props): JSX.Element => {
     const { placeholder, errorText, value, ...otherProps } = props;
+
     return (
         <>
             <textarea
