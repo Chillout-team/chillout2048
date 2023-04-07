@@ -5,7 +5,6 @@ type Props = {
     children?: React.ReactNode;
 };
 
-export const Main = (props: Props) => {
-    const { children, extraClass = "" } = props;
-    return <main className={cls.main + " " + extraClass}>{children}</main>;
+export const Main = ({ children, extraClass = "" }: Props) => {
+    return <main className={`${cls.main} ${extraClass}`}>{children}</main>;
 };

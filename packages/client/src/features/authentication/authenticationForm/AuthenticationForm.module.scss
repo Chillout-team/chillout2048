@@ -1,0 +1,40 @@
+.form {
+    margin: auto;
+    width: 340px;
+    height: auto;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 25px;
+    font-weight: 500;
+    div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 25px 0;
+        h1 {
+            margin: 30px 0;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        div {
+            margin: 10px 0;
+        }
+        a {
+            margin-top: 14px;
+            font-size: 11px;
+            line-height: 11px;
+        }
+    }
+}
+
+.__green {
+    color: var(--color-green);
+}
+.__orange {
+    color: var(--color-orange);
+}

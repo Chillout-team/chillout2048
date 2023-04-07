@@ -36,15 +36,8 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
+    object-fit: cover;
     font-size: 0;
-}
-
-.modal_file {
-    text-align: center;
-    font-size: 16px;
-    line-height: 16px;
-    color: var(--button-color);
-    margin-bottom: 20px;
 }
 
 .modal_input {

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 :root {
     --color-green: #04780f;
     --color-middle-green: rgba(175, 233, 180, 43%);
@@ -27,13 +29,13 @@
     --warning-color: var(--color-red);
 }
 
-/* Указываем box sizing */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
     font-family: "Inter";
     font-style: normal;
+    text-decoration: none;
 }
 
 /* Убираем внутренние отступы */
