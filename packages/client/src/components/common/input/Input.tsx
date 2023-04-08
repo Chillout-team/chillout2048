@@ -1,5 +1,5 @@
 import { useField } from "formik";
-
+ 
 interface IInput {
     id: string;
     value: string;
@@ -9,23 +9,28 @@ interface IInput {
     labelClassName?: string;
     errorClassName?: string;
     labelText?: string;
+    form?: TForm;
     placeholder?: string;
     disabled?: boolean;
-    errorText?: string;
-    onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+    onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export const Input = ({
-    id,
-    containerClassName,
-    inputClassName,
-    labelClassName,
-    errorClassName,
-    placeholder = " ",
-    labelText,
-    errorText,
-    ...other
-}: IInput) => {
+type TForm = {
+    errors: Record<string, string>;
+};
+
+export const Input = (props: IInput) => {
+    const {
+        id,
+        containerClassName,
+        inputClassName,
+        labelClassName,
+        errorClassName,
+        placeholder = " ",
+        labelText,
+        form,
+        ...other
+    } = props;
     const [field] = useField(id);
 
     return (
@@ -44,7 +49,9 @@ export const Input = ({
                 </label>
             )}
 
-            {errorText && <label className={errorClassName}>{errorText}</label>}
+            {form?.errors[id] && (
+                <label className={errorClassName}>{form.errors[id]}</label>
+            )}
         </div>
     );
 };

@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
+import { Authentication } from "./features/authentication/Authentication";
+import { Forum } from "./features/forum/Forum";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -30,9 +32,23 @@ function App() {
         <Routes>
             <Route path={ROUTES.HOME.path} />
             <Route
+                path={ROUTES.SINGIN.path}
+                element={<Authentication mode={"auth"} />}
+            />
+            <Route
+                path={ROUTES.SINGUP.path}
+                element={<Authentication mode={"reg"} />}
+            />
+            <Route
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
+            <Route
+                path={ROUTES.PROFILE.path}
+                element={<Profile {...appState.user} />}
+            />
+            <Route path={ROUTES.FORUM.TOPIC.path} element={<Forum />} />
+            <Route path={ROUTES.FORUM.path} element={<Forum />} />
         </Routes>
     );
 }

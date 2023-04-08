@@ -36,7 +36,6 @@ export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
             ) : (
                 <FormEditPassword toggle={toggle} toggleForm={toggleForm} />
             )}
-
             <div className={toggle ? cls.links : `${cls.links} ${cls.hidden}`}>
                 <Link className={cls.link} to={""} onClick={onToggle}>
                     Изменить данные
