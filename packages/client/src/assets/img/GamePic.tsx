@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import { FC } from "react";
 
-interface IGamePic extends Omit<React.HTMLProps<HTMLDivElement>, 'size'> {
+interface IGamePic extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
     class?: string;
 }
 
