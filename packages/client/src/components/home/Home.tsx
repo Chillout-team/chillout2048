@@ -3,9 +3,9 @@ import { Main } from '../common/main/Main';
 import { Header } from '../common/header/Header';
 import { Button } from '../common/button/Button';
 import { GamePic } from '../../assets/img/GamePic';
-import cls from './MainPage.module.scss';
+import cls from './Home.module.scss';
 
-export const MainPage: FC = () => {
+export const Home: FC = () => {
     return (
         <Main>
             <Header isAuth={false} />
@@ -36,4 +36,4 @@ export const MainPage: FC = () => {
     );
 };
 
-export default MainPage;
+export default Home;
