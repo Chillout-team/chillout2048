@@ -5,6 +5,9 @@ import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
 import { Authentication } from "./features/authentication/Authentication";
 import { Forum } from "./features/forum/Forum";
+import MainPage from "./components/mainPage/MainPage";
+
+import "./App.scss";
 
 function App() {
     const [appState, setAppState] = useState({
