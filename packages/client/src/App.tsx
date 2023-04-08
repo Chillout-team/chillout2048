@@ -7,6 +7,7 @@ import { Authentication } from "./features/authentication/Authentication";
 import { Forum } from "./features/forum/Forum";
 
 import "./App.scss";
+import Home from "./components/home/Home";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -32,7 +33,7 @@ function App() {
 
     return (
         <Routes>
-            <Route path={ROUTES.HOME.path} />
+            <Route path={ROUTES.HOME.path} element={<Home />} />
             <Route
                 path={ROUTES.SINGIN.path}
                 element={<Authentication mode={"auth"} />}
