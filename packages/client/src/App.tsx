@@ -6,6 +6,7 @@ import { ROUTES } from "./router/routes";
 import { Authentication } from "./features/authentication/Authentication";
 import { Leaderboard } from "./features/leaderboard/Leaderboard";
 import { Forum } from "./features/forum/Forum";
+import { ErrorPage } from "./features/errorPage/ErrorPage";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -51,6 +52,11 @@ function App() {
             />
             <Route path={ROUTES.FORUM.TOPIC.path} element={<Forum />} />
             <Route path={ROUTES.FORUM.path} element={<Forum />} />
+            <Route
+                path={ROUTES.ERROR_PAGE.path}
+                element={<ErrorPage type="500" />}
+            />
+            <Route path="*" element={<ErrorPage type="404" />} />
         </Routes>
     );
 }

@@ -20,4 +20,7 @@ export const ROUTES = {
             path: "/forum/:id",
         },
     },
+    ERROR_PAGE: {
+        path: "/500",
+    },
 };
