@@ -36,7 +36,6 @@ export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
     return (
         <div>
             <a className={cls.link} onClick={() => setModalActive(true)}>
-
                 <img
                     className={cls.avatar}
                     src={avatar}

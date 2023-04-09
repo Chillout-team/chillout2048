@@ -61,7 +61,11 @@ export const Leaderboard = () => {
                     </div>
                 )}
                 <ul>
-                    <Position item={headLeaderboard} subClass={cls.sub} />
+                    <Position
+                        title={true}
+                        item={headLeaderboard}
+                        subClass={cls.sub}
+                    />
                     {leaderList.map((item, index) => {
                         return <Position key={index} item={item} />;
                     })}
