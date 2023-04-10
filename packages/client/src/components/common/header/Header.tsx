@@ -1,3 +1,4 @@
+import { ROUTES } from "@/router/routes";
 import cls from "./Header.module.scss";
 import { Link } from "react-router-dom";
 
@@ -20,11 +21,11 @@ export const Header = ({
                 <nav>
                     <div>
                         <Link to="/">Домой</Link>
-                        <Link to="/">Форум</Link>
-                        <Link to="/">Рейтинг</Link>
+                        <Link to={ROUTES.FORUM.path} >Форум</Link>
+                        <Link to={ROUTES.LEADERBOARD.path} >Рейтинг</Link>
                     </div>
                     <div>
-                        <Link to="/profile" className={cls.link_user}>
+                        <Link to={ROUTES.PROFILE.path} className={cls.link_user}>
                             <div>
                                 <img
                                     src={avatar}
@@ -45,12 +46,12 @@ export const Header = ({
         <header className={`${cls.header} ${extraClass}`}>
             <nav>
                 <div>
-                    <Link to="/">Форум</Link>
-                    <Link to="/">Рейтинг</Link>
+                    <Link to={ROUTES.FORUM.path}>Форум</Link>
+                    <Link to={ROUTES.LEADERBOARD.path} >Рейтинг</Link>
                 </div>
                 <div>
-                    <Link to="/">Зарегистрироваться</Link>
-                    <Link to="/">Войти</Link>
+                    <Link to={ROUTES.SINGUP.path}>Зарегистрироваться</Link>
+                    <Link to={ROUTES.SINGIN.path}>Войти</Link>
                 </div>
             </nav>
         </header>

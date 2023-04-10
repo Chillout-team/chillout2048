@@ -8,9 +8,7 @@ import { Leaderboard } from "./features/leaderboard/Leaderboard";
 import { Forum } from "./features/forum/Forum";
 import { ErrorPage } from "./features/errorPage/ErrorPage";
 import { Game } from "./features/game/Game";
-
-import "./App.scss";
-import Home from "./components/home/Home";
+import { Home } from "./features/home/Home";
 
 function App() {
     const [appState, setAppState] = useState({
