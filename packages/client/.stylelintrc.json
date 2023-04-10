@@ -3,7 +3,7 @@
     "ignoreFiles": ["dist/*"],
     "rules": {
         "selector-class-pattern": null,
-        "indentation": 2,
+        "indentation": 4,
         "no-descending-specificity": null
     }
 }

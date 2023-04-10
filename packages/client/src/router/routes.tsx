@@ -11,4 +11,19 @@ export const ROUTES = {
     PROFILE: {
         path: "/profile",
     },
+    GAME: {
+        path: "/game",
+    },
+    LEADERBOARD: {
+        path: "/leaderboard",
+    },
+    FORUM: {
+        path: "/forum",
+        TOPIC: {
+            path: "/forum/:id",
+        },
+    },
+    ERROR_PAGE: {
+        path: "/500",
+    },
 };

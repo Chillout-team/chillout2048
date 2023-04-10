@@ -1,6 +1,6 @@
 import { useField } from "formik";
-import cls from "./input.module.scss"
- 
+import cls from "./input.module.scss";
+
 export interface IInput {
     id: string;
     value?: string;
@@ -35,12 +35,16 @@ export const Input = (props: IInput) => {
     } = props;
     const [field] = useField(id);
 
-    const isError = !!form?.errors[id]
+    const isError = !!form?.errors[id];
 
     return (
         <div className={containerClassName}>
             <input
-                className={isError? `${inputClassName} ${cls.__error}` : inputClassName }
+                className={
+                    isError
+                        ? `${inputClassName} ${cls.__error}`
+                        : inputClassName
+                }
                 {...field}
                 {...other}
                 placeholder={placeholder}

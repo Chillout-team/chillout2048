@@ -148,7 +148,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                 className={
                     toggle ? `${cls.link_back} ${cls.hidden}` : cls.link_back
                 }
-                to={""}
+                to=""
                 onClick={onToggle}>
                 Назад
             </Link>

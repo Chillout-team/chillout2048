@@ -1,0 +1,36 @@
+{
+    "topics": [
+        {
+            "topicId": "t001",
+            "title": "Обсуждение игры",
+            "messagesCount": 2,
+            "lastMessage": "Текст последнего сообщения",
+            "lastMessageDate": "27.03.2023 13:30"
+        },
+        {
+            "topicId": "t002",
+            "title": "Как играть",
+            "messagesCount": 230,
+            "lastMessage": "Передвигая плитки, нужно",
+            "lastMessageDate": "27.03.2023 13:30"
+        }
+    ],
+    "messages": [
+        {
+            "messageId": "m001",
+            "topicId": "t001",
+            "authorAvatar": "",
+            "authorName": "Петя",
+            "messageDate": "26 март 2023 - 12:30",
+            "messagetext": "Ребята, я на первом месте!"
+        },
+        {
+            "messageId": "m002",
+            "topicId": "t001",
+            "authorAvatar": "",
+            "authorName": "Федя",
+            "messageDate": "26 март 2023 - 12:30",
+            "messagetext": "Съешьте ещё этих мягких французских булок да выпейте же чаю."
+        }
+    ]
+}

@@ -103,7 +103,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                 className={
                     toggle ? `${cls.link_back} ${cls.hidden}` : cls.link_back
                 }
-                to={""}
+                to=""
                 onClick={toggleForm}>
                 Назад
             </Link>

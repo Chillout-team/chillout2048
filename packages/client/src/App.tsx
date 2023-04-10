@@ -4,6 +4,13 @@ import { Profile } from "./features/profile/Profile";
 import { getUser } from "./controllers/authController";
 import { ROUTES } from "./router/routes";
 import { Authentication } from "./features/authentication/Authentication";
+import { Leaderboard } from "./features/leaderboard/Leaderboard";
+import { Forum } from "./features/forum/Forum";
+import { ErrorPage } from "./features/errorPage/ErrorPage";
+import { Game } from "./features/game/Game";
+
+import "./App.scss";
+import Home from "./components/home/Home";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -29,7 +36,7 @@ function App() {
 
     return (
         <Routes>
-            <Route path={ROUTES.HOME.path} />
+            <Route path={ROUTES.HOME.path} element={<Home />} />
             <Route
                 path={ROUTES.SINGIN.path}
                 element={<Authentication mode={"auth"} />}
@@ -42,6 +49,26 @@ function App() {
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
+            <Route 
+                path={ROUTES.LEADERBOARD.path} 
+                element={<Leaderboard />} />
+            <Route 
+                path={ROUTES.GAME.path} 
+                element={<Game />} 
+            />
+            <Route 
+                path={ROUTES.FORUM.TOPIC.path} 
+                element={<Forum />} 
+            />
+            <Route 
+                path={ROUTES.FORUM.path} 
+                element={<Forum />} 
+            />
+            <Route
+                path={ROUTES.ERROR_PAGE.path}
+                element={<ErrorPage type="500" />}
+            />
+            <Route path="*" element={<ErrorPage type="404" />} />
         </Routes>
     );
 }
