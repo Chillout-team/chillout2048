@@ -11,6 +11,12 @@ export const ROUTES = {
     PROFILE: {
         path: "/profile",
     },
+    GAME: {
+        path: "/game",
+    },
+    LEADERBOARD: {
+        path: "/leaderboard",
+    },
     FORUM: {
         path: "/forum",
         TOPIC: {

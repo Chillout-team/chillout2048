@@ -19,12 +19,12 @@ export const Header = ({
             <header className={`${cls.header} ${extraClass}`}>
                 <nav>
                     <div>
-                        <Link to={"/"}>Домой</Link>
-                        <Link to={"/"}>Форум</Link>
-                        <Link to={"/"}>Рейтинг</Link>
+                        <Link to="/">Домой</Link>
+                        <Link to="/">Форум</Link>
+                        <Link to="/">Рейтинг</Link>
                     </div>
                     <div>
-                        <Link to={"/profile"} className={cls.link_user}>
+                        <Link to="/profile" className={cls.link_user}>
                             <div>
                                 <img
                                     src={avatar}
@@ -35,7 +35,7 @@ export const Header = ({
                             </div>
                             {userName}
                         </Link>
-                        <Link to={"/"}>Выйти</Link>
+                        <Link to="/">Выйти</Link>
                     </div>
                 </nav>
             </header>
@@ -45,12 +45,12 @@ export const Header = ({
         <header className={`${cls.header} ${extraClass}`}>
             <nav>
                 <div>
-                    <Link to={"/"}>Форум</Link>
-                    <Link to={"/"}>Рейтинг</Link>
+                    <Link to="/">Форум</Link>
+                    <Link to="/">Рейтинг</Link>
                 </div>
                 <div>
-                    <Link to={"/"}>Зарегистрироваться</Link>
-                    <Link to={"/"}>Войти</Link>
+                    <Link to="/">Зарегистрироваться</Link>
+                    <Link to="/">Войти</Link>
                 </div>
             </nav>
         </header>
