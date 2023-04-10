@@ -9,6 +9,9 @@ import { Forum } from "./features/forum/Forum";
 import { ErrorPage } from "./features/errorPage/ErrorPage";
 import { Game } from "./features/game/Game";
 
+import "./App.scss";
+import Home from "./components/home/Home";
+
 function App() {
     const [appState, setAppState] = useState({
         isAuth: false,
@@ -33,7 +36,7 @@ function App() {
 
     return (
         <Routes>
-            <Route path={ROUTES.HOME.path} />
+            <Route path={ROUTES.HOME.path} element={<Home />} />
             <Route
                 path={ROUTES.SINGIN.path}
                 element={<Authentication mode={"auth"} />}
