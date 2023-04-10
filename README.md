@@ -1,3 +1,6 @@
+### Макет
+[Figma ](https://www.figma.com/file/Wpd0vavUldz6d4aXXM1caI/Chillout2048?node-id=1-61&t=1c5Rj3cksNzztPL5-0)
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
