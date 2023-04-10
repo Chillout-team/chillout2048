@@ -1,4 +1,5 @@
-[шаблон Figma ](https://www.figma.com/file/Wpd0vavUldz6d4aXXM1caI/Chillout2048?node-id=1-61&t=1c5Rj3cksNzztPL5-0)
+### Макет
+[Figma ](https://www.figma.com/file/Wpd0vavUldz6d4aXXM1caI/Chillout2048?node-id=1-61&t=1c5Rj3cksNzztPL5-0)
 
 ### Как запускать?
 

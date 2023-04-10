@@ -49,10 +49,6 @@ function App() {
             <Route 
                 path={ROUTES.LEADERBOARD.path} 
                 element={<Leaderboard />} />
-            <Route
-                path={ROUTES.PROFILE.path}
-                element={<Profile {...appState.user} />}
-            />
             <Route 
                 path={ROUTES.GAME.path} 
                 element={<Game />} 
@@ -67,12 +63,9 @@ function App() {
             />
             <Route
                 path={ROUTES.ERROR_PAGE.path}
-                element={<ErrorPage />}
+                element={<ErrorPage type="500" />}
             />
-            <Route 
-                path="*" 
-                element={<ErrorPage />} 
-            />
+            <Route path="*" element={<ErrorPage type="404" />} />
         </Routes>
     );
 }
