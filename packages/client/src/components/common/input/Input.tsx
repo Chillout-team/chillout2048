@@ -19,6 +19,7 @@ export interface IInput {
 
 type TForm = {
     errors: Record<string, string>;
+    touched: Record<string, string>;
 };
 
 export const Input = (props: IInput) => {
@@ -36,6 +37,7 @@ export const Input = (props: IInput) => {
     const [field] = useField(id);
 
     const isError = !!form?.errors[id];
+    const isTouched = !!form?.touched[id];
 
     return (
         <div className={containerClassName}>
@@ -57,7 +59,7 @@ export const Input = (props: IInput) => {
                 </label>
             )}
 
-            {isError && (
+            {isError && isTouched && (
                 <label className={errorClassName}>{form.errors[id]}</label>
             )}
         </div>

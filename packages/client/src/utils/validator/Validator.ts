@@ -42,7 +42,7 @@ export const SinginSchema = yup.object().shape({
         .max(40)
         .matches(isLatinAlphabet, "Только латинский алфавит")
         .matches(isCapitalLetter, "Нет заглавных букв")
-        .matches(isSpecialCharacters, "Нет спецсимволов")
+        // .matches(isSpecialCharacters, "Нет спецсимволов")
         .matches(isNumber, "Нет цифр")
         .test(
             "isNotCyrillic",
@@ -86,7 +86,7 @@ export const SingupSchema = yup.object().shape({
         .max(40)
         .matches(isLatinAlphabet, "Только латинский алфавит")
         .matches(isCapitalLetter, "Нет заглавных букв")
-        .matches(isSpecialCharacters, "Нет спецсимволов")
+        // .matches(isSpecialCharacters, "Нет спецсимволов")
         .matches(isNumber, "Нет цифр")
         .test(
             "isNotCyrillic",
@@ -290,11 +290,12 @@ export const NewPasswordSchema = yup.object().shape({
         .string()
         .min(8)
         .max(40)
-        .matches(isLatinAlphabet, "Текст ошибки")
-        .matches(isSpecialCharacters, "Текст ошибки")
-        .matches(isNumber, "Текст ошибки")
+        .matches(isLatinAlphabet, "Только латинский алфавит")
+        // .matches(isSpecialCharacters, "Текст ошибки")
+        .matches(isNumber, "Нет цифр")
         .test(
             "isNotCyrillic",
+            "Только латинский алфавит",
             value => !isCyrillicAlphabet.test(value as string),
         )
         .typeError(
@@ -305,9 +306,9 @@ export const NewPasswordSchema = yup.object().shape({
         .string()
         .min(8)
         .max(40)
-        .matches(isLatinAlphabet, "Текст ошибки")
-        .matches(isSpecialCharacters, "Текст ошибки")
-        .matches(isNumber, "Текст ошибки")
+        .matches(isLatinAlphabet, "Только латинский алфавит")
+        // .matches(isSpecialCharacters, "Текст ошибки")
+        .matches(isNumber, "Нет цифр")
         .test(
             "isNotCyrillic",
             value => !isCyrillicAlphabet.test(value as string),
