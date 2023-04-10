@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FormEditProfile } from "./FormEditProfile";
 import { FormEditPassword } from "./FormEditPasswor";
 import { IUserData } from "@/types/types";
+import { ROUTES } from "@/router/routes";
 
 type TProfileForm = {
     user: IUserData;
@@ -43,7 +44,7 @@ export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
                 <Link className={cls.link} to="" onClick={toggleForm}>
                     Изменить пароль
                 </Link>
-                <Link className={cls.link} to="/">
+                <Link className={cls.link} to={ROUTES.HOME.path}>
                     Выйти
                 </Link>
             </div>
