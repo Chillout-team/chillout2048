@@ -37,13 +37,13 @@ export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
                 <FormEditPassword toggle={toggle} toggleForm={toggleForm} />
             )}
             <div className={toggle ? cls.links : `${cls.links} ${cls.hidden}`}>
-                <Link className={cls.link} to={""} onClick={onToggle}>
+                <Link className={cls.link} to="" onClick={onToggle}>
                     Изменить данные
                 </Link>
-                <Link className={cls.link} to={""} onClick={toggleForm}>
+                <Link className={cls.link} to="" onClick={toggleForm}>
                     Изменить пароль
                 </Link>
-                <Link className={cls.link} to={"/"}>
+                <Link className={cls.link} to="/">
                     Выйти
                 </Link>
             </div>
