@@ -17,8 +17,8 @@ export const AuthenticationData: Record<string, AuthenticationForm> = {
     reg: {
         title: "Регистрация",
         buttonTitle: "Зарегистрироваться",
-        goToRegistration: true,
-        goToHome: false,
+        goToRegistration: false,
+        goToHome: true,
         inputs: [
             {
                 id: "email",
