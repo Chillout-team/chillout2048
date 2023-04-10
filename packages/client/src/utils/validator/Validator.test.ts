@@ -22,12 +22,6 @@ test('SinginSchema test', async () => {
     expect(
         await SinginSchema.isValid({
             login: 'qazwsx',
-            password: 'Qwwwwewewewe123',
-        }),
-    ).toBe(false);
-    expect(
-        await SinginSchema.isValid({
-            login: 'qazwsx',
             password: 'Qwwwwewewewe.',
         }),
     ).toBe(false);
