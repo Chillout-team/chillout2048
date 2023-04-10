@@ -319,6 +319,6 @@ export const NewPasswordSchema = yup.object().shape({
         .required("Обязательно для заполнения"),
     confirmPassword: yup
         .string()
-        .oneOf([yup.ref("new_password")], "Пароли не совпадают")
+        .oneOf([yup.ref("newPassword")], "Пароли не совпадают")
         .required("Обязательно для заполнения"),
 });
