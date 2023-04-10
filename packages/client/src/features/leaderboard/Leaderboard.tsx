@@ -54,12 +54,10 @@ export const Leaderboard = () => {
         <>
             <Header isAuth={isAuth} />
             <Main extraClass={cls.extra}>
-                {isAuth && (
-                    <div className={cls.head}>
-                        <h1>2048</h1>
-                        <h3>Рейтинг</h3>
-                    </div>
-                )}
+                <div className={cls.head}>
+                    <h1>2048</h1>
+                    <h3>Рейтинг</h3>
+                </div>
                 <ul>
                     <Position
                         title={true}
