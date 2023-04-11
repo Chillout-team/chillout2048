@@ -5,6 +5,7 @@ import { Input } from "@/components/common/input/Input";
 import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
 import { changePassword } from "@/controllers/userController";
+import { NewPasswordSchema } from "@/utils/validator/Validator";
 
 interface IFormEditPassword {
     toggle: boolean;
@@ -41,6 +42,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
+                validationSchema={NewPasswordSchema}
                 onSubmit={submit}>
                 {() => (
                     <Form className={cls.form}>
@@ -52,6 +54,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -63,6 +66,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -74,6 +78,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 

@@ -3,9 +3,11 @@ import { AuthenticationForm } from "./authenticationForm/AuthenticationForm";
 import { InputForm } from "./inputForm/InputForm";
 import { AuthenticationData } from "./AuthenticationData";
 import { Formik } from "formik";
-import { AuthRequest } from "@/store/AuthSlice";
+
 import { useAuthDispatch } from "@/store/Store";
 import { FC } from "react";
+import { SinginSchema, SingupSchema } from "@/utils/validator/Validator";
+import { AuthRequest } from "@/api/auth-api";
 
 interface IAuthenticationProps {
     mode: "auth" | "reg";
@@ -19,6 +21,7 @@ interface IProfileForm {
     display_name: string;
     phone: string;
     password: string;
+    password_repeat: string;
 }
 
 export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
@@ -43,6 +46,7 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
                     password: "",
                     password_repeat: "",
                 }}
+                validationSchema={mode === "reg" ? SingupSchema : SinginSchema}
                 onSubmit={onSubmit}>
                 <AuthenticationForm
                     title={title}
