@@ -9,6 +9,7 @@ import { Forum } from "./features/forum/Forum";
 import { ErrorPage } from "./features/errorPage/ErrorPage";
 import { Game } from "./features/game/Game";
 import { Home } from "./features/home/Home";
+import { GameStart } from "./features/gameStart/GameStart";
 
 function App() {
     const [appState, setAppState] = useState({
@@ -47,21 +48,11 @@ function App() {
                 path={ROUTES.PROFILE.path}
                 element={<Profile {...appState.user} />}
             />
-            <Route 
-                path={ROUTES.LEADERBOARD.path} 
-                element={<Leaderboard />} />
-            <Route 
-                path={ROUTES.GAME.path} 
-                element={<Game />} 
-            />
-            <Route 
-                path={ROUTES.FORUM.TOPIC.path} 
-                element={<Forum />} 
-            />
-            <Route 
-                path={ROUTES.FORUM.path} 
-                element={<Forum />} 
-            />
+            <Route path={ROUTES.LEADERBOARD.path} element={<Leaderboard />} />
+            <Route path={ROUTES.GAME.path} element={<Game />} />
+            <Route path={ROUTES.GAME_START.path} element={<GameStart />} />
+            <Route path={ROUTES.FORUM.TOPIC.path} element={<Forum />} />
+            <Route path={ROUTES.FORUM.path} element={<Forum />} />
             <Route
                 path={ROUTES.ERROR_PAGE.path}
                 element={<ErrorPage type="500" />}

@@ -11,6 +11,9 @@ export const ROUTES = {
     PROFILE: {
         path: "/profile",
     },
+    GAME_START: {
+        path: "/game-start",
+    },
     GAME: {
         path: "/game",
     },
