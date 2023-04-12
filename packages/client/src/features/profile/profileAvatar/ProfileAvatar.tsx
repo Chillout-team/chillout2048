@@ -1,34 +1,31 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import cls from "./ProfileAvatar.module.scss";
 import { Modal } from "@/components/common/popup/Modal";
 import { Field, Form, Formik } from "formik";
 import { Button } from "@/components/common/button/Button";
-import { changeAvatar } from "@/controllers/userController";
-import { YANDEX_API_URL } from "@/consts/common";
+import { useAppDispatch } from "@/redux/hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { changeAvatar } from "@/redux/actions/userAction";
 
-interface IAvatarForm {
-    avatar?: string;
-    setAvatar: Dispatch<SetStateAction<string>>;
-}
-
-export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
+export const ProfileAvatar: FC = () => {
     const [modalActive, setModalActive] = useState(false);
+    const avatar = useSelector((state: RootState) => state.user.user?.avatar);
+    const dispatch = useAppDispatch();
 
     const initialValues = {
         avatar: "",
     };
 
-    const submit = (values: { avatar: string }) => {
+    const onSubmit = (values: { avatar: string }) => {
         values;
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
 
-        changeAvatar(formData).then(data => {
-            setAvatar(`${YANDEX_API_URL}resources${data.avatar}`);
-        });
+        const formData = new FormData(e.currentTarget);
+        dispatch(changeAvatar(formData));
 
         setModalActive(false);
     };
@@ -56,7 +53,7 @@ export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
                 <Formik
                     initialValues={initialValues}
                     enableReinitialize={true}
-                    onSubmit={submit}>
+                    onSubmit={onSubmit}>
                     {() => (
                         <Form className={cls.form} onSubmit={handleSubmit}>
                             <Field
@@ -77,9 +74,6 @@ export const ProfileAvatar: FC<IAvatarForm> = ({ avatar, setAvatar }) => {
                                     size="medium"
                                     color="green"
                                     type="submit"
-                                    onClick={() => {
-                                        return;
-                                    }}
                                     children="Сохранить"
                                 />
                             </div>

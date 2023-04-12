@@ -16,8 +16,8 @@ export const userAPI = {
             },
         });
     },
-    async changePassword(data: TIndexed): Promise<unknown> {
-        return baseAPI.put("/user/password", JSON.stringify(data), {
+    async changePassword(data: TIndexed) {
+        return baseAPI.put<IUserData>("/user/password", JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json",
             },

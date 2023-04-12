@@ -27,7 +27,7 @@ export const Forum: FC = () => {
 
     return (
         <Main>
-            <Header isAuth={true} userName="Иван" />
+            <Header userName="Иван" />
             <header className={cls.pageHeader}>
                 <h1 className={cls.pageTitle}>Форум</h1>
             </header>
