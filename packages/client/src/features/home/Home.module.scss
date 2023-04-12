@@ -20,11 +20,14 @@
     }
 }
 
-.img {
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-
 .text {
     color: var(--color-green);
+}
+
+.canvas {
+    width: 280px;
+    height: 280px;
+    border-radius: 13px;
+    background: var(--color-dark-green);
+    margin: 40px auto;
 }
