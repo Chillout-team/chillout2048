@@ -43,17 +43,23 @@ class Game {
         this.control();
     }
     init() {
-        for (let y = 0; y < 4; y++) {
-            for (let x = 0; x < 4; x++) {
-                this.render(
-                    this.map[y][x],
-                    "#A7D6AC",
-                    (this.cell.width + this.padding) * x + this.padding,
-                    (this.cell.height + this.padding) * y + this.padding,
-                );
-            }
+        for (let i = 0; i < 2; i++) {
+            this.createRandomCell();
+        }
+
+        this.update();
+    }
+
+    createRandomCell() {
+        const y = this.getRandomInt(4);
+        const x = this.getRandomInt(4);
+        if (this.map[y][x] === 0) {
+            this.map[y][x] = 2;
+        } else {
+            this.createRandomCell();
         }
     }
+
     render(numCell: number, color: string, xPos: number, yPos: number) {
         this.ctx.strokeStyle = color;
         this.ctx.fillStyle = color;
@@ -63,13 +69,13 @@ class Game {
         this.ctx.fill();
         this.ctx.beginPath();
         if (numCell) {
-            this.ctx.fillStyle = "#ddf4e0";
+            this.ctx.fillStyle = "#FFFFFF";
             if (numCell < 10) {
                 this.ctx.font = "normal 70px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
             } else if (numCell < 100 && numCell > 10) {
                 this.ctx.font = "normal 60px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 30, yPos + 80);
+                this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
             } else if (numCell < 1000 && numCell > 100) {
                 this.ctx.font = "normal 50px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
@@ -85,9 +91,9 @@ class Game {
             for (let x = 0; x < 4; x++) {
                 this.render(
                     this.map[y][x],
-                    `rgb(${155 - this.map[y][x]}, ${
-                        220 - this.map[y][x] * 15
-                    }, 160)`,
+                    `rgb(${(155 - this.map[y][x]) % 255}, ${
+                        (220 - this.map[y][x] * 15) % 255
+                    }, ${(160 - this.map[y][x] * 3) % 255})`,
                     (this.cell.width + this.padding) * x + this.padding,
                     (this.cell.height + this.padding) * y + this.padding,
                 );
@@ -114,24 +120,79 @@ class Game {
     }
 
     getRandomInt(max: number): number {
-        return Math.floor(Math.random() * max);
+        const randomInt = Math.floor(Math.random() * max);
+        console.log(randomInt);
+        return randomInt;
+    }
+
+    check(mode: string, positon: number): boolean {
+        if (mode === "Row") {
+            for (let x = 0; x < 4; x++) {
+                if (!this.map[positon][x]) {
+                    console.log(true);
+                    return true;
+                }
+            }
+            console.log(false);
+            return false;
+        } else {
+            for (let y = 0; y < 4; y++) {
+                if (!this.map[y][positon]) {
+                    console.log(true);
+                    return true;
+                }
+            }
+            console.log(false);
+            return false;
+        }
     }
 
     createCell(positon: string) {
-        console.log(this.map);
-        switch (positon) {
-            case "Up":
-                this.map[3][this.getRandomInt(4)] = 2;
-                break;
-            case "Down":
-                this.map[0][this.getRandomInt(4)] = 2;
-                break;
-            case "Left":
-                this.map[this.getRandomInt(4)][3] = 2;
-                break;
-            case "Right":
-                this.map[this.getRandomInt(4)][0] = 2;
-                break;
+        const Cell = this.getRandomInt(10) === 9 ? 4 : 2;
+        if (positon === "Up") {
+            const xPos = this.getRandomInt(4);
+            if (this.map[3][xPos] === 0) {
+                this.map[3][xPos] = Cell;
+            } else {
+                if (this.check("Row", 3)) {
+                    this.createCell(positon);
+                } else {
+                    console.log("U lose");
+                }
+            }
+        } else if (positon === "Down") {
+            const xPos = this.getRandomInt(4);
+            if (this.map[0][xPos] === 0) {
+                this.map[0][xPos] = Cell;
+            } else {
+                if (this.check("Row", 0)) {
+                    this.createCell(positon);
+                } else {
+                    console.log("U lose");
+                }
+            }
+        } else if (positon === "Left") {
+            const yPos = this.getRandomInt(4);
+            if (this.map[yPos][3] === 0) {
+                this.map[yPos][3] = Cell;
+            } else {
+                if (this.check("Colm", 3)) {
+                    this.createCell(positon);
+                } else {
+                    console.log("U lose");
+                }
+            }
+        } else if (positon === "Right") {
+            const yPos = this.getRandomInt(4);
+            if (this.map[yPos][0] === 0) {
+                this.map[yPos][0] = Cell;
+            } else {
+                if (this.check("Colm", 0)) {
+                    this.createCell(positon);
+                } else {
+                    console.log("U lose");
+                }
+            }
         }
     }
 
