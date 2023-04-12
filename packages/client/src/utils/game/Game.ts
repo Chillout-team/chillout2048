@@ -7,32 +7,7 @@ export const GameLoad = (canvas: HTMLCanvasElement | null) => {
     if (!canvas) {
         return;
     }
-
     const game = new Game(WIDTH, HEIGHT, PADDING, canvas);
-
-    // const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-    // canvas.width = DPI_WIDTH;
-    // canvas.height = DPI_HEIGHT;
-
-    // const webgl = canvas.getContext("webgl");
-    // if (ctx) {
-    //     for (let y = 0; y < 4; y++) {
-    //         for (let x = 0; x < 4; x++) {
-    //             ctx.roundRect(
-    //                 (DPI_BLOCK + DPI_PADDING) * x + DPI_PADDING,
-    //                 (DPI_BLOCK + DPI_PADDING) * y + DPI_PADDING,
-    //                 DPI_BLOCK,
-    //                 DPI_BLOCK,
-    //                 [26],
-    //             );
-    //         }
-    //     }
-    //     ctx.stroke();
-    //     ctx.fill();
-    //     ctx.strokeStyle = "#FFFFFF";
-    //     ctx.fillStyle = "#FFFFFF";
-    //     ctx.fillText("2", 50, 110);
-    // }
 };
 
 class Game {
