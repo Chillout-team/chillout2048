@@ -46,7 +46,6 @@ class Game {
         for (let i = 0; i < 2; i++) {
             this.createRandomCell();
         }
-
         this.update();
     }
 
