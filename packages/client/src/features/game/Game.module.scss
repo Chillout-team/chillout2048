@@ -4,10 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    div {
-        margin: 40px auto;
-    }
 }
+
 .header {
     color: var(--color-green);
     font-weight: 700;
@@ -23,6 +21,10 @@
     }
 }
 
-.text {
-    color: var(--color-green);
+.canvas {
+    width: 280px;
+    height: 280px;
+    border-radius: 13px;
+    background: var(--color-dark-green);
+    margin: 40px auto;
 }
