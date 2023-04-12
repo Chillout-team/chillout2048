@@ -43,10 +43,10 @@ class Game {
         this.control();
     }
     init() {
-        this.ctx.font = "normal 20px Inter";
         for (let y = 0; y < 4; y++) {
             for (let x = 0; x < 4; x++) {
                 this.render(
+                    this.map[y][x],
                     "#A7D6AC",
                     (this.cell.width + this.padding) * x + this.padding,
                     (this.cell.height + this.padding) * y + this.padding,
@@ -54,18 +54,37 @@ class Game {
             }
         }
     }
-    render(color: string, xPos: number, yPos: number) {
+    render(numCell: number, color: string, xPos: number, yPos: number) {
         this.ctx.strokeStyle = color;
         this.ctx.fillStyle = color;
         this.ctx.beginPath();
         this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [26]);
         this.ctx.stroke();
         this.ctx.fill();
+        this.ctx.beginPath();
+        if (numCell) {
+            this.ctx.fillStyle = "#ddf4e0";
+            if (numCell < 10) {
+                this.ctx.font = "normal 70px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
+            } else if (numCell < 100 && numCell > 10) {
+                this.ctx.font = "normal 60px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 30, yPos + 80);
+            } else if (numCell < 1000 && numCell > 100) {
+                this.ctx.font = "normal 50px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
+            } else if (numCell > 10000 && numCell < 100000) {
+                this.ctx.font = "normal 30px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 17, yPos + 72);
+            }
+        }
     }
     update() {
+        this.ctx.clearRect(0, 0, this.windth, this.height);
         for (let y = 0; y < 4; y++) {
             for (let x = 0; x < 4; x++) {
                 this.render(
+                    this.map[y][x],
                     `rgb(${155 - this.map[y][x]}, ${
                         220 - this.map[y][x] * 15
                     }, 160)`,
@@ -99,6 +118,7 @@ class Game {
     }
 
     createCell(positon: string) {
+        console.log(this.map);
         switch (positon) {
             case "Up":
                 this.map[3][this.getRandomInt(4)] = 2;
@@ -137,7 +157,6 @@ class Game {
         }
         this.createCell("Down");
         this.update();
-        console.log(this.map);
         return;
     }
     moveUp(): void {
@@ -162,7 +181,6 @@ class Game {
         }
         this.createCell("Up");
         this.update();
-        console.log(this.map);
         return;
     }
     moveRight(): void {
@@ -187,7 +205,6 @@ class Game {
         }
         this.createCell("Right");
         this.update();
-        console.log(this.map);
         return;
     }
     moveLeft(): void {
@@ -212,7 +229,6 @@ class Game {
         }
         this.createCell("Left");
         this.update();
-        console.log(this.map);
         return;
     }
 }
