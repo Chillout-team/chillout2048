@@ -11,11 +11,11 @@ type Props = {
 };
 
 export const Header = ({ extraClass = "" }: Props) => {
-    const avatar = useSelector((state: RootState) => state.user?.user?.avatar);
-    const login = useSelector((state: RootState) => state.user?.user?.login);
+    const avatar = useSelector((state: RootState) => state.user?.user?.avatar || "");
+    const login = useSelector((state: RootState) => state.user?.user?.login || "");
     const dispatch = useAppDispatch();
 
-    const onClick = () => dispatch(logout());
+    const handleLogout = () => dispatch(logout());
 
     if (login) {
         return (
@@ -40,7 +40,7 @@ export const Header = ({ extraClass = "" }: Props) => {
                             </div>
                             {login}
                         </Link>
-                        <Link to={ROUTES.HOME.path} onClick={onClick}>
+                        <Link to={ROUTES.HOME.path} onClick={handleLogout}>
                             Выйти
                         </Link>
                     </div>

@@ -1,13 +1,9 @@
-import { TIndexed, IUserData } from "../types/types";
+import { TIndexed, IUserData } from "@/types/types";
 import { baseAPI } from "./api";
 
 export const userAPI = {
     async changeProfile(data: TIndexed) {
-        return baseAPI.put<IUserData>(`/user/profile`, JSON.stringify(data), {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        return baseAPI.put<IUserData>(`/user/profile`, JSON.stringify(data));
     },
     async changeAvatar(data: FormData) {
         return baseAPI.put("/user/profile/avatar", data, {
@@ -17,10 +13,6 @@ export const userAPI = {
         });
     },
     async changePassword(data: TIndexed) {
-        return baseAPI.put<IUserData>("/user/password", JSON.stringify(data), {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        return baseAPI.put<IUserData>("/user/password", JSON.stringify(data));
     },
 };

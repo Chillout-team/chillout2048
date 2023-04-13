@@ -8,5 +8,6 @@ export const baseAPI = axios.create({
     headers: {
         "Access-Control-Allow-Methods": "GET, POST, PUT",
         "Access-Control-Allow-Headers": "content-type",
+        "Content-Type": "application/json",
     },
 });

@@ -10,7 +10,7 @@ import { changeAvatar } from "@/redux/actions/userAction";
 
 export const ProfileAvatar: FC = () => {
     const [modalActive, setModalActive] = useState(false);
-    const avatar = useSelector((state: RootState) => state.user.user?.avatar);
+    const avatar = useSelector((state: RootState) => state.user.user?.avatar || "");
     const dispatch = useAppDispatch();
 
     const initialValues = {
