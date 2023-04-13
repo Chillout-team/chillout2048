@@ -1,14 +1,18 @@
 const WIDTH = 280;
 const HEIGHT = 280;
 const PADDING = 8;
+const MAX_POSITON = 4;
+const MIN_POSITON = 0;
 
 export const GameLoad = (canvas: HTMLCanvasElement | null) => {
-    console.log(canvas);
     if (!canvas) {
         return;
     }
-    const game = new Game(WIDTH, HEIGHT, PADDING, canvas);
+    new Game(WIDTH, HEIGHT, PADDING, canvas);
 };
+
+type IMode = "Row" | "Colm";
+type IDirection = "Up" | "Down" | "Right" | "Left";
 
 class Game {
     height: number;
@@ -27,8 +31,8 @@ class Game {
         this.windth = windth * 2;
         this.padding = padding * 2;
         this.cell = {
-            height: (this.height - this.padding * 5) / 4,
-            width: (this.windth - this.padding * 5) / 4,
+            height: (this.height - this.padding * 5) / MAX_POSITON,
+            width: (this.windth - this.padding * 5) / MAX_POSITON,
         };
         canvas.width = this.windth;
         canvas.height = this.height;
@@ -40,7 +44,7 @@ class Game {
         ];
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         this.init();
-        this.control();
+        this.initControl();
     }
     init() {
         for (let i = 0; i < 2; i++) {
@@ -50,8 +54,8 @@ class Game {
     }
 
     createRandomCell() {
-        const y = this.getRandomInt(4);
-        const x = this.getRandomInt(4);
+        const y = this.getRandomInt(MAX_POSITON);
+        const x = this.getRandomInt(MAX_POSITON);
         if (this.map[y][x] === 0) {
             this.map[y][x] = 2;
         } else {
@@ -86,8 +90,8 @@ class Game {
     }
     update() {
         this.ctx.clearRect(0, 0, this.windth, this.height);
-        for (let y = 0; y < 4; y++) {
-            for (let x = 0; x < 4; x++) {
+        for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+            for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
                 this.render(
                     this.map[y][x],
                     `rgb(${(155 - this.map[y][x]) % 255}, ${
@@ -99,7 +103,7 @@ class Game {
             }
         }
     }
-    control() {
+    initControl() {
         document.addEventListener("keyup", e => {
             switch (e.key) {
                 case "ArrowUp":
@@ -120,76 +124,63 @@ class Game {
 
     getRandomInt(max: number): number {
         const randomInt = Math.floor(Math.random() * max);
-        console.log(randomInt);
         return randomInt;
     }
 
-    check(mode: string, positon: number): boolean {
+    checkForFreeCell(mode: IMode, positon: number): boolean {
         if (mode === "Row") {
-            for (let x = 0; x < 4; x++) {
+            for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
                 if (!this.map[positon][x]) {
-                    console.log(true);
                     return true;
                 }
             }
-            console.log(false);
             return false;
         } else {
-            for (let y = 0; y < 4; y++) {
+            for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
                 if (!this.map[y][positon]) {
-                    console.log(true);
                     return true;
                 }
             }
-            console.log(false);
             return false;
         }
     }
 
-    createCell(positon: string) {
+    createCell(direction: IDirection) {
         const Cell = this.getRandomInt(10) === 9 ? 4 : 2;
-        if (positon === "Up") {
-            const xPos = this.getRandomInt(4);
+        if (direction === "Up") {
+            const xPos = this.getRandomInt(MAX_POSITON);
             if (this.map[3][xPos] === 0) {
                 this.map[3][xPos] = Cell;
             } else {
-                if (this.check("Row", 3)) {
-                    this.createCell(positon);
-                } else {
-                    console.log("U lose");
+                if (this.checkForFreeCell("Row", 3)) {
+                    this.createCell(direction);
                 }
             }
-        } else if (positon === "Down") {
-            const xPos = this.getRandomInt(4);
-            if (this.map[0][xPos] === 0) {
-                this.map[0][xPos] = Cell;
+        } else if (direction === "Down") {
+            const xPos = this.getRandomInt(MAX_POSITON);
+            if (this.map[MIN_POSITON][xPos] === 0) {
+                this.map[MIN_POSITON][xPos] = Cell;
             } else {
-                if (this.check("Row", 0)) {
-                    this.createCell(positon);
-                } else {
-                    console.log("U lose");
+                if (this.checkForFreeCell("Row", 0)) {
+                    this.createCell(direction);
                 }
             }
-        } else if (positon === "Left") {
-            const yPos = this.getRandomInt(4);
+        } else if (direction === "Left") {
+            const yPos = this.getRandomInt(MAX_POSITON);
             if (this.map[yPos][3] === 0) {
                 this.map[yPos][3] = Cell;
             } else {
-                if (this.check("Colm", 3)) {
-                    this.createCell(positon);
-                } else {
-                    console.log("U lose");
+                if (this.checkForFreeCell("Colm", 3)) {
+                    this.createCell(direction);
                 }
             }
-        } else if (positon === "Right") {
-            const yPos = this.getRandomInt(4);
-            if (this.map[yPos][0] === 0) {
-                this.map[yPos][0] = Cell;
+        } else if (direction === "Right") {
+            const yPos = this.getRandomInt(MAX_POSITON);
+            if (this.map[yPos][MIN_POSITON] === 0) {
+                this.map[yPos][MIN_POSITON] = Cell;
             } else {
-                if (this.check("Colm", 0)) {
-                    this.createCell(positon);
-                } else {
-                    console.log("U lose");
+                if (this.checkForFreeCell("Colm", 0)) {
+                    this.createCell(direction);
                 }
             }
         }
@@ -197,8 +188,8 @@ class Game {
 
     moveDown(): void {
         let isMove = false;
-        for (let x = 0; x < 4; x++) {
-            for (let y = 2; y >= 0; y--) {
+        for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+            for (let y = 2; y >= MIN_POSITON; y--) {
                 if (this.map[y][x] > 0) {
                     if (this.map[y + 1][x] === 0) {
                         this.map[y + 1][x] = this.map[y][x];
@@ -221,8 +212,8 @@ class Game {
     }
     moveUp(): void {
         let isMove = false;
-        for (let x = 0; x < 4; x++) {
-            for (let y = 1; y < 4; y++) {
+        for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+            for (let y = 1; y < MAX_POSITON; y++) {
                 if (this.map[y][x] > 0) {
                     if (this.map[y - 1][x] === 0) {
                         this.map[y - 1][x] = this.map[y][x];
@@ -245,8 +236,8 @@ class Game {
     }
     moveRight(): void {
         let isMove = false;
-        for (let y = 0; y < 4; y++) {
-            for (let x = 2; x >= 0; x--) {
+        for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+            for (let x = 2; x >= MIN_POSITON; x--) {
                 if (this.map[y][x] > 0) {
                     if (this.map[y][x + 1] === 0) {
                         this.map[y][x + 1] = this.map[y][x];
@@ -269,8 +260,8 @@ class Game {
     }
     moveLeft(): void {
         let isMove = false;
-        for (let y = 0; y < 4; y++) {
-            for (let x = 1; x < 4; x++) {
+        for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+            for (let x = 1; x < MAX_POSITON; x++) {
                 if (this.map[y][x] > 0) {
                     if (this.map[y][x - 1] === 0) {
                         this.map[y][x - 1] = this.map[y][x];
