@@ -21,12 +21,14 @@ class Game {
     ctx: CanvasRenderingContext2D;
     cell: Record<string, number>;
     map: number[][];
+    score: number;
     constructor(
         height: number,
         windth: number,
         padding: number,
         canvas: HTMLCanvasElement,
     ) {
+        this.score = 0;
         this.height = height * 2;
         this.windth = windth * 2;
         this.padding = padding * 2;
@@ -196,7 +198,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y + 1][x] === this.map[y][x]) {
-                        this.map[y + 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y + 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -220,7 +224,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y - 1][x] === this.map[y][x]) {
-                        this.map[y - 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y - 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -244,7 +250,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x + 1] === this.map[y][x]) {
-                        this.map[y][x + 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x + 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -268,7 +276,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x - 1] === this.map[y][x]) {
-                        this.map[y][x - 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x - 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
