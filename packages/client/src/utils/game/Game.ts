@@ -11,8 +11,8 @@ export const GameLoad = (canvas: HTMLCanvasElement | null) => {
     new Game(WIDTH, HEIGHT, PADDING, canvas);
 };
 
-type IMode = "Row" | "Colm";
-type IDirection = "Up" | "Down" | "Right" | "Left";
+type Mode = "Row" | "Colm";
+type Direction = "Up" | "Down" | "Right" | "Left";
 
 class Game {
     height: number;
@@ -127,7 +127,7 @@ class Game {
         return randomInt;
     }
 
-    checkForFreeCell(mode: IMode, positon: number): boolean {
+    checkForFreeCell(mode: Mode, positon: number): boolean {
         if (mode === "Row") {
             for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
                 if (!this.map[positon][x]) {
@@ -145,7 +145,7 @@ class Game {
         }
     }
 
-    createCell(direction: IDirection) {
+    createCell(direction: Direction) {
         const Cell = this.getRandomInt(10) === 9 ? 4 : 2;
         if (direction === "Up") {
             const xPos = this.getRandomInt(MAX_POSITON);
