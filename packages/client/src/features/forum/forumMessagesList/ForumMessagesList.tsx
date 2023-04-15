@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { IForumMessage } from "../../../types/types";
+import { IForumMessage } from "@/types/types";
 import cls from "./ForumMessagesList.module.scss";
-import noPic from "../../../assets/img/no-pic.svg";
+import noPic from "@/assets/img/no-pic.svg";
 
 interface IForumMessagesListProps {
     messages: IForumMessage[];

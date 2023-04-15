@@ -1,31 +1,35 @@
 import { ROUTES } from "@/router/routes";
 import cls from "./Header.module.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/actions/authAction";
 
 type Props = {
-    isAuth: boolean;
-    userName?: string;
-    avatar?: string;
     extraClass?: string;
 };
 
-export const Header = ({
-    isAuth,
-    userName,
-    avatar,
-    extraClass = "",
-}: Props) => {
-    if (isAuth) {
+export const Header = ({ extraClass = "" }: Props) => {
+    const avatar = useSelector((state: RootState) => state.user?.user?.avatar || "");
+    const login = useSelector((state: RootState) => state.user?.user?.login || "");
+    const dispatch = useAppDispatch();
+
+    const handleLogout = () => dispatch(logout());
+
+    if (login) {
         return (
             <header className={`${cls.header} ${extraClass}`}>
                 <nav>
                     <div>
-                        <Link to="/">Домой</Link>
-                        <Link to={ROUTES.FORUM.path} >Форум</Link>
-                        <Link to={ROUTES.LEADERBOARD.path} >Рейтинг</Link>
+                        <Link to={ROUTES.HOME.path}>Домой</Link>
+                        <Link to={ROUTES.FORUM.path}>Форум</Link>
+                        <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                     </div>
                     <div>
-                        <Link to={ROUTES.PROFILE.path} className={cls.link_user}>
+                        <Link
+                            to={ROUTES.PROFILE.path}
+                            className={cls.link_user}>
                             <div>
                                 <img
                                     src={avatar}
@@ -34,9 +38,11 @@ export const Header = ({
                                     height="34"
                                 />
                             </div>
-                            {userName}
+                            {login}
                         </Link>
-                        <Link to="/">Выйти</Link>
+                        <Link to={ROUTES.HOME.path} onClick={handleLogout}>
+                            Выйти
+                        </Link>
                     </div>
                 </nav>
             </header>
@@ -47,7 +53,7 @@ export const Header = ({
             <nav>
                 <div>
                     <Link to={ROUTES.FORUM.path}>Форум</Link>
-                    <Link to={ROUTES.LEADERBOARD.path} >Рейтинг</Link>
+                    <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                 </div>
                 <div>
                     <Link to={ROUTES.SINGUP.path}>Зарегистрироваться</Link>

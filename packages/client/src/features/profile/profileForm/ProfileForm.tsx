@@ -1,18 +1,18 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import cls from "./ProfileForm.module.scss";
 import { Link } from "react-router-dom";
 import { FormEditProfile } from "./FormEditProfile";
 import { FormEditPassword } from "./FormEditPasswor";
-import { IUserData } from "@/types/types";
 import { ROUTES } from "@/router/routes";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/actions/authAction";
 
-type TProfileForm = {
-    user: IUserData;
-} & {
-    setLogin: Dispatch<SetStateAction<string>>;
-};
+export const ProfileForm: FC = () => {
+    const login = useSelector((state: RootState) => state.user.user?.login || "");
+    const dispatch = useAppDispatch();
 
-export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
     const [toggle, setToggle] = useState(true);
     const [isProfileForm, setProfileForm] = useState(true);
 
@@ -23,17 +23,14 @@ export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
         setProfileForm(!isProfileForm);
     };
 
+    const handleLogout = () => dispatch(logout());
+
     return (
         <div className={cls.container}>
-            <h1 className={cls.title}>{user.login}</h1>
+            <h1 className={cls.title}>{login}</h1>
 
             {isProfileForm ? (
-                <FormEditProfile
-                    toggle={toggle}
-                    onToggle={onToggle}
-                    user={user}
-                    setLogin={setLogin}
-                />
+                <FormEditProfile toggle={toggle} onToggle={onToggle} />
             ) : (
                 <FormEditPassword toggle={toggle} toggleForm={toggleForm} />
             )}
@@ -44,7 +41,10 @@ export const ProfileForm: FC<TProfileForm> = ({ user, setLogin }) => {
                 <Link className={cls.link} to="" onClick={toggleForm}>
                     Изменить пароль
                 </Link>
-                <Link className={cls.link} to={ROUTES.HOME.path}>
+                <Link
+                    className={cls.link}
+                    to={ROUTES.HOME.path}
+                    onClick={handleLogout}>
                     Выйти
                 </Link>
             </div>

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { IForumTopic } from "../../../types/types";
-import { declensionByNumbers } from "../../../utils/utils";
+import { IForumTopic } from "@/types/types";
+import { declensionByNumbers } from "@/utils/utils";
 import cls from "./ForumTopicsList.module.scss";
 
 interface IForumTopicsListProps {
