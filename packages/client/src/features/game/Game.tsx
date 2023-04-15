@@ -3,8 +3,8 @@ import { Header } from "@/components/common/header/Header";
 import cls from "./Game.module.scss";
 import { GameLoad } from "@/utils/game/Game";
 import { useEffect } from "react";
-import { Button } from "@/components/common/button/Button";
 import { activateFullscreen, deactivateFullscreen } from "@/utils/fullscreenAPI/fullscreenAPI";
+import full from '@/assets/img/full.svg';
 
 export const Game = () => {
     useEffect(() => {
@@ -30,13 +30,19 @@ export const Game = () => {
                         <br /> Целью игры является получение плитки номинала
                         «2048».
                     </p>
-                    <Button
-                        size="small"
-                        color="orange"
+                    <button
                         type="button"
-                        children="Fullscreen on"
+                        className={cls.button_full}
                         onClick={toggleFullscreen}
-                    />
+                    >
+                        <img
+                            className={cls.icon_full}
+                            src={full}
+                            alt="fullscreen"
+                            width="16"
+                            height="16"
+                        />
+                    </button>
                     <canvas id="canvas" className={cls.canvas}></canvas>
                     <p className={cls.text}>
                         Проверьте на сколько вы удачливый и весело проведите
