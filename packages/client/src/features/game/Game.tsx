@@ -7,13 +7,14 @@ import { activateFullscreen, deactivateFullscreen } from "@/utils/fullscreenAPI/
 import full from '@/assets/img/full.svg';
 
 export const Game = () => {
+    let canvas: HTMLCanvasElement;
+
     useEffect(() => {
-        const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        canvas = document.getElementById("canvas") as HTMLCanvasElement;
         GameLoad(canvas);
     }, []);
 
     const toggleFullscreen = () => {
-        const canvas = document.getElementById('canvas');
         activateFullscreen(canvas!);
         deactivateFullscreen();
     };
