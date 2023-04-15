@@ -11,7 +11,7 @@ import { ROUTES } from "@/router/routes";
 export const Home: FC = () => {
     return (
         <>
-            <Header isAuth={false} />
+            <Header />
             <Main>
                 <div className={cls.main_page_wrapper}>
                     <h1 className={cls.header}># 2048</h1>
