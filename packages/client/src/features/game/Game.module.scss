@@ -21,6 +21,14 @@
     }
 }
 
+.button_full {
+    background: transparent;
+    border: 1px solid var(--dark-background-color);
+    border-radius: 8px;
+    width: 25px;
+    height: 25px;
+}
+
 .canvas {
     width: 280px;
     height: 280px;
