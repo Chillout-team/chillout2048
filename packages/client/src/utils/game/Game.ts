@@ -39,19 +39,19 @@ class Game {
         canvas.width = this.windth;
         canvas.height = this.height;
         this.map = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [131072, 4, 8, 16],
+            [32, 64, 128, 256],
+            [512, 1024, 2024, 4096],
+            [8192, 16384, 32768, 65536],
         ];
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         this.init();
         this.initControl();
     }
     init() {
-        for (let i = 0; i < 2; i++) {
-            this.createRandomCell();
-        }
+        // for (let i = 0; i < 2; i++) {
+        //     this.createRandomCell();
+        // }
         this.update();
     }
 
@@ -75,18 +75,24 @@ class Game {
         this.ctx.beginPath();
         if (numCell) {
             this.ctx.fillStyle = "#FFFFFF";
-            if (numCell < 10) {
+            if (numCell < 16) {
                 this.ctx.font = "normal 70px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
-            } else if (numCell < 100 && numCell > 10) {
+            } else if (numCell < 128 && numCell >= 16) {
                 this.ctx.font = "normal 60px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
-            } else if (numCell < 1000 && numCell > 100) {
+            } else if (numCell < 1024 && numCell >= 128) {
                 this.ctx.font = "normal 50px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
-            } else if (numCell > 10000 && numCell < 100000) {
-                this.ctx.font = "normal 30px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 17, yPos + 72);
+            } else if (numCell < 16384 && numCell >= 1024) {
+                this.ctx.font = "normal 40px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 12, yPos + 75);
+            } else if (numCell < 131072 && numCell >= 16384) {
+                this.ctx.font = "normal 35px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 7, yPos + 72);
+            } else if (numCell === 131072) {
+                this.ctx.font = "normal 32px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 6, yPos + 72);
             }
         }
     }
