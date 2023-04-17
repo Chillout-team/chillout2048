@@ -21,12 +21,14 @@ class Game {
     ctx: CanvasRenderingContext2D;
     cell: Record<string, number>;
     map: number[][];
+    score: number;
     constructor(
         height: number,
         windth: number,
         padding: number,
         canvas: HTMLCanvasElement,
     ) {
+        this.score = 0;
         this.height = height * 2;
         this.windth = windth * 2;
         this.padding = padding * 2;
@@ -92,15 +94,56 @@ class Game {
         this.ctx.clearRect(0, 0, this.windth, this.height);
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
             for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+                const targetCell = this.map[y][x];
                 this.render(
-                    this.map[y][x],
-                    `rgb(${(155 - this.map[y][x]) % 255}, ${
-                        (220 - this.map[y][x] * 15) % 255
-                    }, ${(160 - this.map[y][x] * 3) % 255})`,
+                    targetCell,
+                    this.colorCell(targetCell),
                     (this.cell.width + this.padding) * x + this.padding,
                     (this.cell.height + this.padding) * y + this.padding,
                 );
             }
+        }
+    }
+    colorCell(cell: number) {
+        switch (cell) {
+            case 0:
+                return "#A7D6AC";
+            case 2:
+                return "#ea9e39";
+            case 4:
+                return "#8f912a";
+            case 8:
+                return "#5c8833";
+            case 16:
+                return "#37b12e";
+            case 32:
+                return "#39eaa3";
+            case 64:
+                return "#39b2ea";
+            case 128:
+                return "#7439ea";
+            case 256:
+                return "#cd39ea";
+            case 512:
+                return "#ea3989";
+            case 1024:
+                return "#f35217";
+            case 2024:
+                return "#bc8205";
+            case 4096:
+                return "#a7bc05";
+            case 8192:
+                return "#2dbc05";
+            case 16384:
+                return "#11a967";
+            case 32768:
+                return "#02909d";
+            case 65536:
+                return "#02339d";
+            case 131072:
+                return "#5f20a6";
+            default:
+                return "#000000";
         }
     }
     initControl() {
@@ -196,7 +239,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y + 1][x] === this.map[y][x]) {
-                        this.map[y + 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y + 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -220,7 +265,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y - 1][x] === this.map[y][x]) {
-                        this.map[y - 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y - 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -244,7 +291,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x + 1] === this.map[y][x]) {
-                        this.map[y][x + 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x + 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -268,7 +317,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x - 1] === this.map[y][x]) {
-                        this.map[y][x - 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x - 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
