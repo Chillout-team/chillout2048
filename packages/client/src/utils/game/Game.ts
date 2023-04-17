@@ -39,19 +39,19 @@ class Game {
         canvas.width = this.windth;
         canvas.height = this.height;
         this.map = [
-            [131072, 4, 8, 16],
-            [32, 64, 128, 256],
-            [512, 1024, 2024, 4096],
-            [8192, 16384, 32768, 65536],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
         ];
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         this.init();
         this.initControl();
     }
     init() {
-        // for (let i = 0; i < 2; i++) {
-        //     this.createRandomCell();
-        // }
+        for (let i = 0; i < 2; i++) {
+            this.createRandomCell();
+        }
         this.update();
     }
 
