@@ -17,8 +17,8 @@ export const AuthenticationData: Record<string, AuthenticationForm> = {
     reg: {
         title: "Регистрация",
         buttonTitle: "Зарегистрироваться",
-        goToRegistration: true,
-        goToHome: false,
+        goToRegistration: false,
+        goToHome: true,
         inputs: [
             {
                 id: "email",
@@ -53,7 +53,7 @@ export const AuthenticationData: Record<string, AuthenticationForm> = {
                 type: "password",
             },
             {
-                id: "password_repite",
+                id: "password_repeat",
                 value: "fasdfsadf",
                 labelText: "Пароль (ещё раз)",
                 type: "password",

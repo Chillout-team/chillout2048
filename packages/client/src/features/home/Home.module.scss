@@ -4,6 +4,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    div {
+        margin: 40px auto;
+    }
 }
 .header {
     color: var(--color-green);
@@ -18,11 +21,6 @@
     span {
         color: var(--color-dark-green);
     }
-}
-
-.img {
-    margin-top: 40px;
-    margin-bottom: 40px;
 }
 
 .text {

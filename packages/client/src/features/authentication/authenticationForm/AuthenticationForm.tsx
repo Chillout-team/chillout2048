@@ -1,6 +1,8 @@
 import cls from "./AuthenticationForm.module.scss";
 import { Button } from "@/components/common/button/Button";
 import { Form } from "formik";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@/router/routes";
 
 type Props = {
     title: string;
@@ -12,6 +14,7 @@ type Props = {
 
 export const AuthenticationForm = (props: Props) => {
     const { children, buttonTitle, goToRegistration, goToHome, title } = props;
+
     return (
         <Form className={cls.form}>
             <div>
@@ -23,14 +26,14 @@ export const AuthenticationForm = (props: Props) => {
                     {buttonTitle}
                 </Button>
                 {goToRegistration && (
-                    <a href="" className={cls.__green}>
+                    <Link className={cls.__green} to={ROUTES.SINGUP.path}>
                         Нет аккаунта?
-                    </a>
+                    </Link>
                 )}
                 {goToHome && (
-                    <a href="" className={cls.__orange}>
+                    <Link className={cls.__orange} to={ROUTES.HOME.path}>
                         Домой
-                    </a>
+                    </Link>
                 )}
             </div>
         </Form>

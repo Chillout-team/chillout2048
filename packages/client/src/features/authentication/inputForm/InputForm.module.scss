@@ -33,7 +33,7 @@
         font-size: 13px;
         line-height: 13px;
     }
-    .input:focus ~ .placeholder,
+    .input .input:focus ~ .placeholder,
     .input:not(:placeholder-shown) ~ .placeholder {
         font-size: 13px;
         line-height: 13px;
@@ -45,23 +45,15 @@
     .input_error {
         opacity: 0;
     }
-}
 
-.__error {
-    .placeholder {
-        color: var(--warning-color);
-    }
-    .input_error {
-        font-family: "Inter";
+    .error_label {
+        position: absolute;
         font-style: normal;
-        color: var(--warning-color);
-        padding: 5px;
+        color: var(--color-red);
         font-weight: 400;
-        font-size: 14px;
-        line-height: 14px;
-        opacity: 1;
-    }
-    .input {
-        color: var(--warning-color);
+        font-size: 12px;
+        line-height: 12px;
+        top: 32px;
+        left: 0;
     }
 }

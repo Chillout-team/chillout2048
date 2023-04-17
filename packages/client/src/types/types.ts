@@ -1,8 +1,26 @@
+type ExitFullscreen = typeof document.exitFullscreen
+type RequestFullscreen = typeof document.documentElement.requestFullscreen
+
+declare global {
+  interface Document {
+    webkitExitFullscreen: ExitFullscreen;
+    mozCancelFullScreen: ExitFullscreen;
+    msExitFullscreen: ExitFullscreen;
+  }
+
+  interface HTMLElement {
+    webkitRequestFullscreen: RequestFullscreen;
+    mozRequestFullScreen: RequestFullscreen;
+    msRequestFullscreen: RequestFullscreen;
+  }
+}
+
 export type TIndexed<T = any> = {
     [key in string]: T;
 };
 
 export interface IUserData {
+    id?: number | null;
     first_name: string;
     second_name: string;
     display_name: string;
@@ -11,6 +29,12 @@ export interface IUserData {
     password?: string;
     phone: string;
     avatar?: string;
+}
+
+export interface IUserState {
+    user: IUserData | null;
+    error?: string;
+    loadingStatus: "loading" | "idle" | "failed";
 }
 
 export interface IForumData {

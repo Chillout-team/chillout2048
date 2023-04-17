@@ -1,10 +1,12 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import cls from "./ProfileForm.module.scss";
 import { Formik, Form, Field } from "formik";
 import { Input } from "@/components/common/input/Input";
 import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
-import { changePassword } from "@/controllers/userController";
+import { NewPasswordSchema } from "@/utils/validator/Validator";
+import { changePassword } from "@/redux/actions/userAction";
+import { useAppDispatch } from "@/redux/hooks";
 
 interface IFormEditPassword {
     toggle: boolean;
@@ -21,6 +23,8 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
     toggle,
     toggleForm,
 }) => {
+    const dispatch = useAppDispatch();
+
     const initialValues: IPasswordForm = {
         oldPassword: "",
         newPassword: "",
@@ -32,7 +36,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
             oldPassword: values.oldPassword,
             newPassword: values.newPassword,
         };
-        changePassword(data);
+        dispatch(changePassword(data));
         toggleForm();
     };
 
@@ -41,6 +45,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
+                validationSchema={NewPasswordSchema}
                 onSubmit={submit}>
                 {() => (
                     <Form className={cls.form}>
@@ -52,6 +57,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -63,6 +69,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
@@ -74,6 +81,7 @@ export const FormEditPassword: FC<IFormEditPassword> = ({
                             labelClassName={cls.label}
                             inputClassName={cls.input}
                             containerClassName={cls.item}
+                            errorClassName={cls.error_label}
                             component={Input}
                         />
 
