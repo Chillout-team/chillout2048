@@ -320,7 +320,7 @@ class GameClass {
     }
 
     updateScore(score: number): void {
-        this.score += score * 100;
+        this.score += score;
         if (this.setScoreCallback) {
             if (this.score < 1000) {
                 this.setScoreCallback(`${this.score}`);
