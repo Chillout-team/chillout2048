@@ -11,8 +11,12 @@ type Props = {
 };
 
 export const Header = ({ extraClass = "" }: Props) => {
-    const avatar = useSelector((state: RootState) => state.user?.user?.avatar || "");
-    const login = useSelector((state: RootState) => state.user?.user?.login || "");
+    const avatar = useSelector(
+        (state: RootState) => state.user?.user?.avatar || "",
+    );
+    const login = useSelector(
+        (state: RootState) => state.user?.user?.login || "",
+    );
     const dispatch = useAppDispatch();
 
     const handleLogout = () => dispatch(logout());

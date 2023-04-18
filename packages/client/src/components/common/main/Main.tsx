@@ -7,9 +7,9 @@ type Props = {
 };
 
 export const Main = ({ children, extraClass = "" }: Props) => {
-    return <ErrorBoundary>
-        <main className={`${cls.main} ${extraClass}`}>
-            {children}
-        </main>
-    </ErrorBoundary>;
+    return (
+        <ErrorBoundary>
+            <main className={`${cls.main} ${extraClass}`}>{children}</main>
+        </ErrorBoundary>
+    );
 };
