@@ -37,6 +37,7 @@ export const Game = () => {
 
     const toggleFullscreen = () => {
         activateFullscreen(canvas);
+        startNewGame();
         deactivateFullscreen();
     };
 
