@@ -1,4 +1,5 @@
 import cls from "./Main.module.scss";
+import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 
 type Props = {
     extraClass?: string;
@@ -6,5 +7,9 @@ type Props = {
 };
 
 export const Main = ({ children, extraClass = "" }: Props) => {
-    return <main className={`${cls.main} ${extraClass}`}>{children}</main>;
+    return <ErrorBoundary>
+        <main className={`${cls.main} ${extraClass}`}>
+            {children}
+        </main>
+    </ErrorBoundary>;
 };

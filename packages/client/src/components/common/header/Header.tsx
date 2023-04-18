@@ -52,6 +52,7 @@ export const Header = ({ extraClass = "" }: Props) => {
         <header className={`${cls.header} ${extraClass}`}>
             <nav>
                 <div>
+                    <Link to={ROUTES.HOME.path}>Домой</Link>
                     <Link to={ROUTES.FORUM.path}>Форум</Link>
                     <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                 </div>
