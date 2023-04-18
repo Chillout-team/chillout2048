@@ -40,7 +40,7 @@ class GameClass {
     isCheckGameOver: boolean;
     play: boolean;
     win: boolean;
-    setScoreCallback: React.Dispatch<React.SetStateAction<number>> | undefined;
+    setScoreCallback: React.Dispatch<React.SetStateAction<string>> | undefined;
     playCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
     gameOverCallback:
         | React.Dispatch<React.SetStateAction<GameOverStatus>>
@@ -81,9 +81,10 @@ class GameClass {
             this.playCallback(true);
         }
         if (this.setScoreCallback) {
-            this.setScoreCallback(0);
+            this.setScoreCallback("0");
         }
         this.play = true;
+        this.score = 0;
         this.map = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -96,7 +97,7 @@ class GameClass {
         canvas: HTMLCanvasElement,
         playCallback: React.Dispatch<React.SetStateAction<boolean>>,
         gameOverCallback: React.Dispatch<React.SetStateAction<GameOverStatus>>,
-        setScoreCallback: React.Dispatch<React.SetStateAction<number>>,
+        setScoreCallback: React.Dispatch<React.SetStateAction<string>>,
     ) {
         if (canvas) {
             canvas.width = this.windth;
@@ -318,6 +319,19 @@ class GameClass {
         }
     }
 
+    updateScore(score: number): void {
+        this.score += score * 100;
+        if (this.setScoreCallback) {
+            if (this.score < 1000) {
+                this.setScoreCallback(`${this.score}`);
+            } else if (this.score >= 1000 && this.score < 1000000) {
+                this.setScoreCallback(`${this.score / 1000}K`);
+            } else {
+                this.setScoreCallback(`${this.score / 1000000}KК`);
+            }
+        }
+    }
+
     moveCell(newPos: Positon, oldPos: Positon): boolean {
         if (this.map[oldPos.y][oldPos.x] > 0) {
             if (this.map[newPos.y][newPos.x] === 0) {
@@ -331,6 +345,7 @@ class GameClass {
             ) {
                 if (!this.isCheckGameOver) {
                     this.map[newPos.y][newPos.x] *= 2;
+                    this.updateScore(this.map[newPos.y][newPos.x]);
                     this.map[oldPos.y][oldPos.x] = 0;
                 }
                 return true;
