@@ -18,7 +18,7 @@ export const Game = () => {
 
     const [isPlay, setIsPlay] = useState(false);
     const [gameOver, setGameOver] = useState("none");
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState("0");
     const [bestScore, setBestScore] = useState(0);
 
     function startNewGame() {
