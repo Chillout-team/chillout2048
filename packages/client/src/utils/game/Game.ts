@@ -4,31 +4,20 @@ const PADDING = 8;
 const MAX_POSITON = 4;
 const MIN_POSITON = 0;
 
-export const GameLoad = (canvas: HTMLCanvasElement | null) => {
-    if (!canvas) {
-        return;
-    }
-    new Game(WIDTH, HEIGHT, PADDING, canvas);
-};
-
-type Mode = "Row" | "Colm";
+export type Mode = "Row" | "Colm";
 type Direction = "Up" | "Down" | "Right" | "Left";
 type Positon = { x: number; y: number };
 
-class Game {
+class GameClass {
     height: number;
     windth: number;
     padding: number;
-    ctx: CanvasRenderingContext2D;
+    ctx: CanvasRenderingContext2D | undefined;
     cell: Record<string, number>;
     map: number[][];
     isCheckGameOver: boolean;
-    constructor(
-        height: number,
-        windth: number,
-        padding: number,
-        canvas: HTMLCanvasElement,
-    ) {
+    play: boolean;
+    constructor(height: number, windth: number, padding: number) {
         this.height = height * 2;
         this.windth = windth * 2;
         this.padding = padding * 2;
@@ -36,8 +25,6 @@ class Game {
             height: (this.height - this.padding * 5) / MAX_POSITON,
             width: (this.windth - this.padding * 5) / MAX_POSITON,
         };
-        canvas.width = this.windth;
-        canvas.height = this.height;
         this.map = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -45,15 +32,34 @@ class Game {
             [0, 0, 0, 0],
         ];
         this.isCheckGameOver = false;
-        this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        this.init();
-        this.initControl();
-    }
-    init() {
-        for (let i = 0; i < 2; i++) {
-            this.createRandomCell();
-        }
+        this.play = false;
         this.update();
+    }
+
+    start() {
+        if (this.ctx) {
+            this.play = true;
+            this.map = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+            ];
+            for (let i = 0; i < 2; i++) {
+                this.createRandomCell();
+            }
+            this.update();
+        }
+    }
+
+    init(canvas: HTMLCanvasElement) {
+        if (canvas) {
+            canvas.width = this.windth;
+            canvas.height = this.height;
+            this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            this.initControl();
+            this.update();
+        }
     }
 
     createRandomCell() {
@@ -67,61 +73,69 @@ class Game {
     }
 
     render(numCell: number, color: string, xPos: number, yPos: number) {
-        this.ctx.strokeStyle = color;
-        this.ctx.fillStyle = color;
-        this.ctx.beginPath();
-        this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [26]);
-        this.ctx.stroke();
-        this.ctx.fill();
-        this.ctx.beginPath();
-        if (numCell) {
-            this.ctx.fillStyle = "#FFFFFF";
-            if (numCell < 10) {
-                this.ctx.font = "normal 70px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
-            } else if (numCell < 100 && numCell > 10) {
-                this.ctx.font = "normal 60px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
-            } else if (numCell < 1000 && numCell > 100) {
-                this.ctx.font = "normal 50px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
-            } else if (numCell > 10000 && numCell < 100000) {
-                this.ctx.font = "normal 30px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 17, yPos + 72);
+        if (this.ctx) {
+            this.ctx.strokeStyle = color;
+            this.ctx.fillStyle = color;
+            this.ctx.beginPath();
+            this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [
+                26,
+            ]);
+            this.ctx.stroke();
+            this.ctx.fill();
+            this.ctx.beginPath();
+            if (numCell) {
+                this.ctx.fillStyle = "#FFFFFF";
+                if (numCell < 10) {
+                    this.ctx.font = "normal 70px Inter";
+                    this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
+                } else if (numCell < 100 && numCell > 10) {
+                    this.ctx.font = "normal 60px Inter";
+                    this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
+                } else if (numCell < 1000 && numCell > 100) {
+                    this.ctx.font = "normal 50px Inter";
+                    this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
+                } else if (numCell > 10000 && numCell < 100000) {
+                    this.ctx.font = "normal 30px Inter";
+                    this.ctx.fillText(`${numCell}`, xPos + 17, yPos + 72);
+                }
             }
         }
     }
     update() {
-        this.ctx.clearRect(0, 0, this.windth, this.height);
-        for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
-            for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
-                this.render(
-                    this.map[y][x],
-                    `rgb(${(155 - this.map[y][x]) % 255}, ${
-                        (220 - this.map[y][x] * 15) % 255
-                    }, ${(160 - this.map[y][x] * 3) % 255})`,
-                    (this.cell.width + this.padding) * x + this.padding,
-                    (this.cell.height + this.padding) * y + this.padding,
-                );
+        if (this.ctx) {
+            this.ctx.clearRect(0, 0, this.windth, this.height);
+            for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+                for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+                    this.render(
+                        this.map[y][x],
+                        `rgb(${(155 - this.map[y][x]) % 255}, ${
+                            (220 - this.map[y][x] * 15) % 255
+                        }, ${(160 - this.map[y][x] * 3) % 255})`,
+                        (this.cell.width + this.padding) * x + this.padding,
+                        (this.cell.height + this.padding) * y + this.padding,
+                    );
+                }
             }
+            this.checkGameOver();
         }
-        this.checkGameOver();
     }
     initControl() {
         document.addEventListener("keyup", e => {
-            switch (e.key) {
-                case "ArrowUp":
-                    this.moveUp();
-                    break;
-                case "ArrowDown":
-                    this.moveDown();
-                    break;
-                case "ArrowLeft":
-                    this.moveLeft();
-                    break;
-                case "ArrowRight":
-                    this.moveRight();
-                    break;
+            if (this.play) {
+                switch (e.key) {
+                    case "ArrowUp":
+                        this.moveUp();
+                        break;
+                    case "ArrowDown":
+                        this.moveDown();
+                        break;
+                    case "ArrowLeft":
+                        this.moveLeft();
+                        break;
+                    case "ArrowRight":
+                        this.moveRight();
+                        break;
+                }
             }
         });
     }
@@ -312,3 +326,5 @@ class Game {
         return isMove;
     }
 }
+
+export const GameEngine = new GameClass(HEIGHT, WIDTH, PADDING);

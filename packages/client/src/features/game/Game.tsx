@@ -1,7 +1,7 @@
 import { Main } from "@/components/common/main/Main";
 import { Header } from "@/components/common/header/Header";
 import cls from "./Game.module.scss";
-import { GameLoad } from "@/utils/game/Game";
+import { GameEngine } from "@/utils/game/Game";
 import { useEffect, useState } from "react";
 import {
     activateFullscreen,
@@ -12,10 +12,18 @@ import { Button } from "@/components/common/button/Button";
 
 export const Game = () => {
     let canvas: HTMLCanvasElement;
+    const game = GameEngine;
+
+    const [isPlay, setIsPlay] = useState(false);
+
+    function startNewGame() {
+        game.start();
+        setIsPlay(true);
+    }
 
     useEffect(() => {
         canvas = document.getElementById("canvas") as HTMLCanvasElement;
-        GameLoad(canvas);
+        game.init(canvas);
     }, []);
 
     const toggleFullscreen = () => {
@@ -58,9 +66,7 @@ export const Game = () => {
                                     size="small"
                                     color="orange"
                                     type="submit"
-                                    onClick={() => {
-                                        return;
-                                    }}>
+                                    onClick={() => startNewGame()}>
                                     Новая игра
                                 </Button>
                                 <button
@@ -79,9 +85,16 @@ export const Game = () => {
                         </div>
                     </div>
                     <div className={cls.body}>
-                        <Button size="big" color="orange" type="submit">
-                            Начать игру!
-                        </Button>
+                        {!isPlay && (
+                            <Button
+                                size="big"
+                                color="orange"
+                                type="submit"
+                                onClick={() => startNewGame()}>
+                                Начать игру!
+                            </Button>
+                        )}
+
                         <canvas id="canvas" className={cls.canvas}></canvas>
                     </div>
                 </div>
