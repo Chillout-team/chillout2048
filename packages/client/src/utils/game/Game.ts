@@ -3,6 +3,26 @@ const HEIGHT = 280;
 const PADDING = 8;
 const MAX_POSITON = 4;
 const MIN_POSITON = 0;
+const COLOR = {
+    cell_0: "#A7D6AC",
+    cell_2: "#EEE4DA",
+    cell_4: "#E8C9AB",
+    cell_8: "#DA944E",
+    cell_16: "#FF9E3D",
+    cell_32: "#FFA88C",
+    cell_64: "#94aef5",
+    cell_128: "#66ba9d",
+    cell_256: "#d57eba",
+    cell_512: "#92c4d1",
+    cell_1024: "#cca5fb",
+    cell_2048: "#FFD43D",
+    cell_4096: "#d497d9",
+    cell_8192: "#d997ba",
+    cell_16384: "#97d5d9",
+    cell_32768: "#aafdcc",
+    cell_65536: "#b9aafd",
+    cell_131072: "ff0000",
+};
 
 export const GameLoad = (canvas: HTMLCanvasElement | null) => {
     if (!canvas) {
@@ -21,12 +41,14 @@ class Game {
     ctx: CanvasRenderingContext2D;
     cell: Record<string, number>;
     map: number[][];
+    score: number;
     constructor(
         height: number,
         windth: number,
         padding: number,
         canvas: HTMLCanvasElement,
     ) {
+        this.score = 0;
         this.height = height * 2;
         this.windth = windth * 2;
         this.padding = padding * 2;
@@ -72,19 +94,25 @@ class Game {
         this.ctx.fill();
         this.ctx.beginPath();
         if (numCell) {
-            this.ctx.fillStyle = "#FFFFFF";
-            if (numCell < 10) {
+            this.ctx.fillStyle = "#71685F";
+            if (numCell < 16) {
                 this.ctx.font = "normal 70px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
-            } else if (numCell < 100 && numCell > 10) {
+            } else if (numCell < 128 && numCell >= 16) {
                 this.ctx.font = "normal 60px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
-            } else if (numCell < 1000 && numCell > 100) {
+            } else if (numCell < 1024 && numCell >= 128) {
                 this.ctx.font = "normal 50px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
-            } else if (numCell > 10000 && numCell < 100000) {
-                this.ctx.font = "normal 30px Inter";
-                this.ctx.fillText(`${numCell}`, xPos + 17, yPos + 72);
+            } else if (numCell < 16384 && numCell >= 1024) {
+                this.ctx.font = "normal 40px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 12, yPos + 75);
+            } else if (numCell < 131072 && numCell >= 16384) {
+                this.ctx.font = "normal 35px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 7, yPos + 72);
+            } else if (numCell === 131072) {
+                this.ctx.font = "normal 32px Inter";
+                this.ctx.fillText(`${numCell}`, xPos + 6, yPos + 72);
             }
         }
     }
@@ -92,15 +120,54 @@ class Game {
         this.ctx.clearRect(0, 0, this.windth, this.height);
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
             for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+                const targetCell = this.map[y][x];
                 this.render(
-                    this.map[y][x],
-                    `rgb(${(155 - this.map[y][x]) % 255}, ${
-                        (220 - this.map[y][x] * 15) % 255
-                    }, ${(160 - this.map[y][x] * 3) % 255})`,
+                    targetCell,
+                    this.colorCell(targetCell),
                     (this.cell.width + this.padding) * x + this.padding,
                     (this.cell.height + this.padding) * y + this.padding,
                 );
             }
+        }
+    }
+    colorCell(cell: number) {
+        switch (cell) {
+            case 2:
+                return COLOR.cell_2;
+            case 4:
+                return COLOR.cell_4;
+            case 8:
+                return COLOR.cell_8;
+            case 16:
+                return COLOR.cell_16;
+            case 32:
+                return COLOR.cell_32;
+            case 64:
+                return COLOR.cell_64;
+            case 128:
+                return COLOR.cell_128;
+            case 256:
+                return COLOR.cell_256;
+            case 512:
+                return COLOR.cell_512;
+            case 1024:
+                return COLOR.cell_1024;
+            case 2048:
+                return COLOR.cell_2048;
+            case 4096:
+                return COLOR.cell_4096;
+            case 8192:
+                return COLOR.cell_8192;
+            case 16384:
+                return COLOR.cell_16384;
+            case 32768:
+                return COLOR.cell_32768;
+            case 65536:
+                return COLOR.cell_65536;
+            case 131072:
+                return COLOR.cell_131072;
+            default:
+                return COLOR.cell_0;
         }
     }
     initControl() {
@@ -196,7 +263,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y + 1][x] === this.map[y][x]) {
-                        this.map[y + 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y + 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -220,7 +289,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y - 1][x] === this.map[y][x]) {
-                        this.map[y - 1][x] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y - 1][x] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -244,7 +315,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x + 1] === this.map[y][x]) {
-                        this.map[y][x + 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x + 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
@@ -268,7 +341,9 @@ class Game {
                         this.map[y][x] = 0;
                         isMove = true;
                     } else if (this.map[y][x - 1] === this.map[y][x]) {
-                        this.map[y][x - 1] += this.map[y][x];
+                        const targetCell = this.map[y][x] * 2;
+                        this.score += targetCell;
+                        this.map[y][x - 1] = targetCell;
                         this.map[y][x] = 0;
                         isMove = true;
                     }
