@@ -84,6 +84,7 @@ class GameClass {
             this.setScoreCallback(0);
         }
         this.play = true;
+        this.score = 0;
         this.map = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -318,6 +319,13 @@ class GameClass {
         }
     }
 
+    updateScore(score: number): void {
+        this.score += score;
+        if (this.setScoreCallback) {
+            this.setScoreCallback(this.score);
+        }
+    }
+
     moveCell(newPos: Positon, oldPos: Positon): boolean {
         if (this.map[oldPos.y][oldPos.x] > 0) {
             if (this.map[newPos.y][newPos.x] === 0) {
@@ -331,6 +339,7 @@ class GameClass {
             ) {
                 if (!this.isCheckGameOver) {
                     this.map[newPos.y][newPos.x] *= 2;
+                    this.updateScore(this.map[newPos.y][newPos.x]);
                     this.map[oldPos.y][oldPos.x] = 0;
                 }
                 return true;
