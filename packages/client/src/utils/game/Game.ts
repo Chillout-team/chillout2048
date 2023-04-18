@@ -3,6 +3,26 @@ const HEIGHT = 280;
 const PADDING = 8;
 const MAX_POSITON = 4;
 const MIN_POSITON = 0;
+const COLOR = {
+    cell_0: "#A7D6AC",
+    cell_2: "#EEE4DA",
+    cell_4: "#E8C9AB",
+    cell_8: "#DA944E",
+    cell_16: "#FF9E3D",
+    cell_32: "#FFA88C",
+    cell_64: "#94aef5",
+    cell_128: "#66ba9d",
+    cell_256: "#d57eba",
+    cell_512: "#92c4d1",
+    cell_1024: "#cca5fb",
+    cell_2048: "#FFD43D",
+    cell_4096: "#d497d9",
+    cell_8192: "#d997ba",
+    cell_16384: "#97d5d9",
+    cell_32768: "#aafdcc",
+    cell_65536: "#b9aafd",
+    cell_131072: "ff0000",
+};
 
 export const GameLoad = (canvas: HTMLCanvasElement | null) => {
     if (!canvas) {
@@ -74,7 +94,7 @@ class Game {
         this.ctx.fill();
         this.ctx.beginPath();
         if (numCell) {
-            this.ctx.fillStyle = "#FFFFFF";
+            this.ctx.fillStyle = "#71685F";
             if (numCell < 16) {
                 this.ctx.font = "normal 70px Inter";
                 this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
@@ -112,44 +132,42 @@ class Game {
     }
     colorCell(cell: number) {
         switch (cell) {
-            case 0:
-                return "#A7D6AC";
             case 2:
-                return "#ea9e39";
+                return COLOR.cell_2;
             case 4:
-                return "#8f912a";
+                return COLOR.cell_4;
             case 8:
-                return "#5c8833";
+                return COLOR.cell_8;
             case 16:
-                return "#37b12e";
+                return COLOR.cell_16;
             case 32:
-                return "#39eaa3";
+                return COLOR.cell_32;
             case 64:
-                return "#39b2ea";
+                return COLOR.cell_64;
             case 128:
-                return "#7439ea";
+                return COLOR.cell_128;
             case 256:
-                return "#cd39ea";
+                return COLOR.cell_256;
             case 512:
-                return "#ea3989";
+                return COLOR.cell_512;
             case 1024:
-                return "#f35217";
-            case 2024:
-                return "#bc8205";
+                return COLOR.cell_1024;
+            case 2048:
+                return COLOR.cell_2048;
             case 4096:
-                return "#a7bc05";
+                return COLOR.cell_4096;
             case 8192:
-                return "#2dbc05";
+                return COLOR.cell_8192;
             case 16384:
-                return "#11a967";
+                return COLOR.cell_16384;
             case 32768:
-                return "#02909d";
+                return COLOR.cell_32768;
             case 65536:
-                return "#02339d";
+                return COLOR.cell_65536;
             case 131072:
-                return "#5f20a6";
+                return COLOR.cell_131072;
             default:
-                return "#000000";
+                return COLOR.cell_0;
         }
     }
     initControl() {
