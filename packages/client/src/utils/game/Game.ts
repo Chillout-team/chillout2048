@@ -17,6 +17,9 @@ class GameClass {
     map: number[][];
     isCheckGameOver: boolean;
     play: boolean;
+    win: boolean;
+    playCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+    gameOverCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
     constructor(height: number, windth: number, padding: number) {
         this.height = height * 2;
         this.windth = windth * 2;
@@ -33,11 +36,19 @@ class GameClass {
         ];
         this.isCheckGameOver = false;
         this.play = false;
+        this.win = false;
         this.update();
     }
 
-    start() {
+    start(
+        playCallback: React.Dispatch<React.SetStateAction<boolean>>,
+        gameOverCallback: React.Dispatch<React.SetStateAction<boolean>>,
+    ) {
+        this.playCallback = playCallback;
+        this.gameOverCallback = gameOverCallback;
+
         if (this.ctx) {
+            this.playCallback(true);
             this.play = true;
             this.map = [
                 [0, 0, 0, 0],
@@ -212,7 +223,13 @@ class GameClass {
         const isMoveRight = this.moveRight();
         this.isCheckGameOver = false;
         if (!isMoveDown && !isMoveUp && !isMoveLeft && !isMoveRight) {
-            console.log("game over");
+            if (this.playCallback) {
+                this.playCallback(false);
+                this.play = false;
+            }
+            if (this.gameOverCallback) {
+                this.gameOverCallback(this.win);
+            }
         }
     }
 

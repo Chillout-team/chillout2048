@@ -15,10 +15,10 @@ export const Game = () => {
     const game = GameEngine;
 
     const [isPlay, setIsPlay] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
 
     function startNewGame() {
-        game.start();
-        setIsPlay(true);
+        game.start(setIsPlay, setGameOver);
     }
 
     useEffect(() => {
