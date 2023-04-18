@@ -1,12 +1,12 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import { Main } from "../../components/common/main/Main";
+import { Main } from "@/components/common/main/Main";
 import { ForumForm } from "./forumForm/ForumForm";
 import { ForumMessagesList } from "./forumMessagesList/ForumMessagesList";
 import { ForumTopicsList } from "./forumTopicsList/ForumTopicsList";
 import cls from "./Forum.module.scss";
-import { Header } from "../../components/common/header/Header";
-import formDataMock from "../../assets/mocks/forum-data.json";
-import { IForumData } from "../../types/types";
+import { Header } from "@/components/common/header/Header";
+import formDataMock from "@/assets/mocks/forum-data.json";
+import { IForumData } from "@/types/types";
 import { useParams, useNavigate } from "react-router-dom";
 
 /** Страница форума. */
@@ -27,7 +27,7 @@ export const Forum: FC = () => {
 
     return (
         <Main>
-            <Header isAuth={true} userName="Иван" />
+            <Header />
             <header className={cls.pageHeader}>
                 <h1 className={cls.pageTitle}>Форум</h1>
             </header>

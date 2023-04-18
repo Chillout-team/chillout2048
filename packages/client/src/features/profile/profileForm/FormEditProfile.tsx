@@ -1,42 +1,36 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
+import { FC } from "react";
 import cls from "./ProfileForm.module.scss";
 import { Formik, Form, Field } from "formik";
 import { Input } from "@/components/common/input/Input";
 import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
 import { IUserData } from "@/types/types";
-import { changeProfile } from "@/controllers/userController";
 import { ProfileSchema } from "@/utils/validator/Validator";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { changeProfile } from "@/redux/actions/userAction";
+import { useAppDispatch } from "@/redux/hooks";
 
 interface IFormEditProfile {
-    user: IUserData;
     toggle: boolean;
-    setLogin: Dispatch<SetStateAction<string>>;
     onToggle: () => void;
 }
 
-export const FormEditProfile: FC<IFormEditProfile> = ({
-    user,
-    toggle,
-    setLogin,
-    onToggle,
-}) => {
-    const { email, login, first_name, second_name, display_name, phone } = user;
+export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
+    const user = useSelector((state: RootState) => state.user.user);
+    const dispatch = useAppDispatch();
 
     const initialValues = {
-        email: email || "",
-        login: login || "",
-        first_name: first_name || "",
-        second_name: second_name || "",
-        display_name: display_name || "",
-        phone: phone || "",
+        email: user?.email || "",
+        login: user?.login || "",
+        first_name: user?.first_name || "",
+        second_name: user?.second_name || "",
+        display_name: user?.display_name || "",
+        phone: user?.phone || "",
     };
 
-    const submit = (values: IUserData) => {
-        changeProfile(values).then(data => {
-            if (data) setLogin(data.login);
-            //console.log(data);
-        });
+    const onSubmit = (values: IUserData) => {
+        dispatch(changeProfile(values));
         onToggle();
     };
 
@@ -46,7 +40,7 @@ export const FormEditProfile: FC<IFormEditProfile> = ({
                 initialValues={initialValues}
                 enableReinitialize={true}
                 validationSchema={ProfileSchema}
-                onSubmit={submit}>
+                onSubmit={onSubmit}>
                 {() => (
                     <Form className={cls.form}>
                         <Field

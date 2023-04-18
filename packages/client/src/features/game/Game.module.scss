@@ -1,30 +1,90 @@
-.main_page_wrapper {
-    margin: 17px 32px;
+.wrapper {
+    margin: 15px auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.header {
-    color: var(--color-green);
-    font-weight: 700;
-    font-size: 43px;
-}
-
-.header_text {
-    margin-top: 33px;
-    margin-bottom: 39px;
-    color: var(--color-green);
-    span {
-        color: var(--color-dark-green);
+    max-width: 420px;
+    .header {
+        display: flex;
+        color: var(--color-green);
+        h1 {
+            font-weight: 700;
+            font-size: 87px;
+            line-height: 105px;
+        }
+        h4 {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 22px;
+        }
+        p {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 18px;
+        }
+        .scores_wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            .scores {
+                display: flex;
+                justify-content: space-evenly;
+                .score {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    background-color: var(--color-light-orange);
+                    border-radius: 8px;
+                    text-align: center;
+                    width: 65px;
+                    height: 55px;
+                    color: var(--color-white-smoke);
+                    .title {
+                        font-weight: 400;
+                        font-size: 15px;
+                        line-height: 18px;
+                    }
+                    .number {
+                        font-weight: 700;
+                        font-size: 25px;
+                        line-height: 30px;
+                    }
+                }
+            }
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                .button_full {
+                    margin-top: 9px;
+                    background: transparent;
+                    border: 1px solid var(--dark-background-color);
+                    border-radius: 8px;
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+                }
+            }
+        }
     }
-}
-
-.canvas {
-    width: 280px;
-    height: 280px;
-    border-radius: 13px;
-    background: var(--color-dark-green);
-    margin: 40px auto;
+    .body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 17px;
+        .canvas {
+            width: 420px;
+            height: 420px;
+            border-radius: 13px;
+            background: var(--color-dark-green);
+            margin: auto;
+        }
+        button {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
 }

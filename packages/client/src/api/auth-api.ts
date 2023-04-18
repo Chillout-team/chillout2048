@@ -1,47 +1,23 @@
-import { YANDEX_API_URL } from "@/consts/common";
+import { TIndexed } from "@/types/types";
 import { baseAPI } from "./api";
-import { IUserData } from "@/types/types";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-interface IPayload {
-    data: IUserData;
-    path: string;
-}
 
 export const authAPI = {
+    async signin(data: TIndexed) {
+        return await baseAPI.post(
+            `/auth/signin`,
+            JSON.stringify(data)
+            );
+    },
+    async signup(data: TIndexed) {
+        return await baseAPI.post(
+            `/auth/signup`,
+            JSON.stringify(data)
+        );
+    },
     async user() {
-        const response = await baseAPI.get(`/auth/user`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        return response;
+        return await baseAPI.get(`/auth/user`);
+    },
+    async logout() {
+        return await baseAPI.post(`/auth/logout`);
     },
 };
-
-export const AuthRequest = createAsyncThunk(
-    "auth/AuthRequest",
-    async function (payload: IPayload, thunkApi) {
-        const { data, path } = payload;
-        try {
-            const response = await axios.post(
-                `${YANDEX_API_URL}${path}`,
-                data,
-                {
-                    headers: {
-                        "content-type": "application/json",
-                        "Access-Control-Allow-Methods": "GET, POST, PUT",
-                        "Access-Control-Allow-Headers": "content-type",
-                    },
-                    withCredentials: true,
-                },
-            );
-            return response.data;
-        } catch (error) {
-            if (error instanceof Error) {
-                return thunkApi.rejectWithValue(error.message);
-            }
-        }
-    },
-);

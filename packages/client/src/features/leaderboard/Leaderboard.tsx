@@ -48,11 +48,9 @@ export const Leaderboard = () => {
         },
     ];
 
-    const isAuth = true;
-
     return (
         <>
-            <Header isAuth={isAuth} />
+            <Header />
             <Main extraClass={cls.extra}>
                 <div className={cls.head}>
                     <h1>2048</h1>

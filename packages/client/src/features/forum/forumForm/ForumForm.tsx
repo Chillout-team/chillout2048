@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent, useState } from "react";
-import { Button } from "../../../components/common/button/Button";
-import { TextArea } from "../../../components/common/textarea/TextArea";
+import { Button } from "@/components/common/button/Button";
+import { TextArea } from "@/components/common/textarea/TextArea";
 import cls from "./ForumForm.module.scss";
 
 interface IForumFormProps {
