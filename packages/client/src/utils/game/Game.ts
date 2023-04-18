@@ -27,6 +27,7 @@ const COLOR = {
 export type Mode = "Row" | "Colm";
 type Direction = "Up" | "Down" | "Right" | "Left";
 type Positon = { x: number; y: number };
+type GameOverStatus = "win" | "lose" | "none";
 
 class GameClass {
     height: number;
@@ -39,8 +40,11 @@ class GameClass {
     isCheckGameOver: boolean;
     play: boolean;
     win: boolean;
+    setScoreCallback: React.Dispatch<React.SetStateAction<number>> | undefined;
     playCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-    gameOverCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+    gameOverCallback:
+        | React.Dispatch<React.SetStateAction<GameOverStatus>>
+        | undefined;
     constructor(height: number, windth: number, padding: number) {
         this.score = 0;
         this.height = height * 2;
@@ -62,22 +66,9 @@ class GameClass {
         this.update();
     }
 
-    start(
-        playCallback: React.Dispatch<React.SetStateAction<boolean>>,
-        gameOverCallback: React.Dispatch<React.SetStateAction<boolean>>,
-    ) {
-        this.playCallback = playCallback;
-        this.gameOverCallback = gameOverCallback;
-
+    start() {
         if (this.ctx) {
-            this.playCallback(true);
-            this.play = true;
-            this.map = [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ];
+            this.newGame();
             for (let i = 0; i < 2; i++) {
                 this.createRandomCell();
             }
@@ -85,13 +76,37 @@ class GameClass {
         }
     }
 
-    init(canvas: HTMLCanvasElement) {
+    newGame() {
+        if (this.playCallback) {
+            this.playCallback(true);
+        }
+        if (this.setScoreCallback) {
+            this.setScoreCallback(0);
+        }
+        this.play = true;
+        this.map = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+    }
+
+    init(
+        canvas: HTMLCanvasElement,
+        playCallback: React.Dispatch<React.SetStateAction<boolean>>,
+        gameOverCallback: React.Dispatch<React.SetStateAction<GameOverStatus>>,
+        setScoreCallback: React.Dispatch<React.SetStateAction<number>>,
+    ) {
         if (canvas) {
             canvas.width = this.windth;
             canvas.height = this.height;
             this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
             this.initControl();
             this.update();
+            this.playCallback = playCallback;
+            this.gameOverCallback = gameOverCallback;
+            this.setScoreCallback = setScoreCallback;
         }
     }
 
@@ -110,7 +125,9 @@ class GameClass {
             this.ctx.strokeStyle = color;
             this.ctx.fillStyle = color;
             this.ctx.beginPath();
-            this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [26]);
+            this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [
+                26,
+            ]);
             this.ctx.stroke();
             this.ctx.fill();
             this.ctx.beginPath();
@@ -137,7 +154,6 @@ class GameClass {
                 }
             }
         }
-        
     }
     update() {
         if (this.ctx) {
@@ -145,6 +161,9 @@ class GameClass {
             for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
                 for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
                     const targetCell = this.map[y][x];
+                    if (targetCell === 2048) {
+                        this.win = true;
+                    }
                     this.render(
                         targetCell,
                         this.colorCell(targetCell),
@@ -294,7 +313,7 @@ class GameClass {
                 this.play = false;
             }
             if (this.gameOverCallback) {
-                this.gameOverCallback(this.win);
+                this.gameOverCallback(this.win ? "win" : "lose");
             }
         }
     }

@@ -10,29 +10,35 @@ import {
 import full from "@/assets/img/full.svg";
 import { Button } from "@/components/common/button/Button";
 
+type GameOverStatus = "win" | "lose" | "none";
+
 export const Game = () => {
     let canvas: HTMLCanvasElement;
     const game = GameEngine;
 
     const [isPlay, setIsPlay] = useState(false);
-    const [gameOver, setGameOver] = useState(false);
+    const [gameOver, setGameOver] = useState("none");
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
 
     function startNewGame() {
-        game.start(setIsPlay, setGameOver);
+        game.start();
     }
 
     useEffect(() => {
         canvas = document.getElementById("canvas") as HTMLCanvasElement;
-        game.init(canvas);
+        game.init(
+            canvas,
+            setIsPlay,
+            setGameOver as React.Dispatch<React.SetStateAction<GameOverStatus>>,
+            setScore,
+        );
     }, []);
 
     const toggleFullscreen = () => {
-        activateFullscreen(canvas!);
+        activateFullscreen(canvas);
         deactivateFullscreen();
     };
-
-    const [score, setScore] = useState(0);
-    const [bestScore, setBestScore] = useState(0);
 
     return (
         <>
@@ -65,7 +71,7 @@ export const Game = () => {
                                 <Button
                                     size="small"
                                     color="orange"
-                                    type="submit"
+                                    type="button"
                                     onClick={() => startNewGame()}>
                                     Новая игра
                                 </Button>
@@ -88,10 +94,20 @@ export const Game = () => {
                         {!isPlay && (
                             <Button
                                 size="big"
-                                color="orange"
-                                type="submit"
+                                color={
+                                    gameOver === "win"
+                                        ? "yellow"
+                                        : gameOver === "lose"
+                                        ? "red"
+                                        : "orange"
+                                }
+                                type="button"
                                 onClick={() => startNewGame()}>
-                                Начать игру!
+                                {gameOver === "win"
+                                    ? "Вы выйграли!"
+                                    : gameOver === "lose"
+                                    ? "Вы проиграли!"
+                                    : "Начать игру!"}
                             </Button>
                         )}
 
