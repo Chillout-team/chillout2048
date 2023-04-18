@@ -13,6 +13,7 @@ export const GameLoad = (canvas: HTMLCanvasElement | null) => {
 
 type Mode = "Row" | "Colm";
 type Direction = "Up" | "Down" | "Right" | "Left";
+type Positon = { x: number; y: number };
 
 class Game {
     height: number;
@@ -21,6 +22,7 @@ class Game {
     ctx: CanvasRenderingContext2D;
     cell: Record<string, number>;
     map: number[][];
+    isCheckGameOver: boolean;
     constructor(
         height: number,
         windth: number,
@@ -42,6 +44,7 @@ class Game {
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ];
+        this.isCheckGameOver = false;
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         this.init();
         this.initControl();
@@ -102,6 +105,7 @@ class Game {
                 );
             }
         }
+        this.checkGameOver();
     }
     initControl() {
         document.addEventListener("keyup", e => {
@@ -186,100 +190,125 @@ class Game {
         }
     }
 
-    moveDown(): void {
+    checkGameOver() {
+        this.isCheckGameOver = true;
+        const isMoveDown = this.moveDown();
+        const isMoveUp = this.moveUp();
+        const isMoveLeft = this.moveLeft();
+        const isMoveRight = this.moveRight();
+        this.isCheckGameOver = false;
+        if (!isMoveDown && !isMoveUp && !isMoveLeft && !isMoveRight) {
+            console.log("game over");
+        }
+    }
+
+    moveCell(newPos: Positon, oldPos: Positon): boolean {
+        if (this.map[oldPos.y][oldPos.x] > 0) {
+            if (this.map[newPos.y][newPos.x] === 0) {
+                if (!this.isCheckGameOver) {
+                    this.map[newPos.y][newPos.x] = this.map[oldPos.y][oldPos.x];
+                    this.map[oldPos.y][oldPos.x] = 0;
+                }
+                return true;
+            } else if (
+                this.map[newPos.y][newPos.x] === this.map[oldPos.y][oldPos.x]
+            ) {
+                if (!this.isCheckGameOver) {
+                    this.map[newPos.y][newPos.x] *= 2;
+                    this.map[oldPos.y][oldPos.x] = 0;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    moveDown(): boolean {
         let isMove = false;
         for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
             for (let y = 2; y >= MIN_POSITON; y--) {
-                if (this.map[y][x] > 0) {
-                    if (this.map[y + 1][x] === 0) {
-                        this.map[y + 1][x] = this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    } else if (this.map[y + 1][x] === this.map[y][x]) {
-                        this.map[y + 1][x] += this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    }
+                const newPos = { x: x, y: y + 1 };
+                const oldPos = { x: x, y: y };
+                const isMoved = this.moveCell(newPos, oldPos);
+                if (isMoved) {
+                    isMove = true;
                 }
             }
         }
-        if (isMove) {
-            return this.moveDown();
+        if (!this.isCheckGameOver) {
+            if (isMove) {
+                return this.moveDown();
+            }
+            this.createCell("Down");
+            this.update();
+            return true;
         }
-        this.createCell("Down");
-        this.update();
-        return;
+        return isMove;
     }
-    moveUp(): void {
+    moveUp(): boolean {
         let isMove = false;
         for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
             for (let y = 1; y < MAX_POSITON; y++) {
-                if (this.map[y][x] > 0) {
-                    if (this.map[y - 1][x] === 0) {
-                        this.map[y - 1][x] = this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    } else if (this.map[y - 1][x] === this.map[y][x]) {
-                        this.map[y - 1][x] += this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    }
+                const newPos = { x: x, y: y - 1 };
+                const oldPos = { x: x, y: y };
+                const isMoved = this.moveCell(newPos, oldPos);
+                if (isMoved) {
+                    isMove = true;
                 }
             }
         }
-        if (isMove) {
-            return this.moveUp();
+        if (!this.isCheckGameOver) {
+            if (isMove) {
+                return this.moveUp();
+            }
+            this.createCell("Up");
+            this.update();
+            return true;
         }
-        this.createCell("Up");
-        this.update();
-        return;
+        return isMove;
     }
-    moveRight(): void {
+    moveRight(): boolean {
         let isMove = false;
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
             for (let x = 2; x >= MIN_POSITON; x--) {
-                if (this.map[y][x] > 0) {
-                    if (this.map[y][x + 1] === 0) {
-                        this.map[y][x + 1] = this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    } else if (this.map[y][x + 1] === this.map[y][x]) {
-                        this.map[y][x + 1] += this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    }
+                const newPos = { x: x + 1, y: y };
+                const oldPos = { x: x, y: y };
+                const isMoved = this.moveCell(newPos, oldPos);
+                if (isMoved) {
+                    isMove = true;
                 }
             }
         }
-        if (isMove) {
-            return this.moveRight();
+        if (!this.isCheckGameOver) {
+            if (isMove) {
+                return this.moveRight();
+            }
+            this.createCell("Right");
+            this.update();
+            return true;
         }
-        this.createCell("Right");
-        this.update();
-        return;
+        return isMove;
     }
-    moveLeft(): void {
+    moveLeft(): boolean {
         let isMove = false;
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
             for (let x = 1; x < MAX_POSITON; x++) {
-                if (this.map[y][x] > 0) {
-                    if (this.map[y][x - 1] === 0) {
-                        this.map[y][x - 1] = this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    } else if (this.map[y][x - 1] === this.map[y][x]) {
-                        this.map[y][x - 1] += this.map[y][x];
-                        this.map[y][x] = 0;
-                        isMove = true;
-                    }
+                const newPos = { x: x - 1, y: y };
+                const oldPos = { x: x, y: y };
+                const isMoved = this.moveCell(newPos, oldPos);
+                if (isMoved) {
+                    isMove = true;
                 }
             }
         }
-        if (isMove) {
-            return this.moveLeft();
+        if (!this.isCheckGameOver) {
+            if (isMove) {
+                return this.moveLeft();
+            }
+            this.createCell("Left");
+            this.update();
+            return true;
         }
-        this.createCell("Left");
-        this.update();
-        return;
+        return isMove;
     }
 }
