@@ -60,9 +60,9 @@ export const Game = () => {
                                     type="submit"
                                     onClick={() => {
                                         return;
-                                    }}
-                                    children="Новая игра"
-                                />
+                                    }}>
+                                    Новая игра
+                                </Button>
                                 <button
                                     type="button"
                                     className={cls.button_full}
@@ -79,15 +79,9 @@ export const Game = () => {
                         </div>
                     </div>
                     <div className={cls.body}>
-                        <Button
-                            size="big"
-                            color="orange"
-                            type="submit"
-                            onClick={() => {
-                                return;
-                            }}
-                            children="Начать игру!"
-                        />
+                        <Button size="big" color="orange" type="submit">
+                            Начать игру!
+                        </Button>
                         <canvas id="canvas" className={cls.canvas}></canvas>
                     </div>
                 </div>
