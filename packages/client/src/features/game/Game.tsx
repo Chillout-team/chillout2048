@@ -1,7 +1,7 @@
 import { Main } from "@/components/common/main/Main";
 import { Header } from "@/components/common/header/Header";
 import cls from "./Game.module.scss";
-import { GameLoad } from "@/utils/game/Game";
+import { GameEngine } from "@/utils/game/Game";
 import { useEffect, useState } from "react";
 import {
     activateFullscreen,
@@ -10,21 +10,37 @@ import {
 import full from "@/assets/img/full.svg";
 import { Button } from "@/components/common/button/Button";
 
+type GameOverStatus = "win" | "lose" | "none";
+
 export const Game = () => {
     let canvas: HTMLCanvasElement;
+    const game = GameEngine;
+
+    const [isPlay, setIsPlay] = useState(false);
+    const [gameOver, setGameOver] = useState("none");
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
+
+    function startNewGame() {
+        game.start();
+    }
 
     useEffect(() => {
         canvas = document.getElementById("canvas") as HTMLCanvasElement;
-        GameLoad(canvas);
+        game.init(
+            canvas,
+            setIsPlay,
+            setGameOver as React.Dispatch<React.SetStateAction<GameOverStatus>>,
+            setScore,
+        );
     }, []);
 
     const toggleFullscreen = () => {
-        activateFullscreen(canvas!);
+        const canvasEl = document.getElementById("canvas") as HTMLCanvasElement;
+        activateFullscreen(canvasEl);
+        !isPlay && startNewGame();
         deactivateFullscreen();
     };
-
-    const [score, setScore] = useState(0);
-    const [bestScore, setBestScore] = useState(0);
 
     return (
         <>
@@ -57,10 +73,8 @@ export const Game = () => {
                                 <Button
                                     size="small"
                                     color="orange"
-                                    type="submit"
-                                    onClick={() => {
-                                        return;
-                                    }}>
+                                    type="button"
+                                    onClick={() => startNewGame()}>
                                     Новая игра
                                 </Button>
                                 <button
@@ -79,9 +93,26 @@ export const Game = () => {
                         </div>
                     </div>
                     <div className={cls.body}>
-                        <Button size="big" color="orange" type="submit">
-                            Начать игру!
-                        </Button>
+                        {!isPlay && (
+                            <Button
+                                size="big"
+                                color={
+                                    gameOver === "win"
+                                        ? "yellow"
+                                        : gameOver === "lose"
+                                        ? "red"
+                                        : "orange"
+                                }
+                                type="button"
+                                onClick={() => startNewGame()}>
+                                {gameOver === "win"
+                                    ? "Вы выйграли!"
+                                    : gameOver === "lose"
+                                    ? "Вы проиграли!"
+                                    : "Начать игру!"}
+                            </Button>
+                        )}
+
                         <canvas id="canvas" className={cls.canvas}></canvas>
                     </div>
                 </div>
