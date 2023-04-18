@@ -36,8 +36,9 @@ export const Game = () => {
     }, []);
 
     const toggleFullscreen = () => {
-        activateFullscreen(canvas);
-        startNewGame();
+        const canvasEl = document.getElementById("canvas") as HTMLCanvasElement;
+        activateFullscreen(canvasEl);
+        !isPlay && startNewGame();
         deactivateFullscreen();
     };
 
