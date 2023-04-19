@@ -25,16 +25,16 @@ const initialState: IUserState = {
     loadingStatus: "idle",
 };
 
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>
-type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
+type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
+type PendingAction = ReturnType<GenericAsyncThunk["pending"]>;
+type RejectedAction = ReturnType<GenericAsyncThunk["rejected"]>;
 
 const isPendingAction = (action: AnyAction): action is PendingAction => {
-    return action.type.endsWith('/pending')
+    return action.type.endsWith("/pending");
 };
 
-const isRejectedAction =  (action: AnyAction): action is RejectedAction => {
-    return action.type.endsWith('/rejected')
+const isRejectedAction = (action: AnyAction): action is RejectedAction => {
+    return action.type.endsWith("/rejected");
 };
 
 export const userSlice = createSlice({
@@ -78,7 +78,7 @@ export const userSlice = createSlice({
                         : initialState.user?.avatar,
                 };
             })
-            .addCase(changePassword.fulfilled, (state) => {
+            .addCase(changePassword.fulfilled, state => {
                 state.error = "";
                 state.loadingStatus = "idle";
             })
@@ -89,7 +89,7 @@ export const userSlice = createSlice({
             .addMatcher(isRejectedAction, (state, action) => {
                 state.loadingStatus = "failed";
                 state.error = action.payload as string;
-            })
+            });
     },
 });
 

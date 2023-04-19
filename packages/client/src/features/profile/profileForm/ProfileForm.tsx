@@ -10,7 +10,9 @@ import { useAppDispatch } from "@/redux/hooks";
 import { logout } from "@/redux/actions/authAction";
 
 export const ProfileForm: FC = () => {
-    const login = useSelector((state: RootState) => state.user.user?.login || "");
+    const login = useSelector(
+        (state: RootState) => state.user.user?.login || "",
+    );
     const dispatch = useAppDispatch();
 
     const [toggle, setToggle] = useState(true);

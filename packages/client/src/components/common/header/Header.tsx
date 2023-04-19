@@ -11,8 +11,12 @@ type Props = {
 };
 
 export const Header = ({ extraClass = "" }: Props) => {
-    const avatar = useSelector((state: RootState) => state.user?.user?.avatar || "");
-    const login = useSelector((state: RootState) => state.user?.user?.login || "");
+    const avatar = useSelector(
+        (state: RootState) => state.user?.user?.avatar || "",
+    );
+    const login = useSelector(
+        (state: RootState) => state.user?.user?.login || "",
+    );
     const dispatch = useAppDispatch();
 
     const handleLogout = () => dispatch(logout());
@@ -52,6 +56,7 @@ export const Header = ({ extraClass = "" }: Props) => {
         <header className={`${cls.header} ${extraClass}`}>
             <nav>
                 <div>
+                    <Link to={ROUTES.HOME.path}>Домой</Link>
                     <Link to={ROUTES.FORUM.path}>Форум</Link>
                     <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                 </div>
