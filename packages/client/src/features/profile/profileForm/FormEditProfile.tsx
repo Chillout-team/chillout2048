@@ -6,10 +6,9 @@ import { Button } from "@/components/common/button/Button";
 import { Link } from "react-router-dom";
 import { IUserData } from "@/types/types";
 import { ProfileSchema } from "@/utils/validator/Validator";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { changeProfile } from "@/redux/actions/userAction";
 import { useAppDispatch } from "@/redux/hooks";
+import { useAuthorization } from "@/hooks/useAuthorization";
 
 interface IFormEditProfile {
     toggle: boolean;
@@ -17,17 +16,18 @@ interface IFormEditProfile {
 }
 
 export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
-    const user = useSelector((state: RootState) => state.user.user);
     const dispatch = useAppDispatch();
 
-    const initialValues = {
-        email: user?.email || "",
-        login: user?.login || "",
-        first_name: user?.first_name || "",
-        second_name: user?.second_name || "",
-        display_name: user?.display_name || "",
-        phone: user?.phone || "",
-    };
+    const {
+        userData: {
+            email = "",
+            login = "",
+            first_name = "",
+            second_name = "",
+            display_name = "",
+            phone = "",
+        },
+    } = useAuthorization();
 
     const onSubmit = (values: IUserData) => {
         dispatch(changeProfile(values));
@@ -37,7 +37,14 @@ export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
     return (
         <>
             <Formik
-                initialValues={initialValues}
+                initialValues={{
+                    email,
+                    login,
+                    first_name,
+                    second_name,
+                    display_name,
+                    phone,
+                }}
                 enableReinitialize={true}
                 validationSchema={ProfileSchema}
                 onSubmit={onSubmit}>

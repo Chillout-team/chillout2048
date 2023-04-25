@@ -6,14 +6,14 @@ import { FormEditPassword } from "./FormEditPasswor";
 import { ROUTES } from "@/router/routes";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useAppDispatch } from "@/redux/hooks";
-import { logout } from "@/redux/actions/authAction";
+import { useAuthorization } from "@/hooks/useAuthorization";
 
 export const ProfileForm: FC = () => {
     const login = useSelector(
         (state: RootState) => state.user.user?.login || "",
     );
-    const dispatch = useAppDispatch();
+
+    const { handleLogout } = useAuthorization();
 
     const [toggle, setToggle] = useState(true);
     const [isProfileForm, setProfileForm] = useState(true);
@@ -24,8 +24,6 @@ export const ProfileForm: FC = () => {
         onToggle();
         setProfileForm(!isProfileForm);
     };
-
-    const handleLogout = () => dispatch(logout());
 
     return (
         <div className={cls.container}>

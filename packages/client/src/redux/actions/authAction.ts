@@ -1,4 +1,5 @@
 import { authAPI } from "@/api/auth-api";
+import { deleteCookie } from "@/utils/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUser = createAsyncThunk(
@@ -9,8 +10,7 @@ export const getUser = createAsyncThunk(
             return response.data;
         } catch (error) {
             return rejectWithValue(
-                `Ошибка получения данных пользователя: ${
-                    (error as Error).message
+                `Ошибка получения данных пользователя: ${(error as Error).message
                 }`,
             );
         }
@@ -22,6 +22,9 @@ export const logout = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             await authAPI.logout();
+            deleteCookie("authCookie");
+            deleteCookie("uuid");
+
             return null;
         } catch (error) {
             return rejectWithValue(
