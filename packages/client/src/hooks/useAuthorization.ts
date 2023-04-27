@@ -14,7 +14,7 @@ export const useAuthorization = () => {
     const initRef = useRef(false);
 
     useEffect(() => {
-        if (!initRef.current && userData.id !== null) {
+        if (!initRef.current && userData.id == null) {
             dispatch(getUser());
             initRef.current = true;
         }
