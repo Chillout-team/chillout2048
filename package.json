@@ -25,5 +25,7 @@
         "lerna": "5.4.3"
     },
     "packageManager": "yarn@1.22.19",
-    "dependencies": {}
+    "dependencies": {
+        "ts-node": "^10.9.1"
+    }
 }

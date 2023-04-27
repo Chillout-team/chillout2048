@@ -126,6 +126,7 @@ class GameClass {
             this.ctx.strokeStyle = color;
             this.ctx.fillStyle = color;
             this.ctx.beginPath();
+            // @ts-ignore
             this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [
                 26,
             ]);
