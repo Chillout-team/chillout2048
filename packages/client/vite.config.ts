@@ -22,4 +22,21 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    build: {
+        rollupOptions: {
+            input: {
+                app: './index.html',
+                serviceWorker: './serviceWorker.js',
+            },
+            output: {
+                entryFileNames: chunkInfo => (
+                    chunkInfo.name === 'serviceWorker'
+                        ? '[name].js'
+                        : (chunkInfo.name === 'entry-server')
+                            ? '[name].cjs'
+                            : 'assets/[name]-[hash].js'
+                ),
+            }, 
+        },
+    },
 });

@@ -20,12 +20,12 @@ export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
 
     const {
         userData: {
-            email = "",
-            login = "",
-            first_name = "",
-            second_name = "",
-            display_name = "",
-            phone = "",
+            email,
+            login,
+            first_name,
+            second_name,
+            display_name,
+            phone,
         },
     } = useAuthorization();
 
