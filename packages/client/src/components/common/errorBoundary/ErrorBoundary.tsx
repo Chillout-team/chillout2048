@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode, Component } from "react";
 import { ErrorPage } from "@/features/errorPage/ErrorPage";
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IState {
     hasError: boolean;
 }
 
-export class ErrorBoundary extends React.Component<IProps, IState> {
+export class ErrorBoundary extends Component<IProps, IState> {
     public state: IState = {
         hasError: false,
     };

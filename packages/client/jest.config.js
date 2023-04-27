@@ -11,6 +11,9 @@ export default {
     moduleNameMapper: {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$":
             "<rootDir>/src/assets/mocks/style-mock.js",
-        "\\.(css|sass|scss)$": "<rootDir>/src/assets/mocks/style-mock.js",
+        "\\.(css|sass|scss)$": "identity-obj-proxy",
+        "@/(.*)": "<rootDir>/src/$1",
     },
+    verbose: true,
+    modulePaths: ["<rootDir>"],
 };
