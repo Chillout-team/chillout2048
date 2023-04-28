@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 import { ErrorPage } from "../errorPage/ErrorPage";
 import { BrowserRouter } from "react-router-dom";
 
