@@ -6,7 +6,8 @@ import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 export const useAuthorization = () => {
-    const userData: Partial<IUserData> = useSelector((state: RootState) => state.user?.user) || {};
+    const userData: Partial<IUserData> =
+        useSelector((state: RootState) => state.user?.user) || {};
     const isAuthorized = !!userData.id;
 
     const dispatch = useAppDispatch();
@@ -23,4 +24,4 @@ export const useAuthorization = () => {
     const handleLogout = () => dispatch(logout());
 
     return { userData, isAuthorized, handleLogout };
-}
+};

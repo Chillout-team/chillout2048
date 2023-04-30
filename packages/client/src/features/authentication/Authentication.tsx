@@ -3,13 +3,14 @@ import { AuthenticationForm } from "./authenticationForm/AuthenticationForm";
 import { InputForm } from "./inputForm/InputForm";
 import { AuthenticationData } from "./AuthenticationData";
 import { Formik } from "formik";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { SinginSchema, SingupSchema } from "@/utils/validator/Validator";
 import { authAPI } from "@/api/auth-api";
 import { useAppDispatch } from "@/redux/hooks";
 import { getUser } from "@/redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/router/routes";
+import { oAuth } from "@/api/oAuth";
 
 interface IAuthenticationProps {
     mode: "auth" | "reg";
@@ -31,19 +32,25 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
         AuthenticationData[mode];
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const onSubmit = async (values: IProfileForm) => {
         try {
             mode === "reg"
                 ? await authAPI.signup(values)
                 : await authAPI.signin(values);
-
             dispatch(getUser());
             navigate(ROUTES.PROFILE.path);
         } catch (err) {
             console.error(`${(err as Error).message}. Ошибка аутентификации`);
         }
     };
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const code = urlParams.get("code");
+        if (code) {
+            oAuth.takeToken(code);
+        }
+    }, []);
 
     return (
         <Main>
