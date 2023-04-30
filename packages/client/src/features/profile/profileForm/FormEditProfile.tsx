@@ -20,12 +20,12 @@ export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
 
     const {
         userData: {
-            email = "",
-            login = "",
-            first_name = "",
-            second_name = "",
-            display_name = "",
-            phone = "",
+            email,
+            login,
+            first_name,
+            second_name,
+            display_name,
+            phone,
         },
     } = useAuthorization();
 
@@ -38,12 +38,12 @@ export const FormEditProfile: FC<IFormEditProfile> = ({ toggle, onToggle }) => {
         <>
             <Formik
                 initialValues={{
-                    email,
-                    login,
-                    first_name,
-                    second_name,
-                    display_name,
-                    phone,
+                    email: email || '',
+                    login: login || '',
+                    first_name: first_name || '',
+                    second_name: second_name ||'',
+                    display_name: display_name || '',
+                    phone: phone || '',
                 }}
                 enableReinitialize={true}
                 validationSchema={ProfileSchema}

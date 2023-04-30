@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Game } from "./Game";
 import { Provider } from "react-redux";

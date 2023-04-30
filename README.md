@@ -77,3 +77,7 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+# SSR
+1. Сборка на клиенте ```yarn build --scope=client```
+2. Запуск сервера `yarn dev --scope=server`
