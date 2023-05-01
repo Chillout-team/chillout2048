@@ -58,3 +58,21 @@ export interface IForumMessage {
     messageDate: string;
     messagetext: string;
 }
+
+export interface IGetTeamLeaderbord {
+    data: TIndexed;
+    teamName: string;
+}
+
+export interface ILeaderboar {
+    data: {
+        score: string;
+        userName: string;
+    };
+}
+
+export interface ILeaderbordState {
+    data: ILeaderboar[] | [] | null;
+    error?: string;
+    loadingStatus: "loading" | "idle" | "failed";
+}

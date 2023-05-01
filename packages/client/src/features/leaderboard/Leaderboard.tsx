@@ -2,51 +2,28 @@ import { Main } from "@/components/common/main/Main";
 import { Header } from "@/components/common/header/Header";
 import { IPositionItem, Position } from "./position/Position";
 import cls from "./Leaderboard.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { ILeaderboar } from "@/types/types";
+import { useAppDispatch } from "@/redux/hooks";
+import { useEffect } from "react";
+import { getTeam } from "@/redux/actions/leaderboarAction";
 
 export const Leaderboard = () => {
+    const leaderList: ILeaderboar[] = useSelector(
+        (state: RootState) => state.leaderboard.data || [],
+    );
+
+    const dispatch = useAppDispatch();
+
     const headLeaderboard: IPositionItem = {
-        position: "Место",
-        name: "Игрок",
+        userName: "Игрок",
         score: "Счет",
     };
 
-    const leaderList: IPositionItem[] = [
-        {
-            position: "1",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "2",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "3",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "4",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "5",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "6",
-            name: "Петя",
-            score: "1000",
-        },
-        {
-            position: "7",
-            name: "Петя",
-            score: "1000",
-        },
-    ];
+    useEffect(() => {
+        dispatch(getTeam());
+    }, []);
 
     return (
         <>
@@ -60,10 +37,17 @@ export const Leaderboard = () => {
                     <Position
                         title={true}
                         item={headLeaderboard}
+                        position={"Место"}
                         subClass={cls.sub}
                     />
                     {leaderList.map((item, index) => {
-                        return <Position key={index} item={item} />;
+                        return (
+                            <Position
+                                key={index}
+                                item={item.data}
+                                position={`${index + 1}`}
+                            />
+                        );
                     })}
                 </ul>
             </Main>
