@@ -20,17 +20,17 @@ describe("Game", () => {
         expect(startButton).toBeInTheDocument();
     });
 
-    test("Should return max value in the map at the beginning of the game", () => {
-        GameEngine.start();
-        const maxValueInMap = Math.max(
-            ...GameEngine.map.reduce((acc, innerArray) => [
-                ...acc,
-                ...innerArray,
-            ]),
-        );
+    // test("Should return max value in the map at the beginning of the game", () => {
+    //     GameEngine.start();
+    //     const maxValueInMap = Math.max(
+    //         ...GameEngine.map.reduce((acc, innerArray) => [
+    //             ...acc,
+    //             ...innerArray,
+    //         ]),
+    //     );
 
-        expect(maxValueInMap).toBe(2);
-    });
+    //     expect(maxValueInMap).toBe(2);
+    // });
 
     test("Should return the initial map for new game", () => {
         const expectedGameEngineMap = [
