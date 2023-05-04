@@ -23,23 +23,44 @@ const COLOR = {
     cell_65536: "#b9aafd",
     cell_131072: "ff0000",
 };
+// const RANGE = (WIDTH - PADDING * (MAX_POSITON + 1)) / MAX_POSITON + PADDING;
+const SPEED = 2;
 
 export type Mode = "Row" | "Colm";
 type Direction = "Up" | "Down" | "Right" | "Left";
 type Positon = { x: number; y: number };
 type GameOverStatus = "win" | "lose" | "none";
+type Cell = {
+    value: number;
+    newValue: number;
+    x: number;
+    y: number;
+    xPos: number;
+    yPos: number;
+    newXPos: number;
+    newYPos: number;
+    collapseTarget: null | Cell;
+    target: null | Cell;
+    updateNewPos: (obj: Positon) => void;
+    collapsingTarget: (obj: Cell) => void;
+    newTarget: (obj: Cell) => void;
+    move: () => boolean;
+    update: () => void;
+};
 
 class GameClass {
     height: number;
     windth: number;
     padding: number;
     ctx: CanvasRenderingContext2D | undefined;
-    cell: Record<string, number>;
-    map: number[][];
+    cellParams: Record<string, number>;
+    map: (0 | Cell)[][];
     score: number;
     isCheckGameOver: boolean;
     play: boolean;
     win: boolean;
+    staticCellList: Cell[];
+    isAnimation: boolean;
     setScoreCallback: React.Dispatch<React.SetStateAction<string>> | undefined;
     playCallback: React.Dispatch<React.SetStateAction<boolean>> | undefined;
     gameOverCallback:
@@ -50,7 +71,7 @@ class GameClass {
         this.height = height * 2;
         this.windth = windth * 2;
         this.padding = padding * 2;
-        this.cell = {
+        this.cellParams = {
             height: (this.height - this.padding * 5) / MAX_POSITON,
             width: (this.windth - this.padding * 5) / MAX_POSITON,
         };
@@ -60,10 +81,95 @@ class GameClass {
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ];
+        this.isAnimation = false;
         this.isCheckGameOver = false;
         this.play = false;
         this.win = false;
+        this.staticCellList = [];
         this.update();
+    }
+
+    createNewCell(value: number, x: number, y: number) {
+        const cell: Cell = {
+            value: value,
+            newValue: value,
+            x: x,
+            y: y,
+            xPos: (this.cellParams.width + this.padding) * x + this.padding,
+            yPos: (this.cellParams.width + this.padding) * y + this.padding,
+            newXPos: (this.cellParams.width + this.padding) * x + this.padding,
+            newYPos: (this.cellParams.height + this.padding) * y + this.padding,
+            collapseTarget: null,
+            target: null,
+            updateNewPos: (newPos: Positon) => {
+                const { x, y } = newPos;
+                cell.x = x;
+                cell.y = y;
+                cell.newXPos =
+                    (this.cellParams.width + this.padding) * x + this.padding;
+                cell.newYPos =
+                    (this.cellParams.height + this.padding) * y + this.padding;
+            },
+            collapsingTarget: (target: Cell) => {
+                cell.collapseTarget = target;
+                cell.newValue *= 2;
+            },
+            newTarget: (target: Cell) => {
+                cell.target = target;
+                cell.newValue *= 2;
+                cell.updateNewPos({ x: target.x, y: target.y });
+            },
+            move: (): boolean => {
+                let isMove = false;
+                if (
+                    cell.collapseTarget &&
+                    Math.abs(
+                        cell.xPos -
+                            cell.collapseTarget.xPos +
+                            (cell.yPos - cell.collapseTarget.yPos),
+                    ) === 0
+                ) {
+                    console.log(
+                        Math.abs(
+                            cell.xPos -
+                                cell.collapseTarget.xPos +
+                                (cell.yPos - cell.collapseTarget.yPos),
+                        ),
+                    );
+                    cell.update();
+                }
+                if (cell.xPos !== cell.newXPos) {
+                    if (cell.xPos < cell.newXPos) {
+                        cell.xPos += SPEED;
+                    } else if (cell.xPos > cell.newXPos) {
+                        cell.xPos -= SPEED;
+                    }
+                    isMove = true;
+                } else if (cell.yPos !== cell.newYPos) {
+                    if (cell.yPos < cell.newYPos) {
+                        cell.yPos += SPEED;
+                    } else if (cell.yPos > cell.newYPos) {
+                        cell.yPos -= SPEED;
+                    }
+                    isMove = true;
+                }
+                if (
+                    cell.xPos === cell.newXPos &&
+                    cell.yPos === cell.newYPos &&
+                    cell.value !== cell.newValue &&
+                    !cell.collapseTarget
+                ) {
+                    cell.update();
+                }
+                this.render(cell);
+                return isMove;
+            },
+            update: (): void => {
+                cell.value = cell.newValue;
+                cell.target = null;
+            },
+        };
+        return cell;
     }
 
     start() {
@@ -91,6 +197,9 @@ class GameClass {
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ];
+        this.staticCellList = [];
+        this.isAnimation = false;
+        this.ctx?.clearRect(0, 0, this.windth, this.height);
     }
 
     init(
@@ -115,66 +224,142 @@ class GameClass {
         const y = this.getRandomInt(MAX_POSITON);
         const x = this.getRandomInt(MAX_POSITON);
         if (this.map[y][x] === 0) {
-            this.map[y][x] = 2;
+            this.map[y][x] = this.createNewCell(2, x, y);
         } else {
             this.createRandomCell();
         }
     }
 
-    render(numCell: number, color: string, xPos: number, yPos: number) {
+    render(cell: Cell) {
         if (this.ctx) {
+            const { value, xPos, yPos } = cell;
+            const color = this.colorCell(value);
             this.ctx.strokeStyle = color;
             this.ctx.fillStyle = color;
             this.ctx.beginPath();
-            this.ctx.roundRect(xPos, yPos, this.cell.width, this.cell.height, [
-                26,
-            ]);
+            this.ctx.roundRect(
+                xPos,
+                yPos,
+                this.cellParams.width,
+                this.cellParams.height,
+                [26],
+            );
             this.ctx.stroke();
             this.ctx.fill();
             this.ctx.beginPath();
-            if (numCell) {
+            if (value) {
                 this.ctx.fillStyle = "#71685F";
-                if (numCell < 16) {
+                if (value < 16) {
                     this.ctx.font = "normal 70px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 40, yPos + 85);
-                } else if (numCell < 128 && numCell >= 16) {
+                    this.ctx.fillText(`${value}`, xPos + 40, yPos + 85);
+                } else if (value < 128 && value >= 16) {
                     this.ctx.font = "normal 60px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 25, yPos + 80);
-                } else if (numCell < 1024 && numCell >= 128) {
+                    this.ctx.fillText(`${value}`, xPos + 25, yPos + 80);
+                } else if (value < 1024 && value >= 128) {
                     this.ctx.font = "normal 50px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 20, yPos + 80);
-                } else if (numCell < 16384 && numCell >= 1024) {
+                    this.ctx.fillText(`${value}`, xPos + 20, yPos + 80);
+                } else if (value < 16384 && value >= 1024) {
                     this.ctx.font = "normal 40px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 12, yPos + 75);
-                } else if (numCell < 131072 && numCell >= 16384) {
+                    this.ctx.fillText(`${value}`, xPos + 12, yPos + 75);
+                } else if (value < 131072 && value >= 16384) {
                     this.ctx.font = "normal 35px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 7, yPos + 72);
-                } else if (numCell === 131072) {
+                    this.ctx.fillText(`${value}`, xPos + 7, yPos + 72);
+                } else if (value === 131072) {
                     this.ctx.font = "normal 32px Inter";
-                    this.ctx.fillText(`${numCell}`, xPos + 6, yPos + 72);
+                    this.ctx.fillText(`${value}`, xPos + 6, yPos + 72);
                 }
             }
         }
     }
+
+    background() {
+        if (this.ctx) {
+            for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+                for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+                    const color = this.colorCell(0);
+                    this.ctx.strokeStyle = color;
+                    this.ctx.fillStyle = color;
+                    this.ctx.beginPath();
+                    this.ctx.roundRect(
+                        (this.cellParams.width + this.padding) * x +
+                            this.padding,
+                        (this.cellParams.height + this.padding) * y +
+                            this.padding,
+                        this.cellParams.width,
+                        this.cellParams.height,
+                        [26],
+                    );
+                    this.ctx.stroke();
+                }
+            }
+        }
+    }
+
     update() {
         if (this.ctx) {
-            this.ctx.clearRect(0, 0, this.windth, this.height);
             for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
                 for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
                     const targetCell = this.map[y][x];
-                    if (targetCell === 2048) {
-                        this.win = true;
+                    if (targetCell) {
+                        if (targetCell.value === 2048) {
+                            this.win = true;
+                        }
+                        this.render(targetCell);
                     }
-                    this.render(
-                        targetCell,
-                        this.colorCell(targetCell),
-                        (this.cell.width + this.padding) * x + this.padding,
-                        (this.cell.height + this.padding) * y + this.padding,
-                    );
                 }
                 this.checkGameOver();
             }
+            this.animation();
         }
+    }
+
+    // animationCreateCell(
+    //     numCell: number,
+    //     color: string,
+    //     xPos: number,
+    //     yPos: number,
+    // ) {
+    //     const newRender = (size: number) => {
+    //         this.render(numCell, color, xPos, yPos, size);
+    //     };
+    //     for (let size = 0; size < 10; size++) {
+    //         requestAnimationFrame(newRender);
+    //     }
+    //     for (let size = 10; size > 0; size--) {
+    //         newRender(size);
+    //     }
+    // }
+
+    animation(direction?: Direction) {
+        this.isAnimation = true;
+        const tick = () => {
+            let isMove = false;
+            this.ctx?.clearRect(0, 0, this.windth, this.height);
+            this.background();
+            for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
+                for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
+                    const targetCell = this.map[y][x] as 0 | Cell;
+                    if (targetCell) {
+                        if (targetCell.move()) {
+                            isMove = true;
+                        }
+                    }
+                }
+            }
+            this.staticCellList.map((cell: Cell) => {
+                cell.move();
+            });
+            if (isMove) {
+                requestAnimationFrame(tick);
+            } else {
+                this.staticCellList = [];
+                if (direction) {
+                    this.createCell(direction);
+                }
+                this.isAnimation = false;
+            }
+        };
+        requestAnimationFrame(tick);
     }
     colorCell(cell: number) {
         switch (cell) {
@@ -218,7 +403,7 @@ class GameClass {
     }
     initControl() {
         document.addEventListener("keyup", e => {
-            if (this.play) {
+            if (this.play && !this.isAnimation) {
                 switch (e.key) {
                     case "ArrowUp":
                         this.moveUp();
@@ -261,11 +446,11 @@ class GameClass {
     }
 
     createCell(direction: Direction) {
-        const Cell = this.getRandomInt(10) === 9 ? 4 : 2;
+        const value = this.getRandomInt(10) === 9 ? 4 : 2;
         if (direction === "Up") {
             const xPos = this.getRandomInt(MAX_POSITON);
             if (this.map[3][xPos] === 0) {
-                this.map[3][xPos] = Cell;
+                this.map[3][xPos] = this.createNewCell(value, xPos, 3);
             } else {
                 if (this.checkForFreeCell("Row", 3)) {
                     this.createCell(direction);
@@ -274,7 +459,11 @@ class GameClass {
         } else if (direction === "Down") {
             const xPos = this.getRandomInt(MAX_POSITON);
             if (this.map[MIN_POSITON][xPos] === 0) {
-                this.map[MIN_POSITON][xPos] = Cell;
+                this.map[MIN_POSITON][xPos] = this.createNewCell(
+                    value,
+                    xPos,
+                    MIN_POSITON,
+                );
             } else {
                 if (this.checkForFreeCell("Row", 0)) {
                     this.createCell(direction);
@@ -283,7 +472,7 @@ class GameClass {
         } else if (direction === "Left") {
             const yPos = this.getRandomInt(MAX_POSITON);
             if (this.map[yPos][3] === 0) {
-                this.map[yPos][3] = Cell;
+                this.map[yPos][3] = this.createNewCell(value, 3, yPos);
             } else {
                 if (this.checkForFreeCell("Colm", 3)) {
                     this.createCell(direction);
@@ -292,7 +481,11 @@ class GameClass {
         } else if (direction === "Right") {
             const yPos = this.getRandomInt(MAX_POSITON);
             if (this.map[yPos][MIN_POSITON] === 0) {
-                this.map[yPos][MIN_POSITON] = Cell;
+                this.map[yPos][MIN_POSITON] = this.createNewCell(
+                    value,
+                    MIN_POSITON,
+                    yPos,
+                );
             } else {
                 if (this.checkForFreeCell("Colm", 0)) {
                     this.createCell(direction);
@@ -320,7 +513,7 @@ class GameClass {
     }
 
     updateScore(score: number): void {
-        this.score += score * 100;
+        this.score += score;
         if (this.setScoreCallback) {
             if (this.score < 1000) {
                 this.setScoreCallback(`${this.score}`);
@@ -332,23 +525,55 @@ class GameClass {
         }
     }
 
-    moveCell(newPos: Positon, oldPos: Positon): boolean {
-        if (this.map[oldPos.y][oldPos.x] > 0) {
-            if (this.map[newPos.y][newPos.x] === 0) {
-                if (!this.isCheckGameOver) {
-                    this.map[newPos.y][newPos.x] = this.map[oldPos.y][oldPos.x];
-                    this.map[oldPos.y][oldPos.x] = 0;
+    moveCell(newPos: Positon, oldPos: Positon, mode: Direction): boolean {
+        const newCell = this.map[newPos.y][newPos.x] as 0 | Cell;
+        const oldCell = this.map[oldPos.y][oldPos.x] as 0 | Cell;
+        // newCell === 0 && oldCell !== 0
+        if (!newCell && oldCell) {
+            if (!this.isCheckGameOver) {
+                oldCell.updateNewPos(newPos);
+                this.map[newPos.y][newPos.x] = oldCell;
+                this.map[oldPos.y][oldPos.x] = 0;
+            }
+            return true;
+            // newCell !== 0 && oldCell !== 0 && newCell === oldCell
+        } else if (
+            newCell &&
+            oldCell &&
+            newCell.value === oldCell.value &&
+            newCell.newValue === oldCell.value
+        ) {
+            if (!this.isCheckGameOver) {
+                oldCell.newTarget(newCell);
+                this.updateScore(oldCell.newValue);
+                newCell.collapsingTarget(oldCell);
+                this.staticCellList.push(newCell);
+                this.map[newPos.y][newPos.x] = oldCell;
+                this.map[oldPos.y][oldPos.x] = 0;
+            }
+            return true;
+            // (newCell === 0 | newCell !== 0) && oldCell === 0
+        } else if (!oldCell) {
+            if (mode === "Down") {
+                if (oldPos.y > 0) {
+                    oldPos.y -= 1;
+                    return this.moveCell(newPos, oldPos, mode);
                 }
-                return true;
-            } else if (
-                this.map[newPos.y][newPos.x] === this.map[oldPos.y][oldPos.x]
-            ) {
-                if (!this.isCheckGameOver) {
-                    this.map[newPos.y][newPos.x] *= 2;
-                    this.updateScore(this.map[newPos.y][newPos.x]);
-                    this.map[oldPos.y][oldPos.x] = 0;
+            } else if (mode === "Up") {
+                if (oldPos.y < MAX_POSITON - 1) {
+                    oldPos.y += 1;
+                    return this.moveCell(newPos, oldPos, mode);
                 }
-                return true;
+            } else if (mode === "Left") {
+                if (oldPos.x < MAX_POSITON - 1) {
+                    oldPos.x += 1;
+                    return this.moveCell(newPos, oldPos, mode);
+                }
+            } else if (mode === "Right") {
+                if (oldPos.x > 0) {
+                    oldPos.x -= 1;
+                    return this.moveCell(newPos, oldPos, mode);
+                }
             }
         }
         return false;
@@ -357,10 +582,10 @@ class GameClass {
     moveDown(): boolean {
         let isMove = false;
         for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
-            for (let y = 2; y >= MIN_POSITON; y--) {
-                const newPos = { x: x, y: y + 1 };
-                const oldPos = { x: x, y: y };
-                const isMoved = this.moveCell(newPos, oldPos);
+            for (let y = MAX_POSITON - 1; y > MIN_POSITON; y--) {
+                const newPos = { x: x, y: y };
+                const oldPos = { x: x, y: y - 1 };
+                const isMoved = this.moveCell(newPos, oldPos, "Down");
                 if (isMoved) {
                     isMove = true;
                 }
@@ -370,7 +595,7 @@ class GameClass {
             if (isMove) {
                 return this.moveDown();
             }
-            this.createCell("Down");
+            this.animation("Down");
             this.update();
             return true;
         }
@@ -379,10 +604,10 @@ class GameClass {
     moveUp(): boolean {
         let isMove = false;
         for (let x = MIN_POSITON; x < MAX_POSITON; x++) {
-            for (let y = 1; y < MAX_POSITON; y++) {
-                const newPos = { x: x, y: y - 1 };
-                const oldPos = { x: x, y: y };
-                const isMoved = this.moveCell(newPos, oldPos);
+            for (let y = MIN_POSITON; y < MAX_POSITON - 1; y++) {
+                const newPos = { x: x, y: y };
+                const oldPos = { x: x, y: y + 1 };
+                const isMoved = this.moveCell(newPos, oldPos, "Up");
                 if (isMoved) {
                     isMove = true;
                 }
@@ -392,7 +617,7 @@ class GameClass {
             if (isMove) {
                 return this.moveUp();
             }
-            this.createCell("Up");
+            this.animation("Up");
             this.update();
             return true;
         }
@@ -401,10 +626,10 @@ class GameClass {
     moveRight(): boolean {
         let isMove = false;
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
-            for (let x = 2; x >= MIN_POSITON; x--) {
-                const newPos = { x: x + 1, y: y };
-                const oldPos = { x: x, y: y };
-                const isMoved = this.moveCell(newPos, oldPos);
+            for (let x = MAX_POSITON - 1; x > MIN_POSITON; x--) {
+                const newPos = { x: x, y: y };
+                const oldPos = { x: x - 1, y: y };
+                const isMoved = this.moveCell(newPos, oldPos, "Right");
                 if (isMoved) {
                     isMove = true;
                 }
@@ -414,7 +639,7 @@ class GameClass {
             if (isMove) {
                 return this.moveRight();
             }
-            this.createCell("Right");
+            this.animation("Right");
             this.update();
             return true;
         }
@@ -423,10 +648,10 @@ class GameClass {
     moveLeft(): boolean {
         let isMove = false;
         for (let y = MIN_POSITON; y < MAX_POSITON; y++) {
-            for (let x = 1; x < MAX_POSITON; x++) {
-                const newPos = { x: x - 1, y: y };
-                const oldPos = { x: x, y: y };
-                const isMoved = this.moveCell(newPos, oldPos);
+            for (let x = MIN_POSITON; x < MAX_POSITON - 1; x++) {
+                const newPos = { x: x, y: y };
+                const oldPos = { x: x + 1, y: y };
+                const isMoved = this.moveCell(newPos, oldPos, "Left");
                 if (isMoved) {
                     isMove = true;
                 }
@@ -436,7 +661,7 @@ class GameClass {
             if (isMove) {
                 return this.moveLeft();
             }
-            this.createCell("Left");
+            this.animation("Left");
             this.update();
             return true;
         }
