@@ -23,7 +23,6 @@ const COLOR = {
     cell_65536: "#b9aafd",
     cell_131072: "ff0000",
 };
-// const RANGE = (WIDTH - PADDING * (MAX_POSITON + 1)) / MAX_POSITON + PADDING;
 const SPEED = 2;
 
 export type Mode = "Row" | "Colm";
@@ -126,16 +125,10 @@ class GameClass {
                     Math.abs(
                         cell.xPos -
                             cell.collapseTarget.xPos +
-                            (cell.yPos - cell.collapseTarget.yPos),
+                            cell.yPos -
+                            cell.collapseTarget.yPos,
                     ) === 0
                 ) {
-                    console.log(
-                        Math.abs(
-                            cell.xPos -
-                                cell.collapseTarget.xPos +
-                                (cell.yPos - cell.collapseTarget.yPos),
-                        ),
-                    );
                     cell.update();
                 }
                 if (cell.xPos !== cell.newXPos) {
