@@ -290,6 +290,7 @@ class GameClass {
                         [26],
                     );
                     this.ctx.stroke();
+                    this.ctx.fill();
                 }
             }
         }
@@ -363,6 +364,8 @@ class GameClass {
     }
     colorCell(cell: number) {
         switch (cell) {
+            case 0:
+                return COLOR.cell_0;
             case 2:
                 return COLOR.cell_2;
             case 4:
