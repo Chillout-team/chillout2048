@@ -2,7 +2,7 @@ import { leaderboardAPI } from "@/api/leaderboard-api";
 import { IGetTeamLeaderbord, TIndexed } from "@/types/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const addUser = createAsyncThunk(
+export const addUserToLederboard = createAsyncThunk(
     "/leaderboard",
     async (data: TIndexed, { rejectWithValue }) => {
         try {

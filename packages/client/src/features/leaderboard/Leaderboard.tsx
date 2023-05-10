@@ -37,7 +37,7 @@ export const Leaderboard = () => {
                     <Position
                         title={true}
                         item={headLeaderboard}
-                        position={"Место"}
+                        position="Место"
                         subClass={cls.sub}
                     />
                     {leaderList.map((item, index) => {

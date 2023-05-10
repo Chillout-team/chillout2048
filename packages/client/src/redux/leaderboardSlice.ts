@@ -1,5 +1,5 @@
 import { AnyAction, AsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addUser, getTeam } from "./actions/leaderboarAction";
+import { addUserToLederboard, getTeam } from "./actions/leaderboarAction";
 import { ILeaderbordState } from "@/types/types";
 
 const initialState: ILeaderbordState = {
@@ -26,7 +26,7 @@ export const leaderboardSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(addUser.fulfilled, (state, action) => {
+            .addCase(addUserToLederboard.fulfilled, (state, action) => {
                 state.error = "";
                 state.loadingStatus = "idle";
             })

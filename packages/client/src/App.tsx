@@ -7,12 +7,12 @@ import { Forum } from "./features/forum/Forum";
 import { ErrorPage } from "./features/errorPage/ErrorPage";
 import { Game } from "./features/game/Game";
 import { Home } from "./features/home/Home";
-import { PrivatRouters } from "./router/PrivatRouters";
+import { PrivateRouters } from "./router/PrivateRouters";
 
 function App() {
     return (
         <Routes>
-            <Route element={<PrivatRouters />}>
+            <Route element={<PrivateRouters />}>
                 <Route path={ROUTES.PROFILE.path} element={<Profile />} />
                 <Route
                     path={ROUTES.LEADERBOARD.path}

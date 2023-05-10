@@ -11,7 +11,7 @@ import full from "@/assets/img/full.svg";
 import { Button } from "@/components/common/button/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { addUser } from "@/redux/actions/leaderboarAction";
+import { addUserToLederboard } from "@/redux/actions/leaderboarAction";
 import { useAppDispatch } from "@/redux/hooks";
 import { bigIntToStr } from "@/utils/bigIntToStr";
 
@@ -52,7 +52,7 @@ export const Game = () => {
         if (gameOver === "win" || gameOver === "lose") {
             if (login !== "") {
                 dispatch(
-                    addUser({
+                    addUserToLederboard({
                         userName: login,
                         score: score,
                     }),
