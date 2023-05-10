@@ -10,7 +10,8 @@ export const getUser = createAsyncThunk(
             return response.data;
         } catch (error) {
             return rejectWithValue(
-                `Ошибка получения данных пользователя: ${(error as Error).message
+                `Ошибка получения данных пользователя: ${
+                    (error as Error).message
                 }`,
             );
         }

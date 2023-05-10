@@ -9,6 +9,11 @@ import {
 } from "@/utils/fullscreenAPI/fullscreenAPI";
 import full from "@/assets/img/full.svg";
 import { Button } from "@/components/common/button/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { addUserToLederboard } from "@/redux/actions/leaderboarAction";
+import { useAppDispatch } from "@/redux/hooks";
+import { bigIntToStr } from "@/utils/bigIntToStr";
 
 type GameOverStatus = "win" | "lose" | "none";
 
@@ -16,10 +21,18 @@ export const Game = () => {
     let canvas: HTMLCanvasElement;
     const game = GameEngine;
 
+    const login = useSelector(
+        (state: RootState) => state.user.user?.login || "",
+    );
+
     const [isPlay, setIsPlay] = useState(false);
     const [gameOver, setGameOver] = useState("none");
-    const [score, setScore] = useState("0");
-    const [bestScore, setBestScore] = useState(0);
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(
+        Number(localStorage.getItem("bestScore")) || 0,
+    );
+
+    const dispatch = useAppDispatch();
 
     function startNewGame() {
         game.start();
@@ -34,6 +47,24 @@ export const Game = () => {
             setScore,
         );
     }, []);
+
+    useEffect(() => {
+        if (gameOver === "win" || gameOver === "lose") {
+            if (login !== "") {
+                dispatch(
+                    addUserToLederboard({
+                        userName: login,
+                        score: score,
+                    }),
+                );
+            }
+            const localValue = Number(localStorage.getItem("bestScore")) || 0;
+            if (score > localValue) {
+                localStorage.setItem("bestScore", `${score}`);
+                setBestScore(score);
+            }
+        }
+    }, [gameOver]);
 
     const toggleFullscreen = () => {
         const canvasEl = document.getElementById("canvas") as HTMLCanvasElement;
@@ -60,12 +91,14 @@ export const Game = () => {
                             <div className={cls.scores}>
                                 <div className={cls.score}>
                                     <div className={cls.title}>Счет</div>
-                                    <div className={cls.number}>{score}</div>
+                                    <div className={cls.number}>
+                                        {bigIntToStr(score)}
+                                    </div>
                                 </div>
                                 <div className={cls.score}>
                                     <div className={cls.title}>Рекорд</div>
                                     <div className={cls.number}>
-                                        {bestScore}
+                                        {bigIntToStr(bestScore)}
                                     </div>
                                 </div>
                             </div>

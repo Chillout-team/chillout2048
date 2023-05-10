@@ -38,8 +38,11 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
                 ? await authAPI.signup(values)
                 : await authAPI.signin(values);
 
-            dispatch(getUser());
-            navigate(ROUTES.PROFILE.path);
+            const result = await dispatch(getUser());
+            if (result.meta.requestStatus === "fulfilled") {
+                localStorage.setItem("auth", "true");
+                navigate(ROUTES.PROFILE.path);
+            }
         } catch (err) {
             console.error(`${(err as Error).message}. Ошибка аутентификации`);
         }
