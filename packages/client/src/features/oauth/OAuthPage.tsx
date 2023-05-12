@@ -6,7 +6,7 @@ import { ROUTES } from "@/router/routes";
 
 export const OAuthPage = () => {
     const [loading, setLoading] = useState(true);
-    const [authSuccessful, setAuthSuccessful] = useState(true);
+    const [authSuccessful, setAuthSuccessful] = useState(false);
 
     const cheackAuth = async () => {
         const queryString = window.location.search;
@@ -15,11 +15,14 @@ export const OAuthPage = () => {
         if (code) {
             const res = await oAuth.takeToken(code);
             setLoading(false);
-            if (res.data !== "OK") {
-                setAuthSuccessful(false);
+            if (res?.data === "OK") {
+                setAuthSuccessful(true);
+                localStorage.setItem("auth", "true");
             }
+        } else {
+            setLoading(false);
+            setAuthSuccessful(false);
         }
-        return;
     };
 
     useEffect(() => {

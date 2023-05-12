@@ -17,7 +17,14 @@ export const oAuth = {
             code: code,
             redirect_uri: REDIRECT_URI,
         };
-        const res = await baseAPI.post(`/oauth/yandex`, JSON.stringify(data));
-        return res;
+        try {
+            const res = await baseAPI.post(
+                `/oauth/yandex`,
+                JSON.stringify(data),
+            );
+            return res;
+        } catch (error) {
+            return;
+        }
     },
 };
