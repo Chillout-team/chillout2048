@@ -1,9 +1,6 @@
-// import axios from "axios";
 import { baseAPI } from "./api";
-// import { authAPI } from "./auth-api";
 
-const REDIRECT_URI = "http://127.0.0.1:3000/singin";
-const CLIENT_ID = "55df389da6b643ca8e2659c9cddd3328";
+const REDIRECT_URI = "http://localhost:3000/oauth";
 
 export const oAuth = {
     singin: async () => {
@@ -20,9 +17,7 @@ export const oAuth = {
             code: code,
             redirect_uri: REDIRECT_URI,
         };
-        const res2 = await baseAPI.post(`/oauth/yandex`, JSON.stringify(data));
-        console.log(res2);
+        const res = await baseAPI.post(`/oauth/yandex`, JSON.stringify(data));
+        return res;
     },
-
-    // authAPI.user();
 };
