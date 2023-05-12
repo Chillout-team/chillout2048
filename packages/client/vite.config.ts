@@ -13,8 +13,8 @@ export default defineConfig({
         __SERVER_PORT__: process.env.SERVER_PORT,
     },
     ssr: {
-        target: 'node',
-        format: 'cjs',
+        target: "node",
+        format: "cjs",
     },
     plugins: [react()],
     resolve: {
@@ -25,18 +25,17 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                app: './index.html',
-                serviceWorker: './serviceWorker.js',
+                app: "./index.html",
+                serviceWorker: "./serviceWorker.js",
             },
             output: {
-                entryFileNames: chunkInfo => (
-                    chunkInfo.name === 'serviceWorker'
-                        ? '[name].js'
-                        : (chunkInfo.name === 'entry-server')
-                            ? '[name].cjs'
-                            : 'assets/[name]-[hash].js'
-                ),
-            }, 
+                entryFileNames: chunkInfo =>
+                    chunkInfo.name === "serviceWorker"
+                        ? "[name].js"
+                        : chunkInfo.name === "entry-server"
+                        ? "[name].cjs"
+                        : "assets/[name]-[hash].js",
+            },
         },
     },
 });
