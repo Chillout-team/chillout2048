@@ -27,6 +27,7 @@ export const AuthenticationForm = (props: Props) => {
                     size={"medium"}
                     color={"orange"}
                     type={"button"}
+                    subclass={cls.oauth}
                     onClick={() => oAuth.singin()}>
                     Авторизоваться через Яндекс
                 </Button>
