@@ -3,17 +3,24 @@ import { Header } from "@/components/common/header/Header";
 import cls from "./Game.module.scss";
 import { GameEngine } from "@/utils/game/Game";
 import { useEffect, useState } from "react";
+import useSound from "use-sound";
 import {
     activateFullscreen,
     deactivateFullscreen,
 } from "@/utils/fullscreenAPI/fullscreenAPI";
 import full from "@/assets/img/full.svg";
+import soundIcon from "@/assets/img/sound.svg";
+import noSoundIcon from "@/assets/img/nosound.svg";
 import { Button } from "@/components/common/button/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { addUserToLederboard } from "@/redux/actions/leaderboarAction";
 import { useAppDispatch } from "@/redux/hooks";
 import { bigIntToStr } from "@/utils/bigIntToStr";
+import chopTrack from "@/assets/sounds/chop.wav";
+import gameOverTrack from "@/assets/sounds/gameover.mp3";
+import winTrack from "@/assets/sounds/win.mp3";
+import newGameTrack from "@/assets/sounds/newgame.wav";
 
 type GameOverStatus = "win" | "lose" | "none";
 
@@ -31,12 +38,14 @@ export const Game = () => {
     const [bestScore, setBestScore] = useState(
         Number(localStorage.getItem("bestScore")) || 0,
     );
+    const [hasSound, setHasSound] = useState(false);
 
     const dispatch = useAppDispatch();
 
-    function startNewGame() {
-        game.start();
-    }
+    const [scoreIncreasePlay] = useSound(chopTrack);
+    const [gameOverPlay] = useSound(gameOverTrack);
+    const [winPlay] = useSound(winTrack);
+    const [newGamePlay] = useSound(newGameTrack);
 
     useEffect(() => {
         canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -47,6 +56,10 @@ export const Game = () => {
             setScore,
         );
     }, []);
+
+    useEffect(() => {
+        score && hasSound && scoreIncreasePlay();
+    }, [score, hasSound]);
 
     useEffect(() => {
         if (gameOver === "win" || gameOver === "lose") {
@@ -64,13 +77,28 @@ export const Game = () => {
                 setBestScore(score);
             }
         }
+
+        if (hasSound) {
+            gameOver === "win" && winPlay();
+            gameOver === "lose" && gameOverPlay();
+        }
     }, [gameOver]);
+
+    const startNewGame = () => {
+        game.start();
+        setGameOver("none");
+        hasSound && newGamePlay();
+    };
 
     const toggleFullscreen = () => {
         const canvasEl = document.getElementById("canvas") as HTMLCanvasElement;
         activateFullscreen(canvasEl);
         !isPlay && startNewGame();
         deactivateFullscreen();
+    };
+
+    const toggleSound = () => {
+        setHasSound(!hasSound);
     };
 
     return (
@@ -110,18 +138,36 @@ export const Game = () => {
                                     onClick={() => startNewGame()}>
                                     Новая игра
                                 </Button>
-                                <button
-                                    type="button"
-                                    className={cls.button_full}
-                                    onClick={toggleFullscreen}>
-                                    <img
-                                        className={cls.icon_full}
-                                        src={full}
-                                        alt="fullscreen"
-                                        width="16"
-                                        height="16"
-                                    />
-                                </button>
+                                <div className={cls.icon_buttons}>
+                                    <button
+                                        type="button"
+                                        className={cls.button_sound}
+                                        onClick={toggleSound}>
+                                        <img
+                                            className={cls.icon_full}
+                                            src={
+                                                hasSound
+                                                    ? soundIcon
+                                                    : noSoundIcon
+                                            }
+                                            alt="sound"
+                                            width="16"
+                                            height="16"
+                                        />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={cls.button_full}
+                                        onClick={toggleFullscreen}>
+                                        <img
+                                            className={cls.icon_full}
+                                            src={full}
+                                            alt="fullscreen"
+                                            width="16"
+                                            height="16"
+                                        />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -137,7 +183,7 @@ export const Game = () => {
                                         : "orange"
                                 }
                                 type="button"
-                                onClick={() => startNewGame()}>
+                                onClick={startNewGame}>
                                 {gameOver === "win"
                                     ? "Вы выйграли!"
                                     : gameOver === "lose"
