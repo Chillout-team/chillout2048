@@ -12,13 +12,17 @@ export const OAuthPage = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const code = urlParams.get("code");
-        if (code) {
+
+        if (!localStorage.getItem("auth") && code) {
             const res = await oAuth.takeToken(code);
             setLoading(false);
             if (res?.data === "OK") {
                 setAuthSuccessful(true);
                 localStorage.setItem("auth", "true");
             }
+        } else if (localStorage.getItem("auth")) {
+            setLoading(false);
+            setAuthSuccessful(true);
         } else {
             setLoading(false);
             setAuthSuccessful(false);

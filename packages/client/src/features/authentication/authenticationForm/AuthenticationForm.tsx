@@ -23,6 +23,9 @@ export const AuthenticationForm = (props: Props) => {
                 {children}
             </div>
             <div>
+                <Button size={"medium"} color={"green"} type={"submit"}>
+                    {buttonTitle}
+                </Button>
                 <Button
                     size={"medium"}
                     color={"orange"}
@@ -30,9 +33,6 @@ export const AuthenticationForm = (props: Props) => {
                     subclass={cls.oauth}
                     onClick={() => oAuth.singin()}>
                     Авторизоваться через Яндекс
-                </Button>
-                <Button size={"medium"} color={"green"} type={"submit"}>
-                    {buttonTitle}
                 </Button>
                 {goToRegistration && (
                     <Link className={cls.__green} to={ROUTES.SINGUP.path}>
