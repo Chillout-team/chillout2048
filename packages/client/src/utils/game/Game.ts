@@ -23,7 +23,7 @@ const COLOR = {
     cell_65536: "#b9aafd",
     cell_131072: "ff0000",
 };
-const SPEED = 2;
+const SPEED = 10;
 
 export type Mode = "Row" | "Colm";
 type Direction = "Up" | "Down" | "Right" | "Left";
@@ -122,29 +122,38 @@ class GameClass {
                 let isMove = false;
                 if (
                     cell.collapseTarget &&
-                    Math.abs(
+                    !Math.abs(
                         cell.xPos -
                             cell.collapseTarget.xPos +
                             cell.yPos -
                             cell.collapseTarget.yPos,
-                    ) === 0
+                    )
                 ) {
                     cell.update();
                 }
-                if (cell.xPos !== cell.newXPos) {
-                    if (cell.xPos < cell.newXPos) {
-                        cell.xPos += SPEED;
-                    } else if (cell.xPos > cell.newXPos) {
-                        cell.xPos -= SPEED;
+                if (
+                    Math.abs(
+                        cell.xPos - cell.newXPos + cell.yPos - cell.newYPos,
+                    ) >= SPEED
+                ) {
+                    if (cell.xPos !== cell.newXPos) {
+                        if (cell.xPos < cell.newXPos) {
+                            cell.xPos += SPEED;
+                        } else if (cell.xPos > cell.newXPos) {
+                            cell.xPos -= SPEED;
+                        }
+                        isMove = true;
+                    } else if (cell.yPos !== cell.newYPos) {
+                        if (cell.yPos < cell.newYPos) {
+                            cell.yPos += SPEED;
+                        } else if (cell.yPos > cell.newYPos) {
+                            cell.yPos -= SPEED;
+                        }
+                        isMove = true;
                     }
-                    isMove = true;
-                } else if (cell.yPos !== cell.newYPos) {
-                    if (cell.yPos < cell.newYPos) {
-                        cell.yPos += SPEED;
-                    } else if (cell.yPos > cell.newYPos) {
-                        cell.yPos -= SPEED;
-                    }
-                    isMove = true;
+                } else {
+                    cell.xPos = cell.newXPos;
+                    cell.yPos = cell.newYPos;
                 }
                 if (
                     cell.xPos === cell.newXPos &&
@@ -307,23 +316,6 @@ class GameClass {
         }
     }
 
-    // animationCreateCell(
-    //     numCell: number,
-    //     color: string,
-    //     xPos: number,
-    //     yPos: number,
-    // ) {
-    //     const newRender = (size: number) => {
-    //         this.render(numCell, color, xPos, yPos, size);
-    //     };
-    //     for (let size = 0; size < 10; size++) {
-    //         requestAnimationFrame(newRender);
-    //     }
-    //     for (let size = 10; size > 0; size--) {
-    //         newRender(size);
-    //     }
-    // }
-
     animation(direction?: Direction) {
         this.isAnimation = true;
         const tick = () => {
@@ -355,6 +347,7 @@ class GameClass {
         };
         requestAnimationFrame(tick);
     }
+
     colorCell(cell: number) {
         switch (cell) {
             case 0:
@@ -397,6 +390,7 @@ class GameClass {
                 return COLOR.cell_0;
         }
     }
+
     initControl() {
         document.addEventListener("keyup", e => {
             if (this.play && !this.isAnimation) {
