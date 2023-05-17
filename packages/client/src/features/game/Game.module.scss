@@ -53,8 +53,12 @@
             .buttons {
                 display: flex;
                 flex-direction: column;
-                align-items: end;
-                .button_full {
+                .icon_buttons {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .button_full,
+                .button_sound {
                     margin-top: 9px;
                     background: transparent;
                     border: 1px solid var(--dark-background-color);

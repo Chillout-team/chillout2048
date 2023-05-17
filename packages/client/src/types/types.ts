@@ -1,3 +1,5 @@
+import { RootState } from "@/redux/store";
+
 type ExitFullscreen = typeof document.exitFullscreen;
 type RequestFullscreen = typeof document.documentElement.requestFullscreen;
 
@@ -13,8 +15,13 @@ declare global {
         mozRequestFullScreen: RequestFullscreen;
         msRequestFullscreen: RequestFullscreen;
     }
+
+    interface Window {
+        __PRELOADED_STATE__: RootState;
+    }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TIndexed<T = any> = {
     [key in string]: T;
 };
@@ -57,4 +64,22 @@ export interface IForumMessage {
     authorName: string;
     messageDate: string;
     messagetext: string;
+}
+
+export interface IGetTeamLeaderbord {
+    data: TIndexed;
+    teamName: string;
+}
+
+export interface ILeaderboar {
+    data: {
+        score: string;
+        userName: string;
+    };
+}
+
+export interface ILeaderbordState {
+    data: ILeaderboar[] | [] | null;
+    error?: string;
+    loadingStatus: "loading" | "idle" | "failed";
 }

@@ -25,6 +25,7 @@ const initialState: IUserState = {
     loadingStatus: "idle",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 type PendingAction = ReturnType<GenericAsyncThunk["pending"]>;
 type RejectedAction = ReturnType<GenericAsyncThunk["rejected"]>;

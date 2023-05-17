@@ -9,9 +9,13 @@ export const declensionByNumbers = (
     ];
 };
 
-type TSetCookieProps = Record<string, string | Date | number | boolean>
+type TSetCookieProps = Record<string, string | Date | number | boolean>;
 
-export const setCookie = (name: string, value: string, props: TSetCookieProps = {}): void => {
+export const setCookie = (
+    name: string,
+    value: string,
+    props: TSetCookieProps = {},
+): void => {
     let exp = props.expires;
     if (typeof exp === "number" && exp) {
         const d = new Date();
@@ -31,8 +35,8 @@ export const setCookie = (name: string, value: string, props: TSetCookieProps = 
         }
     }
     document.cookie = updatedCookie;
-}
+};
 
 export const deleteCookie = (name: string) => {
-    setCookie(name, '', { expires: 0 })
-}
+    setCookie(name, "", { expires: 0 });
+};

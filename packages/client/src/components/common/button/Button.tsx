@@ -7,15 +7,22 @@ interface IButton {
     type: "button" | "submit" | "reset";
     disabled?: boolean;
     children?: React.ReactNode;
+    subclass?: string;
 }
 
-export const Button = ({ size, color, children, ...other }: IButton) => {
+export const Button = ({
+    size,
+    color,
+    children,
+    subclass = "",
+    ...other
+}: IButton) => {
     return (
         <button
             {...other}
             className={`${cls.button} ${cls[`__${size}`]} ${
                 cls[`__${color}`]
-            }`}>
+            } ${subclass}`}>
             {children}
         </button>
     );

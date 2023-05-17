@@ -3,6 +3,7 @@ import { Button } from "@/components/common/button/Button";
 import { Form } from "formik";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/router/routes";
+import { oAuth } from "@/api/oAuth";
 
 type Props = {
     title: string;
@@ -24,6 +25,14 @@ export const AuthenticationForm = (props: Props) => {
             <div>
                 <Button size={"medium"} color={"green"} type={"submit"}>
                     {buttonTitle}
+                </Button>
+                <Button
+                    size={"medium"}
+                    color={"orange"}
+                    type={"button"}
+                    subclass={cls.oauth}
+                    onClick={() => oAuth.singin()}>
+                    Авторизоваться через Яндекс
                 </Button>
                 {goToRegistration && (
                     <Link className={cls.__green} to={ROUTES.SINGUP.path}>
