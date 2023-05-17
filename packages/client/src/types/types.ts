@@ -21,6 +21,7 @@ declare global {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TIndexed<T = any> = {
     [key in string]: T;
 };

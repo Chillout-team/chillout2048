@@ -7,6 +7,7 @@ import { Forum } from "./features/forum/Forum";
 import { ErrorPage } from "./features/errorPage/ErrorPage";
 import { Game } from "./features/game/Game";
 import { Home } from "./features/home/Home";
+import { OAuthPage } from "./features/oauth/OAuthPage";
 import { PrivateRouters } from "./router/PrivateRouters";
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
                 path={ROUTES.SINGUP.path}
                 element={<Authentication mode={"reg"} />}
             />
+            <Route path={ROUTES.OAUTH.path} element={<OAuthPage />} />
+            <Route path={ROUTES.PROFILE.path} element={<Profile />} />
+            <Route path={ROUTES.LEADERBOARD.path} element={<Leaderboard />} />
             <Route path={ROUTES.GAME.path} element={<Game />} />
             <Route
                 path={ROUTES.ERROR_PAGE.path}

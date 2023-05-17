@@ -25,7 +25,6 @@ export const logout = createAsyncThunk(
             await authAPI.logout();
             deleteCookie("authCookie");
             deleteCookie("uuid");
-
             return null;
         } catch (error) {
             return rejectWithValue(

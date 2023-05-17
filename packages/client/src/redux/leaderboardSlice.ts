@@ -8,6 +8,7 @@ const initialState: ILeaderbordState = {
     loadingStatus: "idle",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 type PendingAction = ReturnType<GenericAsyncThunk["pending"]>;
 type RejectedAction = ReturnType<GenericAsyncThunk["rejected"]>;
@@ -26,6 +27,7 @@ export const leaderboardSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .addCase(addUserToLederboard.fulfilled, (state, action) => {
                 state.error = "";
                 state.loadingStatus = "idle";

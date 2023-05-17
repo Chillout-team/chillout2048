@@ -31,13 +31,11 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
         AuthenticationData[mode];
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const onSubmit = async (values: IProfileForm) => {
         try {
             mode === "reg"
                 ? await authAPI.signup(values)
                 : await authAPI.signin(values);
-
             const result = await dispatch(getUser());
             if (result.meta.requestStatus === "fulfilled") {
                 localStorage.setItem("auth", "true");
@@ -47,7 +45,6 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
             console.error(`${(err as Error).message}. Ошибка аутентификации`);
         }
     };
-
     return (
         <Main>
             <Formik

@@ -14,6 +14,9 @@ export const ROUTES = {
     GAME: {
         path: "/game",
     },
+    OAUTH: {
+        path: "/oauth",
+    },
     LEADERBOARD: {
         path: "/leaderboard",
     },
