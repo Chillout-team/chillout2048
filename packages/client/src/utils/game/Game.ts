@@ -440,7 +440,9 @@ class GameClass {
         if (direction === "Up") {
             const xPos = this.getRandomInt(MAX_POSITON);
             if (this.map[3][xPos] === 0) {
-                this.map[3][xPos] = this.createNewCell(value, xPos, 3);
+                const newCell = this.createNewCell(value, xPos, 3);
+                this.map[3][xPos] = newCell;
+                this.render(newCell);
             } else {
                 if (this.checkForFreeCell("Row", 3)) {
                     this.createCell(direction);
@@ -449,11 +451,9 @@ class GameClass {
         } else if (direction === "Down") {
             const xPos = this.getRandomInt(MAX_POSITON);
             if (this.map[MIN_POSITON][xPos] === 0) {
-                this.map[MIN_POSITON][xPos] = this.createNewCell(
-                    value,
-                    xPos,
-                    MIN_POSITON,
-                );
+                const newCell = this.createNewCell(value, xPos, MIN_POSITON);
+                this.map[MIN_POSITON][xPos] = newCell;
+                this.render(newCell);
             } else {
                 if (this.checkForFreeCell("Row", 0)) {
                     this.createCell(direction);
@@ -462,7 +462,9 @@ class GameClass {
         } else if (direction === "Left") {
             const yPos = this.getRandomInt(MAX_POSITON);
             if (this.map[yPos][3] === 0) {
-                this.map[yPos][3] = this.createNewCell(value, 3, yPos);
+                const newCell = this.createNewCell(value, 3, yPos);
+                this.map[yPos][3] = newCell;
+                this.render(newCell);
             } else {
                 if (this.checkForFreeCell("Colm", 3)) {
                     this.createCell(direction);
@@ -471,11 +473,9 @@ class GameClass {
         } else if (direction === "Right") {
             const yPos = this.getRandomInt(MAX_POSITON);
             if (this.map[yPos][MIN_POSITON] === 0) {
-                this.map[yPos][MIN_POSITON] = this.createNewCell(
-                    value,
-                    MIN_POSITON,
-                    yPos,
-                );
+                const newCell = this.createNewCell(value, MIN_POSITON, yPos);
+                this.map[yPos][MIN_POSITON] = newCell;
+                this.render(newCell);
             } else {
                 if (this.checkForFreeCell("Colm", 0)) {
                     this.createCell(direction);
