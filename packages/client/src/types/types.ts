@@ -1,3 +1,5 @@
+import { RootState } from "@/redux/store";
+
 type ExitFullscreen = typeof document.exitFullscreen;
 type RequestFullscreen = typeof document.documentElement.requestFullscreen;
 
@@ -12,6 +14,10 @@ declare global {
         webkitRequestFullscreen: RequestFullscreen;
         mozRequestFullScreen: RequestFullscreen;
         msRequestFullscreen: RequestFullscreen;
+    }
+
+    interface Window {
+        __PRELOADED_STATE__: RootState;
     }
 }
 

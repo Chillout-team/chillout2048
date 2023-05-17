@@ -24,7 +24,13 @@ app.get("/", (req, res: Response) => {
         "../client/dist/client/index.html",
     );
     const htmlString = fs.readFileSync(template, "utf-8");
-    const newString = htmlString.replace("<!--ssr-outlet-->", result);
+
+    const store = {};
+    const appStore = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
+        store
+    )}</script>`
+
+    const newString = htmlString.replace("<!--ssr-outlet-->", result).replace("<!--ssr-store-->", appStore);
     res.send(newString);
 });
 
