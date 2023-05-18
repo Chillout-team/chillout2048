@@ -1,15 +1,14 @@
 .messageList {
-    margin: 1px 10px 60px 10px;
+    margin: 1px 10px 60px;
     padding: 1px;
     border: 1px var(--color-light-blue-green) solid;
 
     .messageTitle {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         width: 100%;
         background-color: var(--color-perl);
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
         position: relative;
         z-index: 20;
 
@@ -36,8 +35,7 @@
 
     .messageBody {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         width: 100%;
         background-color: var(--color-white);
         position: relative;
