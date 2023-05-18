@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import { Main } from "@/components/common/main/Main";
 import { Header } from "@/components/common/header/Header";
 import { Button } from "@/components/common/button/Button";
@@ -16,8 +15,8 @@ export const Home: FC = () => {
                 <div className={cls.main_page_wrapper}>
                     <h1 className={cls.header}># 2048</h1>
                     <p className={cls.header_text}>
-                        <span>Как играть:</span> Передвигая плитки, нужно
-                        сложить кубики одного «номинала».
+                        Как играть: Передвигая плитки, нужно сложить кубики
+                        одного «номинала».
                         <br /> Целью игры является получение плитки номинала
                         «2048».
                     </p>

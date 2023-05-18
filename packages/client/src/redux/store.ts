@@ -1,4 +1,8 @@
-import { PreloadedState, combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+    PreloadedState,
+    combineReducers,
+    configureStore,
+} from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import leaderboardReducer from "./leaderboardSlice";
 
@@ -15,7 +19,7 @@ export const createStore = (preloadedState?: PreloadedState<RootState>) => {
 };
 
 export const store = createStore(
-    typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined,
+    typeof window !== "undefined" ? window.__PRELOADED_STATE__ : undefined,
 );
 
 export type RootState = ReturnType<typeof rootReducer>;

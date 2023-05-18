@@ -1,0 +1,23 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--color-green);
+
+    &:hover {
+        background-color: var(--light-background-color);
+    }
+}
+
+.small {
+    width: 34px;
+    height: 34px;
+}
+
+.large {
+    width: 52px;
+    height: 52px;
+}
