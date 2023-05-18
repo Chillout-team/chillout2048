@@ -512,7 +512,6 @@ class GameClass {
     moveCell(newPos: Positon, oldPos: Positon, mode: Direction): boolean {
         const newCell = this.map[newPos.y][newPos.x] as 0 | Cell;
         const oldCell = this.map[oldPos.y][oldPos.x] as 0 | Cell;
-        // newCell === 0 && oldCell !== 0
         if (!newCell && oldCell) {
             if (!this.isCheckGameOver) {
                 oldCell.updateNewPos(newPos);
@@ -520,7 +519,6 @@ class GameClass {
                 this.map[oldPos.y][oldPos.x] = 0;
             }
             return true;
-            // newCell !== 0 && oldCell !== 0 && newCell === oldCell
         } else if (
             newCell &&
             oldCell &&
@@ -536,7 +534,6 @@ class GameClass {
                 this.map[oldPos.y][oldPos.x] = 0;
             }
             return true;
-            // (newCell === 0 | newCell !== 0) && oldCell === 0
         } else if (!oldCell) {
             if (mode === "Down") {
                 if (oldPos.y > 0) {
