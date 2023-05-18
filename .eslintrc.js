@@ -16,6 +16,10 @@ module.exports = {
     plugins: ["@typescript-eslint"],
     rules: {
         "@typescript-eslint/ban-ts-comment": 1,
+        "no-unused-vars": [
+            "warn",
+            { argsIgnorePattern: "^_", varsIgnorePattern: "^[A-Z]" },
+        ],
     },
     ignorePatterns: ["packages/client/dist"],
 };
