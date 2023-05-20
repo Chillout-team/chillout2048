@@ -2,6 +2,7 @@ import { FC, SyntheticEvent, useState } from "react";
 import { Button } from "@/components/common/button/Button";
 import { TextArea } from "@/components/common/textarea/TextArea";
 import cls from "./ForumForm.module.scss";
+import { EmojiButton } from "../emoji/emojiButton/emojiButton";
 
 interface IForumFormProps {
     type: "message" | "topic";
@@ -46,25 +47,26 @@ export const ForumForm: FC<IForumFormProps> = ({ type }) => {
             <header className={cls.formHeader}>
                 <h2 className={cls.formTitle}>{formInfo.title}</h2>
             </header>
-            <div className={cls.formBody}>
-                <form>
-                    <TextArea
-                        placeholder={formInfo.placeholder}
-                        onChange={onChangeTextarea}
-                        errorText={errorText}
-                        value={formText}
-                    />
-                    <div className={cls.forumAdd}>
-                        <Button
-                            size="small"
-                            color="orange"
-                            type="submit"
-                            onClick={onSubmitForm}>
-                            {formInfo.buttonText}
-                        </Button>
-                    </div>
-                </form>
-            </div>
+            <form className={cls.formBody}>
+                <TextArea
+                    placeholder={formInfo.placeholder}
+                    onChange={onChangeTextarea}
+                    errorText={errorText}
+                    value={formText}
+                />
+                <div className={cls.forumAdd}>
+                    <EmojiButton
+                        text={formText}
+                        setText={setFormText}></EmojiButton>
+                    <Button
+                        size="small"
+                        color="orange"
+                        type="submit"
+                        onClick={onSubmitForm}>
+                        {formInfo.buttonText}
+                    </Button>
+                </div>
+            </form>
         </section>
     );
 };
