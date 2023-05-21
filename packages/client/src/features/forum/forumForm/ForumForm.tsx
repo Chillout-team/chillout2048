@@ -2,7 +2,7 @@ import { FC, SyntheticEvent, useState } from "react";
 import { Button } from "@/components/common/button/Button";
 import { TextArea } from "@/components/common/textarea/TextArea";
 import cls from "./ForumForm.module.scss";
-import { EmojiButton } from "../emoji/emojiButton/emojiButton";
+import { EmojiButton } from "../emoji/emojiButton/EmojiButton";
 
 interface IForumFormProps {
     type: "message" | "topic";
