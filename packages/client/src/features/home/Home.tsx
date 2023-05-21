@@ -15,10 +15,10 @@ export const Home: FC = () => {
                 <div className={cls.main_page_wrapper}>
                     <h1 className={cls.header}># 2048</h1>
                     <p className={cls.header_text}>
-                        Как играть: Передвигая плитки, нужно сложить кубики
-                        одного «номинала».
+                        <span>Как играть:</span> Передвигая плитки, нужно
+                        сложить кубики одного «номинала».
                         <br /> Целью игры является получение плитки номинала
-                        «2048».
+                        <span> «2048»</span>.
                     </p>
                     <Link to={ROUTES.GAME.path}>
                         <Button

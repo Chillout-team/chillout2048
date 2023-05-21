@@ -1,4 +1,4 @@
-.position {
+.root {
     display: grid;
     grid-template-columns: 100px auto 100px;
     border-bottom: 2px solid var(--color-green);
@@ -8,6 +8,8 @@
 
     div {
         padding: 9px;
+        color: var(--main-text-color);
+
     }
 
     .__orange {
