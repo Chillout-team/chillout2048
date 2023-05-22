@@ -1,3 +1,4 @@
+import { EmojiList } from "../EmojiList";
 import cls from "./emojiButton.module.scss";
 
 type Props = {
@@ -13,30 +14,17 @@ export const EmojiButton = (props: Props) => {
 
     return (
         <div className={cls.emojiWrapper}>
-            <button
-                className={cls.emoji}
-                type="button"
-                onClick={() => addEmoji("👍")}>
-                👍
-            </button>
-            <button
-                className={cls.emoji}
-                type="button"
-                onClick={() => addEmoji("👎")}>
-                👎
-            </button>
-            <button
-                className={cls.emoji}
-                type="button"
-                onClick={() => addEmoji("❤️")}>
-                ❤️
-            </button>
-            <button
-                className={cls.emoji}
-                type="button"
-                onClick={() => addEmoji("🔥")}>
-                🔥
-            </button>
+            {EmojiList.map((emoji, index) => {
+                return (
+                    <button
+                        key={index}
+                        className={cls.emoji}
+                        type="button"
+                        onClick={() => addEmoji(emoji)}>
+                        {emoji}
+                    </button>
+                );
+            })}
         </div>
     );
 };

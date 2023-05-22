@@ -1,0 +1,25 @@
+.addEmoji {
+    padding: 2px;
+    opacity: 0.5;
+    position: relative;
+    .emojiContainer {
+        border: 1px solid black;
+        border-radius: 24px;
+        padding: 10px;
+        position: absolute;
+        top: -45px;
+        left: 15px;
+        font-size: 25px;
+        display: none;
+    }
+}
+
+.addEmoji:hover {
+    opacity: 1;
+    .emojiContainer {
+        display: flex;
+        .emoji {
+            cursor: pointer;
+        }
+    }
+}

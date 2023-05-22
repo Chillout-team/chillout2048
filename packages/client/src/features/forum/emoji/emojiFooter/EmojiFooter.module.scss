@@ -1,0 +1,14 @@
+.emojiList {
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+
+    .emoji {
+        margin-right: 5px;
+        padding: 5px 7px;
+        display: flex;
+        background: var(--color-light-blue-green);
+        border-radius: 15px;
+        align-items: center;
+    }
+}
