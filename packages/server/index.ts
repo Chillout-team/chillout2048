@@ -19,7 +19,7 @@ const port = Number(process.env.SERVER_PORT) || 3001;
 postgreDBConnect();
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true })); 
 app.use('/api', apiRouter);
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));

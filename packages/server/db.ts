@@ -1,3 +1,4 @@
+import { ForumEmoji } from './models/forumEmoji';
 import { ForumMessages } from './models/forumMessages';
 import { ForumTopics } from './models/forumTopics';
 import { Users } from './models/users';
@@ -13,7 +14,7 @@ const sequelizeOptions: SequelizeOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   dialect: 'postgres',
-  models: [ Users, ForumTopics, ForumMessages ] 
+  models: [ Users, ForumTopics, ForumMessages, ForumEmoji ] 
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
