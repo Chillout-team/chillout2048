@@ -4,16 +4,23 @@ import fs from "fs";
 dotenv.config();
 
 import express, { Response } from "express";
-import { createClientAndConnect } from "./db";
+import { postgreDBConnect } from './db'
 
 // @ts-ignore
 import { render } from "../client/dist/ssr/entry-server.cjs";
+import cors from "cors";
+import { apiRouter } from "./routes/apiRouter";
 
 const app = express();
+app.use(cors());
 
 const port = Number(process.env.SERVER_PORT) || 3001;
 
-createClientAndConnect();
+postgreDBConnect();
+
+app.use(express.json());
+
+app.use('/api', apiRouter);
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
