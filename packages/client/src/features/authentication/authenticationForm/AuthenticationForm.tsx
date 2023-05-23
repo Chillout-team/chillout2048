@@ -4,10 +4,11 @@ import { Form } from "formik";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/router/routes";
 import { oAuth } from "@/api/oAuth";
+import { ReactNode } from "react";
 
 type Props = {
     title: string;
-    children: React.ReactNode;
+    children: ReactNode;
     buttonTitle: string;
     goToRegistration: boolean;
     goToHome: boolean;

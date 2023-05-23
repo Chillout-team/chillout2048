@@ -8,9 +8,12 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     size?: Size;
 }
 
-export const IconButton: FC<IProps> = props => {
-    const { className = "", children, size = "small", ...othersProps } = props;
-
+export const IconButton: FC<IProps> = ({
+    className = "",
+    children,
+    size = "small",
+    ...othersProps
+}) => {
     return (
         <button
             type="button"
