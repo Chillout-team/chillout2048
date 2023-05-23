@@ -11,7 +11,7 @@ type Props = {
 export const EmojiCount: FC<Props> = ({ emoji, userId, setChanges }) => {
     const { users } = emoji;
 
-    function updateEmoji() {
+    const updateEmoji = () => {
         if (userId) {
             const indexUserId = users.findIndex(
                 targetId => targetId === userId,
@@ -23,7 +23,7 @@ export const EmojiCount: FC<Props> = ({ emoji, userId, setChanges }) => {
             }
             setChanges(true);
         }
-    }
+    };
     return (
         <>
             <div className={cls.emojiCount}>{users.length}</div>

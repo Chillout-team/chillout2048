@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const AddEmoji: FC<Props> = ({ emojis, userId, setChanges }) => {
-    function addNewEmoji(targetEmoji: string) {
+    const addNewEmoji = (targetEmoji: string) => {
         const checkIndexEmoji: number = emojis.findIndex(item => {
             console.log(item.content);
             return item.content === targetEmoji;
@@ -36,7 +36,7 @@ export const AddEmoji: FC<Props> = ({ emojis, userId, setChanges }) => {
                 setChanges(true);
             }
         }
-    }
+    };
 
     return (
         <div className={cls.addEmoji}>

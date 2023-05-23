@@ -1,16 +1,16 @@
 import { EmojiList } from "../EmojiList";
 import cls from "./emojiButton.module.scss";
+import { FC } from "react";
 
 type Props = {
     text: string;
     setText: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const EmojiButton = (props: Props) => {
-    const { text, setText } = props;
-    function addEmoji(str: string) {
+export const EmojiButton: FC<Props> = ({ text, setText }) => {
+    const addEmoji = (str: string) => {
         setText(`${text}${str}`);
-    }
+    };
 
     return (
         <div className={cls.emojiWrapper}>

@@ -55,9 +55,7 @@ export const ForumForm: FC<IForumFormProps> = ({ type }) => {
                     value={formText}
                 />
                 <div className={cls.forumAdd}>
-                    <EmojiButton
-                        text={formText}
-                        setText={setFormText}></EmojiButton>
+                    <EmojiButton text={formText} setText={setFormText} />
                     <Button
                         size="small"
                         color="orange"
