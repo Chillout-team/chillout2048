@@ -3,31 +3,38 @@
     display: flex;
     flex-direction: column;
     max-width: 420px;
+
     .header {
         display: flex;
         color: var(--color-green);
+
         h1 {
             font-weight: 700;
             font-size: 87px;
             line-height: 105px;
         }
+
         h4 {
             font-weight: 700;
             font-size: 18px;
             line-height: 22px;
         }
+
         p {
             font-weight: 400;
             font-size: 15px;
             line-height: 18px;
         }
+
         .scores_wrapper {
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
+
             .scores {
                 display: flex;
                 justify-content: space-evenly;
+
                 .score {
                     display: flex;
                     flex-direction: column;
@@ -38,11 +45,13 @@
                     width: 65px;
                     height: 55px;
                     color: var(--color-white-smoke);
+
                     .title {
                         font-weight: 400;
                         font-size: 15px;
                         line-height: 18px;
                     }
+
                     .number {
                         font-weight: 700;
                         font-size: 100%;
@@ -50,13 +59,16 @@
                     }
                 }
             }
+
             .buttons {
                 display: flex;
                 flex-direction: column;
+
                 .icon_buttons {
                     display: flex;
                     justify-content: space-between;
                 }
+
                 .button_full,
                 .button_sound {
                     margin-top: 9px;
@@ -70,11 +82,13 @@
             }
         }
     }
+
     .body {
         position: relative;
         display: flex;
         flex-direction: column;
         margin-top: 17px;
+
         .canvas {
             width: 420px;
             height: 420px;
@@ -82,12 +96,10 @@
             background: var(--color-dark-green);
             margin: auto;
         }
+
         button {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
             margin: auto;
         }
     }

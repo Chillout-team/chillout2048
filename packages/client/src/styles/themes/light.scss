@@ -1,0 +1,29 @@
+.app.light {
+    --color-green: #04780f;
+    --color-middle-green: rgb(175 233 180 / 43%);
+    --color-light-blue-green: #a7d6ac;
+    --color-light-green: #ddf4e0;
+    --color-dark-green: #477a4c;
+    --color-light-orange: #da944e;
+    --color-orange: #da6d00;
+    --color-white-smoke: #f5f5f5;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-light-gray: #999;
+    --color-dark-gray: #1e1e1e;
+    --color-brown: #71685f;
+    --color-red: #f00;
+    --color-yellow: #ffb800;
+    --color-perl: #eee4da;
+    --light-background-color: var(--color-middle-green);
+    --dark-background-color: var(--color-dark-green);
+    --main-text-color: var(--color-dark-gray);
+    --border-color: var(--color-light-blue-green);
+    --light-text-color: var(--color-light-gray);
+    --dark-text-color: var(--color-green);
+    --button-color: var(--color-orange);
+    --light-button-color: var(--color-yellow);
+    --button-text: var(--color-white);
+    --number-color: var(--color-brown);
+    --warning-color: var(--color-red);
+}

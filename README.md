@@ -41,6 +41,10 @@
 
 ```yarn format```
 
+### Форматирование scss
+
+```yarn stylelint:fix```
+
 ### Production build
 
 ```yarn build```
