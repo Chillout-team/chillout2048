@@ -21,7 +21,7 @@ export const Position: FC<IProps> = ({
 }) => {
     const { userName, score } = item;
     return (
-        <li className={`${cls.position} ${subClass}`}>
+        <li className={`${cls.root} ${subClass}`}>
             <div>{position}</div>
             <div>{userName}</div>
             <div className={!title ? cls.__orange : ""}>{score}</div>

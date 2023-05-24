@@ -2,6 +2,8 @@ import { ROUTES } from "@/router/routes";
 import cls from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "@/hooks/useAuthorization";
+import React from "react";
+import { ThemeSwitcher } from "@/components/common/themeSwitcher/ThemeSwitcher";
 
 type Props = {
     extraClass?: string;
@@ -41,6 +43,7 @@ export const Header = ({ extraClass = "" }: Props) => {
                     <Link to={ROUTES.FORUM.path}>Форум</Link>
                     <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                 </div>
+                <ThemeSwitcher />
                 {renderSignMenu}
             </nav>
         </header>
