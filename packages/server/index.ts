@@ -4,12 +4,14 @@ import fs from "fs";
 dotenv.config();
 
 import express, { Response } from "express";
-import { postgreDBConnect } from './db'
+import { postgreDBConnect } from "./db";
 
 // @ts-ignore
 import { render } from "../client/dist/ssr/entry-server.cjs";
 import cors from "cors";
 import { apiRouter } from "./routes/apiRouter";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import { YANDEX_API_URL } from "./consts/common";
 
 const app = express();
 app.use(cors());
@@ -18,9 +20,20 @@ const port = Number(process.env.SERVER_PORT) || 3001;
 
 postgreDBConnect();
 
+app.use(
+    "/api/v2",
+    createProxyMiddleware({
+        changeOrigin: true,
+        cookieDomainRewrite: {
+            "*": "",
+        },
+        target: YANDEX_API_URL,
+    }),
+);
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
-app.use('/api', apiRouter);
+app.use(express.urlencoded({ extended: true }));
+app.use("/api", apiRouter);
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
@@ -34,10 +47,12 @@ app.get("/", (req, res: Response) => {
 
     const store = {};
     const appStore = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-        store
-    )}</script>`
+        store,
+    )}</script>`;
 
-    const newString = htmlString.replace("<!--ssr-outlet-->", result).replace("<!--ssr-store-->", appStore);
+    const newString = htmlString
+        .replace("<!--ssr-outlet-->", result)
+        .replace("<!--ssr-store-->", appStore);
     res.send(newString);
 });
 

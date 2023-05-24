@@ -4,8 +4,8 @@ import { Router } from "express";
 
 export const forumRouters = Router();
 
-forumRouters.get('/', topicController().getForumTopics);
-forumRouters.post('/topic/', topicController().addForumTopic);
+forumRouters.get("/", topicController().getForumTopics);
+forumRouters.post("/topic/", topicController().addForumTopic);
 
-forumRouters.get('/topic/:id', messageController().getForumMessages);
-forumRouters.post('/messages/', messageController().addForumMessage);
+forumRouters.get("/topic/:id", messageController().getForumMessages);
+forumRouters.post("/message/", messageController().addForumMessage);

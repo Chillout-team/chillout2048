@@ -3,4 +3,4 @@ import { forumRouters } from "./forumRoutes";
 
 export const apiRouter = Router();
 
-apiRouter.use('/forum', forumRouters);
+apiRouter.use("/forum", forumRouters);
