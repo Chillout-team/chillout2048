@@ -2,11 +2,12 @@ import cls from "./AddEmoji.module.scss";
 import { EmojiList } from "../../EmojiList";
 import { FC } from "react";
 import { Emoji } from "@/types/types";
+import { Dispatch } from "react";
 
 type Props = {
     emojis: Emoji[];
     userId: number | null | undefined;
-    setChanges: React.Dispatch<React.SetStateAction<boolean>>;
+    setChanges: Dispatch<boolean>;
 };
 
 export const AddEmoji: FC<Props> = ({ emojis, userId, setChanges }) => {

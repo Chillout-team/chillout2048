@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { Emoji } from "@/types/types";
 import cls from "./EmojiItem.module.scss";
+import { Dispatch } from "react";
 
 type Props = {
     emoji: Emoji;
     userId: number | null | undefined;
-    setChanges: React.Dispatch<React.SetStateAction<boolean>>;
+    setChanges: Dispatch<boolean>;
 };
 
 export const EmojiCount: FC<Props> = ({ emoji, userId, setChanges }) => {

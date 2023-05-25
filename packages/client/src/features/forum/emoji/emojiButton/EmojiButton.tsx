@@ -1,10 +1,11 @@
 import { EmojiList } from "../EmojiList";
 import cls from "./emojiButton.module.scss";
 import { FC } from "react";
+import { Dispatch } from "react";
 
 type Props = {
     text: string;
-    setText: React.Dispatch<React.SetStateAction<string>>;
+    setText: Dispatch<string>;
 };
 
 export const EmojiButton: FC<Props> = ({ text, setText }) => {
