@@ -26,27 +26,29 @@ export const Forum: FC = () => {
     }, []);
 
     return (
-        <Main>
+        <>
             <Header />
-            <header className={cls.pageHeader}>
-                <h1 className={cls.pageTitle}>Форум</h1>
-            </header>
-            <section className={cls.forumInner}>
-                <header className={cls.forumHeader}>
-                    <h2 className={cls.forumTitle}>
-                        {activeTopicId ? "Обсуждение игры" : "Список тем"}
-                    </h2>
+            <Main>
+                <header className={cls.pageHeader}>
+                    <h1 className={cls.pageTitle}>Форум</h1>
                 </header>
-                {activeTopicId ? (
-                    <ForumMessagesList messages={messages} />
-                ) : (
-                    <ForumTopicsList
-                        topics={topics}
-                        onClickTopic={handleClickTopic}
-                    />
-                )}
-            </section>
-            <ForumForm type={activeTopicId ? "message" : "topic"} />
-        </Main>
+                <section className={cls.forumInner}>
+                    <header className={cls.forumHeader}>
+                        <h2 className={cls.forumTitle}>
+                            {activeTopicId ? "Обсуждение игры" : "Список тем"}
+                        </h2>
+                    </header>
+                    {activeTopicId ? (
+                        <ForumMessagesList messages={messages} />
+                    ) : (
+                        <ForumTopicsList
+                            topics={topics}
+                            onClickTopic={handleClickTopic}
+                        />
+                    )}
+                </section>
+                <ForumForm type={activeTopicId ? "message" : "topic"} />
+            </Main>
+        </>
     );
 };
