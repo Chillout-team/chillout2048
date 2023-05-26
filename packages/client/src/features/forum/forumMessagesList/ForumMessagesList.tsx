@@ -2,6 +2,7 @@ import { FC } from "react";
 import { IForumMessage } from "@/types/types";
 import cls from "./ForumMessagesList.module.scss";
 import noPic from "@/assets/img/no-pic.svg";
+import { EmojiFooter } from "../emoji/emojiFooter/EmojiFooter";
 
 interface IForumMessagesListProps {
     messages: IForumMessage[];
@@ -21,9 +22,9 @@ export const ForumMessagesList: FC<IForumMessagesListProps> = ({
                         authorAvatar,
                         messageDate,
                         messagetext,
+                        emoji,
                     }) => {
                         const avatar = authorAvatar ? authorAvatar : noPic;
-
                         return (
                             <div key={messageId}>
                                 <div className={cls.messageTitle}>
@@ -41,7 +42,8 @@ export const ForumMessagesList: FC<IForumMessagesListProps> = ({
                                             backgroundImage: `url(${avatar})`,
                                         }}></div>
                                     <div className={cls.messageText}>
-                                        {messagetext}
+                                        <p>{messagetext}</p>
+                                        <EmojiFooter emojis={emoji} />
                                     </div>
                                 </div>
                             </div>
