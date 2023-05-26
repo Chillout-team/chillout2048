@@ -17,7 +17,10 @@
     .formBody {
         position: relative;
         background-color: var(--color-white-smoke);
-        padding-bottom: 80px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 10px 21px;
 
         .forumAddTopic {
             padding: 10px 20px 0;
@@ -33,10 +36,9 @@
         }
 
         .forumAdd {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            margin: 0 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 17px 0 7px 0;
         }
     }
 }

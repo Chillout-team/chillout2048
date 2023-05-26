@@ -57,6 +57,11 @@ export interface IForumTopic {
     lastMessageDate: string;
 }
 
+export interface Emoji {
+    content: string;
+    users: number[];
+}
+
 export interface IForumMessage {
     messageId: string;
     topicId: string;
@@ -64,6 +69,7 @@ export interface IForumMessage {
     authorName: string;
     messageDate: string;
     messagetext: string;
+    emoji: Emoji[];
 }
 
 export interface IGetTeamLeaderbord {
