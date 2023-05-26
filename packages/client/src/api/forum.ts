@@ -7,18 +7,26 @@ const baseAPI = axios.create({
     withCredentials: true,
     timeout: 5000,
     headers: {
-        "Access-Control-Allow-Methods": "GET, POST, PUT",
-        "Access-Control-Allow-Headers": "content-type",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": URL,
+        "Content-Type": "multipart/form-data",
     },
 });
 
-export const authAPI = {
-    async topics() {
-        return await baseAPI.get(`/forum`);
+export const forumAPI = {
+    topics: async () => {
+        try {
+            const res = await baseAPI.get(`/forum`);
+            return res;
+        } catch (error) {
+            console.log(error);
+        }
     },
-    async topic(id: number) {
-        return await baseAPI.get(`/forum/topic/${id}`);
+
+    topic: async (id: number | string) => {
+        try {
+            const res = await baseAPI.get(`/forum/topic/${id}`);
+            return res;
+        } catch (error) {
+            console.log(error);
+        }
     },
 };

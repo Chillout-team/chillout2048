@@ -65,11 +65,17 @@ export interface Emoji {
 export interface IForumMessage {
     messageId: string;
     topicId: string;
-    authorAvatar: string;
-    authorName: string;
+    user: IUserForum;
     messageDate: string;
     messagetext: string;
-    emoji: Emoji[];
+    emoji?: Emoji[];
+}
+
+export interface IUserForum {
+    avatar: string | null;
+    display_name: string;
+    id: string;
+    login: string;
 }
 
 export interface IGetTeamLeaderbord {

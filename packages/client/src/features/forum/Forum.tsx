@@ -8,6 +8,7 @@ import { Header } from "@/components/common/header/Header";
 import formDataMock from "@/assets/mocks/forum-data.json";
 import { IForumData } from "@/types/types";
 import { useParams, useNavigate } from "react-router-dom";
+import { forumAPI } from "@/api/forum";
 
 /** Страница форума. */
 export const Forum: FC = () => {
@@ -16,9 +17,18 @@ export const Forum: FC = () => {
     const { id: activeTopicId } = useParams();
     const navigate = useNavigate();
 
+    const loadTopicList = async () => {
+        try {
+            const topicList = await forumAPI.topics();
+            console.log(topicList);
+            // setForumData(topicList);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
-        // TODO заменить на получение данных с сервера в следующих спринтах.
-        setForumData(formDataMock);
+        loadTopicList();
     }, [formDataMock]);
 
     const handleClickTopic = useCallback((id: string) => {

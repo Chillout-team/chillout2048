@@ -20,13 +20,16 @@ createClientAndConnect();
 const topics = [
     {
         topic_id: 1,
-        name: "Test topic",
+        title: "Test topic",
         user: {
             avatar: null,
             display_name: "Superuser",
             id: 877972,
             login: "Superuser",
         },
+        lastMessage: "Текст последнего сообщения",
+        lastMessageDate: "27.03.2023 13:30",
+        emoji: [],
         messages: [
             {
                 id: 1,
@@ -37,6 +40,16 @@ const topics = [
                     id: 877972,
                     login: "Superuser",
                 },
+                emoji: [
+                    {
+                        content: "👍",
+                        users: [1, 5],
+                    },
+                    {
+                        content: "🔥",
+                        users: [2],
+                    },
+                ],
             },
             {
                 id: 2,
@@ -52,13 +65,15 @@ const topics = [
     },
     {
         topic_id: 2,
-        name: "Test topic",
+        title: "Test topic",
         user: {
             avatar: null,
             display_name: "Superuser",
             id: 877972,
             login: "Superuser",
         },
+        lastMessage: "Текст последнего сообщения",
+        lastMessageDate: "27.03.2023 13:30",
         messages: [
             {
                 id: 1,
@@ -80,19 +95,33 @@ const topics = [
                     id: 877972,
                     login: "Superuser",
                 },
+                emoji: [
+                    {
+                        content: "👍",
+                        users: [1, 5],
+                    },
+                    {
+                        content: "🔥",
+                        users: [2],
+                    },
+                ],
             },
         ],
     },
 ];
-app.get("/api/forum", (_, res: Response) => {
-    const answer = topics.map(({ messages, ...other }) => other);
-    res.send(JSON.stringify(answer));
+app.get("/api/forum", (req, res: Response) => {
+    console.log(req.route);
+    const answer = topics.map(({ messages, ...other }) => {
+        return { messagesCount: messages.length, ...other };
+    });
+    res.status(200).send(JSON.stringify(answer));
 });
 
 app.get("/api/forum/topic/:id", (req, res: Response) => {
+    console.log(req.route);
     const { id } = req.params;
     const topic = topics.filter(({ topic_id }) => topic_id === Number(id));
-    res.send(JSON.stringify(topic[0]));
+    res.status(200).send(JSON.stringify(topic[0]));
 });
 
 // test
