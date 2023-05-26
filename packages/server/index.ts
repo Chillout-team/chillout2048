@@ -12,6 +12,7 @@ import cors from "cors";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
+import { checkAuth } from "./middlewares/checkAuth";
 
 const app = express();
 app.use(cors());
@@ -31,9 +32,26 @@ app.use(
     }),
 );
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", apiRouter);
+
+app.use("/api", async (req, res, next) => {
+    try {
+        const isAuth = await checkAuth(req); 
+        if (!isAuth) {
+            res.status(403).send({
+                message: "User is not authorized",
+            });
+            return;
+        } else {
+            app.use(express.json());
+            apiRouter(req, res, next);
+        }
+    } catch (e) {
+        res.status(500).send({
+            message: (e as Error).message || "API forum: something wrong.",
+        });
+    }
+});
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
