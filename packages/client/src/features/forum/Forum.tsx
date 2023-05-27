@@ -21,12 +21,14 @@ export const Forum: FC = () => {
         setTopicList(topicList);
     };
 
-    const loadMessageList = async () => {
-        const topic = await forumAPI.loadTopic(activeTopicId as string);
+    const loadMessageList = async (id?: string) => {
+        const topic = await forumAPI.loadTopic(id || (activeTopicId as string));
         setTopic(topic);
     };
 
     useEffect(() => {
+        console.log("update");
+
         if (activeTopicId) {
             loadMessageList();
         } else {
@@ -51,7 +53,10 @@ export const Forum: FC = () => {
                     {activeTopicId ? (
                         <ForumMessagesList topic={topic} />
                     ) : (
-                        <ForumTopicsList topics={topicList} />
+                        <ForumTopicsList
+                            topics={topicList}
+                            loadMessageList={loadMessageList}
+                        />
                     )}
                 </section>
                 <ForumForm

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import cls from "./EmojiFooter.module.scss";
 import { Emoji } from "@/types/types";
 import { EmojiCount } from "./emojiItem/EmojiItem";
@@ -17,12 +17,7 @@ export const EmojiFooter: FC<Props> = ({ emojis, topicId, messageId }) => {
     const [actualEmojis, setActualEmojis] = useState<Emoji[]>(emojis);
 
     const apiUpdateEmoji = async (content: string) => {
-        if (
-            content.trim() &&
-            String(topicId).trim() &&
-            String(messageId).trim() &&
-            userData.id
-        ) {
+        if (content.trim() && userData.id) {
             const data = {
                 content: content,
                 topicId,
@@ -35,6 +30,10 @@ export const EmojiFooter: FC<Props> = ({ emojis, topicId, messageId }) => {
             }
         }
     };
+
+    useEffect(() => {
+        setActualEmojis(emojis);
+    }, [emojis]);
 
     return (
         <div className={cls.emojiList}>
