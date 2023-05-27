@@ -41,7 +41,6 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                     user: userData,
                 };
                 const res = await forumAPI.sendMessage(data);
-                console.log(res);
                 if (res === "OK") {
                     setUpdate(true);
                 }
@@ -51,7 +50,6 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                     user: userData,
                 };
                 const res = await forumAPI.createNewTopic(data);
-                console.log(res);
                 if (res === "OK") {
                     setUpdate(true);
                 }

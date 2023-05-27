@@ -27,8 +27,6 @@ export const Forum: FC = () => {
     };
 
     useEffect(() => {
-        console.log("update");
-
         if (activeTopicId) {
             loadMessageList();
         } else {
