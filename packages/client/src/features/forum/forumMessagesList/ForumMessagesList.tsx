@@ -23,7 +23,9 @@ export const ForumMessagesList: FC<Props> = ({ topic }) => {
                             <div key={messageId}>
                                 <div className={cls.messageTitle}>
                                     <div className={cls.messageAuthor}>
-                                        {user.display_name}
+                                        {user.display_name
+                                            ? user.display_name
+                                            : user.login}
                                     </div>
                                     <div className={cls.messageDate}>
                                         {messageDate}

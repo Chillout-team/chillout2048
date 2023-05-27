@@ -36,7 +36,7 @@ export const forumAPI = {
             const res = await baseAPI.get(`/forum`);
             return res.data;
         } catch (error) {
-            console.log(error);
+            throw new Error(`error: ${error}`);
         }
     },
 
@@ -45,7 +45,7 @@ export const forumAPI = {
             const res = await baseAPI.get(`/forum/topic/${id}`);
             return res.data;
         } catch (error) {
-            console.log(error);
+            throw new Error(`error: ${error}`);
         }
     },
 
@@ -56,7 +56,7 @@ export const forumAPI = {
             });
             return res.data;
         } catch (error) {
-            console.log(error);
+            throw new Error(`error: ${error}`);
         }
     },
 
@@ -67,7 +67,7 @@ export const forumAPI = {
             });
             return res.data;
         } catch (error) {
-            console.log(error);
+            throw new Error(`error: ${error}`);
         }
     },
 
@@ -78,7 +78,7 @@ export const forumAPI = {
             });
             return res.data;
         } catch (error) {
-            console.log(error);
+            throw new Error(`error: ${error}`);
             return [];
         }
     },
