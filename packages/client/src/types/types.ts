@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { RootState } from "@/redux/store";
 
 type ExitFullscreen = typeof document.exitFullscreen;
@@ -44,12 +45,8 @@ export interface IUserState {
     loadingStatus: "loading" | "idle" | "failed";
 }
 
-export interface IForumData {
-    topics: IForumTopic[];
-    messages: IForumMessage[];
-}
-
 export interface IForumTopic {
+    messages: IForumMessage[];
     topicId: string;
     title: string;
     messagesCount: number;
@@ -63,12 +60,12 @@ export interface Emoji {
 }
 
 export interface IForumMessage {
-    messageId: string;
+    id: string;
     topicId: string;
     user: IUserForum;
     messageDate: string;
-    messagetext: string;
-    emoji?: Emoji[];
+    message: string;
+    emojis?: Emoji[];
 }
 
 export interface IUserForum {

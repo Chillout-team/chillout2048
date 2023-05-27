@@ -1,29 +1,19 @@
 import { FC } from "react";
 import { Emoji } from "@/types/types";
 import cls from "./EmojiItem.module.scss";
-import { Dispatch } from "react";
 
 type Props = {
     emoji: Emoji;
     userId: number | null | undefined;
-    setChanges: Dispatch<boolean>;
+    // eslint-disable-next-line no-unused-vars
+    apiUpdateEmoji: (content: string) => void;
 };
 
-export const EmojiCount: FC<Props> = ({ emoji, userId, setChanges }) => {
+export const EmojiCount: FC<Props> = ({ emoji, apiUpdateEmoji }) => {
     const { users } = emoji;
 
     const updateEmoji = () => {
-        if (userId) {
-            const indexUserId = users.findIndex(
-                targetId => targetId === userId,
-            );
-            if (users[indexUserId]) {
-                users.splice(indexUserId, 1);
-            } else {
-                users.push(userId);
-            }
-            setChanges(true);
-        }
+        apiUpdateEmoji(emoji.content);
     };
     return (
         <>

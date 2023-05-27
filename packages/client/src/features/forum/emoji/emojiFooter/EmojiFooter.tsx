@@ -4,39 +4,54 @@ import { Emoji } from "@/types/types";
 import { EmojiCount } from "./emojiItem/EmojiItem";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import { AddEmoji } from "./addEmoji/AddEmoji";
+import { forumAPI } from "@/api/forum";
 
 interface Props {
     emojis: Emoji[];
+    topicId: string;
+    messageId: string;
 }
 
-export const EmojiFooter: FC<Props> = ({ emojis }) => {
+export const EmojiFooter: FC<Props> = ({ emojis, topicId, messageId }) => {
     const { userData } = useAuthorization();
-    const [changes, setChanges] = useState(false);
+    const [actualEmojis, setActualEmojis] = useState<Emoji[]>(emojis);
 
-    useEffect(() => {
-        setChanges(false);
-    }, [changes]);
+    const apiUpdateEmoji = async (content: string) => {
+        if (
+            content.trim() &&
+            String(topicId).trim() &&
+            String(messageId).trim() &&
+            userData.id
+        ) {
+            const data = {
+                content: content,
+                topicId,
+                messageId,
+                userId: userData.id,
+            };
+            const res = await forumAPI.updateEmoji(data);
+            if (res) {
+                setActualEmojis(res);
+            }
+        }
+    };
 
     return (
         <div className={cls.emojiList}>
-            {emojis.map((item, index) => {
+            {actualEmojis.map((item, index) => {
                 if (item.users.length) {
                     return (
                         <div className={cls.emoji} key={index}>
                             <EmojiCount
                                 emoji={item}
                                 userId={userData.id}
-                                setChanges={setChanges}
+                                apiUpdateEmoji={apiUpdateEmoji}
                             />
                         </div>
                     );
                 }
             })}
-            <AddEmoji
-                emojis={emojis}
-                userId={userData.id}
-                setChanges={setChanges}
-            />
+            <AddEmoji apiUpdateEmoji={apiUpdateEmoji} />
         </div>
     );
 };

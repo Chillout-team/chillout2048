@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import cors from "cors";
 dotenv.config();
 
 import express, { Response } from "express";
@@ -14,13 +15,16 @@ const app = express();
 const port = Number(process.env.SERVER_PORT) || 3001;
 
 createClientAndConnect();
+app.use(express.json());
+app.use(cors());
 
 // test
 
 const topics = [
     {
-        topic_id: 1,
-        title: "Test topic",
+        topicId: 1,
+        title: "Topic 1",
+        messageDate: "27.03.2023 13:30",
         user: {
             avatar: null,
             display_name: "Superuser",
@@ -29,18 +33,19 @@ const topics = [
         },
         lastMessage: "Текст последнего сообщения",
         lastMessageDate: "27.03.2023 13:30",
-        emoji: [],
+        emojis: [],
         messages: [
             {
                 id: 1,
                 message: "Test topic",
+                messageDate: "27.03.2023 13:30",
                 user: {
                     avatar: null,
                     display_name: "Superuser",
                     id: 877972,
                     login: "Superuser",
                 },
-                emoji: [
+                emojis: [
                     {
                         content: "👍",
                         users: [1, 5],
@@ -54,18 +59,21 @@ const topics = [
             {
                 id: 2,
                 message: "Test topic",
+                messageDate: "27.03.2023 13:30",
                 user: {
                     avatar: null,
                     display_name: "Superuser",
                     id: 877972,
                     login: "Superuser",
                 },
+                emojis: [],
             },
         ],
     },
     {
-        topic_id: 2,
-        title: "Test topic",
+        topicId: 2,
+        title: "Topic 2",
+        messageDate: "27.03.2023 13:30",
         user: {
             avatar: null,
             display_name: "Superuser",
@@ -74,28 +82,32 @@ const topics = [
         },
         lastMessage: "Текст последнего сообщения",
         lastMessageDate: "27.03.2023 13:30",
+        emojis: [],
         messages: [
             {
                 id: 1,
                 message: "Ребята, я на первом месте!",
+                messageDate: "27.03.2023 13:30",
                 user: {
                     avatar: null,
                     display_name: "Superuser",
                     id: 877972,
                     login: "Superuser",
                 },
+                emojis: [],
             },
             {
                 id: 2,
                 message:
                     "Съешьте ещё этих мягких французских булок да выпейте же чаю.",
+                messageDate: "27.03.2023 13:30",
                 user: {
                     avatar: null,
                     display_name: "Superuser",
                     id: 877972,
                     login: "Superuser",
                 },
-                emoji: [
+                emojis: [
                     {
                         content: "👍",
                         users: [1, 5],
@@ -109,19 +121,96 @@ const topics = [
         ],
     },
 ];
-app.get("/api/forum", (req, res: Response) => {
-    console.log(req.route);
+
+app.get("/api/forum", (_, res: Response) => {
     const answer = topics.map(({ messages, ...other }) => {
         return { messagesCount: messages.length, ...other };
     });
-    res.status(200).send(JSON.stringify(answer));
+    res.send(answer);
 });
 
 app.get("/api/forum/topic/:id", (req, res: Response) => {
-    console.log(req.route);
     const { id } = req.params;
-    const topic = topics.filter(({ topic_id }) => topic_id === Number(id));
-    res.status(200).send(JSON.stringify(topic[0]));
+    const topic = topics.filter(({ topicId }) => topicId === Number(id));
+    res.send(JSON.stringify(topic[0]));
+});
+
+app.post("/api/forum/message", (req, res: Response) => {
+    const { topicId, message, user } = req.body;
+    const targetTopic = topics.find(topic => topic.topicId === Number(topicId));
+    if (targetTopic) {
+        targetTopic.messages.push({
+            id: targetTopic.messages.length + 1,
+            message: message,
+            messageDate: Date(),
+            user: user,
+            emojis: [],
+        });
+        res.send("OK");
+    }
+});
+
+app.post("/api/forum/topic", (req, res: Response) => {
+    const { message, user } = req.body;
+    topics.push({
+        topicId: topics.length + 1,
+        title: message,
+        messageDate: Date(),
+        user: user,
+        lastMessage: message,
+        lastMessageDate: Date(),
+        emojis: [],
+        messages: [
+            {
+                id: 0,
+                message: message,
+                messageDate: Date(),
+                user: user,
+                emojis: [],
+            },
+        ],
+    });
+    res.send("OK");
+});
+
+type ReqParams = {
+    topicId: number;
+    messageId: number;
+    content: string;
+    userId: number;
+};
+
+app.put("/api/forum/message/emoji", (req, res: Response) => {
+    const reqParams: ReqParams = req.body;
+    const { topicId, messageId, content, userId } = reqParams;
+    const targetTopic = topics.find(topic => topic.topicId === Number(topicId));
+    if (targetTopic && userId) {
+        const targetMessage = targetTopic?.messages.find(
+            message => message.id === messageId,
+        );
+        if (targetMessage) {
+            const targetEmoji = targetMessage.emojis.find(
+                emoji => emoji.content === content,
+            );
+            if (targetEmoji) {
+                const userFoundById = targetEmoji.users.findIndex(
+                    targetUserId => targetUserId === userId,
+                );
+                if (userFoundById >= 0) {
+                    targetEmoji.users.splice(userFoundById, 1);
+                } else {
+                    targetEmoji.users.push(userId);
+                }
+            } else {
+                targetMessage.emojis.push({
+                    content: content,
+                    users: [userId],
+                });
+            }
+            res.send(targetMessage.emojis);
+        }
+    }
+    res.send();
 });
 
 // test
