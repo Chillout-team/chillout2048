@@ -36,7 +36,7 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
         if (formText.trim() && userData) {
             if (type === "message" && id) {
                 const data = {
-                    topicId: id,
+                    topic_id: id,
                     message: formText.trim(),
                     user: userData,
                 };

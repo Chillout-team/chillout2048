@@ -22,7 +22,7 @@ app.use(cors());
 
 const topics = [
     {
-        topicId: 1,
+        topic_id: 1,
         title: "Topic 1",
         messageDate: "27.03.2023 13:30",
         user: {
@@ -71,7 +71,7 @@ const topics = [
         ],
     },
     {
-        topicId: 2,
+        topic_id: 2,
         title: "Topic 2",
         messageDate: "27.03.2023 13:30",
         user: {
@@ -131,13 +131,15 @@ app.get("/api/forum", (_, res: Response) => {
 
 app.get("/api/forum/topic/:id", (req, res: Response) => {
     const { id } = req.params;
-    const topic = topics.filter(({ topicId }) => topicId === Number(id));
+    const topic = topics.filter(({ topic_id }) => topic_id === Number(id));
     res.send(JSON.stringify(topic[0]));
 });
 
 app.post("/api/forum/message", (req, res: Response) => {
-    const { topicId, message, user } = req.body;
-    const targetTopic = topics.find(topic => topic.topicId === Number(topicId));
+    const { topic_id, message, user } = req.body;
+    const targetTopic = topics.find(
+        topic => topic.topic_id === Number(topic_id),
+    );
     if (targetTopic) {
         targetTopic.messages.push({
             id: targetTopic.messages.length + 1,
@@ -153,7 +155,7 @@ app.post("/api/forum/message", (req, res: Response) => {
 app.post("/api/forum/topic", (req, res: Response) => {
     const { message, user } = req.body;
     topics.push({
-        topicId: topics.length + 1,
+        topic_id: topics.length + 1,
         title: message,
         messageDate: Date(),
         user: user,
@@ -174,19 +176,21 @@ app.post("/api/forum/topic", (req, res: Response) => {
 });
 
 type ReqParams = {
-    topicId: number;
-    messageId: number;
+    topic_id: number;
+    message_id: number;
     content: string;
     userId: number;
 };
 
 app.put("/api/forum/message/emoji", (req, res: Response) => {
     const reqParams: ReqParams = req.body;
-    const { topicId, messageId, content, userId } = reqParams;
-    const targetTopic = topics.find(topic => topic.topicId === Number(topicId));
+    const { topic_id, message_id, content, userId } = reqParams;
+    const targetTopic = topics.find(
+        topic => topic.topic_id === Number(topic_id),
+    );
     if (targetTopic && userId) {
         const targetMessage = targetTopic?.messages.find(
-            message => message.id === messageId,
+            message => message.id === message_id,
         );
         if (targetMessage) {
             const targetEmoji = targetMessage.emojis.find(

@@ -8,11 +8,11 @@ import { forumAPI } from "@/api/forum";
 
 interface Props {
     emojis: Emoji[];
-    topicId: string;
-    messageId: string;
+    topic_id: string;
+    message_id: string;
 }
 
-export const EmojiFooter: FC<Props> = ({ emojis, topicId, messageId }) => {
+export const EmojiFooter: FC<Props> = ({ emojis, topic_id, message_id }) => {
     const { userData } = useAuthorization();
     const [actualEmojis, setActualEmojis] = useState<Emoji[]>(emojis);
 
@@ -20,8 +20,8 @@ export const EmojiFooter: FC<Props> = ({ emojis, topicId, messageId }) => {
         if (content.trim() && userData.id) {
             const data = {
                 content: content,
-                topicId,
-                messageId,
+                topic_id,
+                message_id,
                 userId: userData.id,
             };
             const res = await forumAPI.updateEmoji(data);

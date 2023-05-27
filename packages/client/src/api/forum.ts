@@ -13,7 +13,7 @@ const baseAPI = axios.create({
 });
 
 type SendMessageData = {
-    topicId: string;
+    topic_id: string;
     message: string;
     user: IUserData;
 };
@@ -25,8 +25,8 @@ type CreateNewTopic = {
 
 type UpdateEmoji = {
     content: string;
-    topicId: string;
-    messageId: string;
+    topic_id: string;
+    message_id: string;
     userId: number;
 };
 

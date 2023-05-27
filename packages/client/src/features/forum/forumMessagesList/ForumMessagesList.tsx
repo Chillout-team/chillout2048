@@ -40,8 +40,8 @@ export const ForumMessagesList: FC<Props> = ({ topic }) => {
                                         {emojis && (
                                             <EmojiFooter
                                                 emojis={emojis}
-                                                topicId={topicId as string}
-                                                messageId={messageId}
+                                                topic_id={topicId as string}
+                                                message_id={messageId}
                                             />
                                         )}
                                     </div>

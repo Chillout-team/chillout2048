@@ -47,7 +47,7 @@ export interface IUserState {
 
 export interface IForumTopic {
     messages: IForumMessage[];
-    topicId: string;
+    topic_id: string;
     title: string;
     messagesCount: number;
     lastMessage: string;
@@ -61,7 +61,7 @@ export interface Emoji {
 
 export interface IForumMessage {
     id: string;
-    topicId: string;
+    topic_id: string;
     user: IUserForum;
     messageDate: string;
     message: string;

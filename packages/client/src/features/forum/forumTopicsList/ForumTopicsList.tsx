@@ -23,7 +23,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
             {topics?.length ? (
                 topics.map(
                     ({
-                        topicId,
+                        topic_id,
                         title,
                         messagesCount,
                         lastMessage,
@@ -31,10 +31,9 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                     }) => {
                         return (
                             <li
-                                id={topicId}
-                                key={topicId}
+                                key={topic_id}
                                 className={cls.topic}
-                                onClick={() => handleClickTopic(topicId)}>
+                                onClick={() => handleClickTopic(topic_id)}>
                                 <div className={cls.topicInfo}>
                                     <h3 className={cls.topicTitle}>{title}</h3>
                                     <p className={cls.topicDescription}>
