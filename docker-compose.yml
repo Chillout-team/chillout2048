@@ -46,6 +46,14 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
         volumes:
             - ./tmp/postgres-data:/var/lib/postgresql/data
+#            # point to your postgres init scripts (folder or file)
+#            - $PWD/db_init:/docker-entrypoint-initdb.d
+#            # if you need persistent data, point data to local folder
+#            - $PWD/database:/var/lib/postgresql/data
+#            # if you want some data restore, point to your backup
+#            - $PWD/db_backup:/db_backup
+#            # point docker to directory with your config
+#            - $PWD/db_config:/db_config
         networks:
             - chillout2048
     pgadmin:
