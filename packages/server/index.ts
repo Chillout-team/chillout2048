@@ -4,16 +4,54 @@ import fs from "fs";
 dotenv.config();
 
 import express, { Response } from "express";
-import { createClientAndConnect } from "./db";
+import { postgreDBConnect } from "./db";
 
 // @ts-ignore
 import { render } from "../client/dist/ssr/entry-server.cjs";
+import cors from "cors";
+import { apiRouter } from "./routes/apiRouter";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import { YANDEX_API_URL } from "./consts/common";
+import { checkAuth } from "./middlewares/checkAuth";
 
 const app = express();
+app.use(cors());
 
 const port = Number(process.env.SERVER_PORT) || 3001;
 
-createClientAndConnect();
+postgreDBConnect();
+
+app.use(
+    "/api/v2",
+    createProxyMiddleware({
+        changeOrigin: true,
+        cookieDomainRewrite: {
+            "*": "",
+        },
+        target: YANDEX_API_URL,
+    }),
+);
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", async (req, res, next) => {
+    try {
+        const isAuth = await checkAuth(req); 
+        if (!isAuth) {
+            res.status(403).send({
+                message: "User is not authorized",
+            });
+            return;
+        } else {
+            app.use(express.json());
+            apiRouter(req, res, next);
+        }
+    } catch (e) {
+        res.status(500).send({
+            message: (e as Error).message || "API forum: something wrong.",
+        });
+    }
+});
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
@@ -27,10 +65,12 @@ app.get("/", (req, res: Response) => {
 
     const store = {};
     const appStore = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-        store
-    )}</script>`
+        store,
+    )}</script>`;
 
-    const newString = htmlString.replace("<!--ssr-outlet-->", result).replace("<!--ssr-store-->", appStore);
+    const newString = htmlString
+        .replace("<!--ssr-outlet-->", result)
+        .replace("<!--ssr-store-->", appStore);
     res.send(newString);
 });
 

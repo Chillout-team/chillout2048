@@ -5,8 +5,10 @@ import {
     ThemeContext,
 } from "../lib/ThemeContext";
 
+//TODO временно закоментировала, т.к. не собирался ssr
 const defaultTheme =
-    (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as THEME) || THEME.LIGHT;
+    //(localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as THEME) ||
+    THEME.LIGHT;
 
 interface IThemeProvider {
     children: ReactNode;
