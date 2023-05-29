@@ -1,6 +1,12 @@
 version: "3.9"
 
 services:
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
     client:
         container_name: prakticum-client
         image: prakticum-client
@@ -25,13 +31,16 @@ services:
             dockerfile: Dockerfile.server
             args:
                 SERVER_PORT: ${SERVER_PORT}
+        env_file: .env
         restart: always
         ports:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             SERVER_PORT: ${SERVER_PORT}
+        command: ./wait_for.sh mongo:27017 -- node init.js
         depends_on:
             - postgres
+            - mongo
         networks:
             - chillout2048
     postgres:
@@ -46,14 +55,6 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
         volumes:
             - ./tmp/postgres-data:/var/lib/postgresql/data
-#            # point to your postgres init scripts (folder or file)
-#            - $PWD/db_init:/docker-entrypoint-initdb.d
-#            # if you need persistent data, point data to local folder
-#            - $PWD/database:/var/lib/postgresql/data
-#            # if you want some data restore, point to your backup
-#            - $PWD/db_backup:/db_backup
-#            # point docker to directory with your config
-#            - $PWD/db_config:/db_config
         networks:
             - chillout2048
     pgadmin:
