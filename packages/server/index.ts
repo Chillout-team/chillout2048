@@ -9,11 +9,10 @@ import { postgreDBConnect } from "./db";
 
 // @ts-ignore
 import { render } from "../client/dist/ssr/entry-server.cjs";
-import cors from "cors";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
-import { checkAuth } from "./middlewares/checkAuth";
+// import { checkAuth } from "./middlewares/checkAuth";
 
 const app = express();
 app.use(cors());
@@ -38,16 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", async (req, res, next) => {
     try {
-        const isAuth = await checkAuth(req); 
-        if (!isAuth) {
-            res.status(403).send({
-                message: "User is not authorized",
-            });
-            return;
-        } else {
-            app.use(express.json());
-            apiRouter(req, res, next);
-        }
+        // const isAuth = await checkAuth(req);
+        // if (!isAuth) {
+        //     res.status(403).send({
+        //         message: "User is not authorized",
+        //     });
+        //     return;
+        // } else {
+        app.use(express.json());
+        apiRouter(req, res, next);
+        // }
     } catch (e) {
         res.status(500).send({
             message: (e as Error).message || "API forum: something wrong.",
