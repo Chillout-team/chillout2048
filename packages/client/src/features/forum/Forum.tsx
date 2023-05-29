@@ -1,29 +1,49 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Main } from "@/components/common/main/Main";
 import { ForumForm } from "./forumForm/ForumForm";
 import { ForumMessagesList } from "./forumMessagesList/ForumMessagesList";
 import { ForumTopicsList } from "./forumTopicsList/ForumTopicsList";
 import cls from "./Forum.module.scss";
 import { Header } from "@/components/common/header/Header";
-import formDataMock from "@/assets/mocks/forum-data.json";
-import { IForumData } from "@/types/types";
-import { useParams, useNavigate } from "react-router-dom";
+import { IForumTopic } from "@/types/types";
+import { useParams } from "react-router-dom";
+import { forumAPI } from "@/api/forum";
 
 /** Страница форума. */
 export const Forum: FC = () => {
-    const [forumData, setForumData] = useState<IForumData>();
-    const { topics = [], messages = [] } = forumData || {};
+    const [topicList, setTopicList] = useState<IForumTopic[]>();
+    const [topic, setTopic] = useState<IForumTopic>();
     const { id: activeTopicId } = useParams();
-    const navigate = useNavigate();
+    const [update, setUpdate] = useState(false);
+
+    const loadTopicList = async () => {
+        try {
+            const topicList = await forumAPI.loadTopicList();
+            setTopicList(topicList);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const loadMessageList = async (id?: string) => {
+        try {
+            const topic = await forumAPI.loadTopic(
+                id || (activeTopicId as string),
+            );
+            setTopic(topic);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
-        // TODO заменить на получение данных с сервера в следующих спринтах.
-        setForumData(formDataMock);
-    }, [formDataMock]);
-
-    const handleClickTopic = useCallback((id: string) => {
-        navigate(`/forum/${id}`);
-    }, []);
+        if (activeTopicId) {
+            loadMessageList();
+        } else {
+            loadTopicList();
+        }
+        setUpdate(false);
+    }, [activeTopicId, update]);
 
     return (
         <>
@@ -39,15 +59,18 @@ export const Forum: FC = () => {
                         </h2>
                     </header>
                     {activeTopicId ? (
-                        <ForumMessagesList messages={messages} />
+                        <ForumMessagesList topic={topic} />
                     ) : (
                         <ForumTopicsList
-                            topics={topics}
-                            onClickTopic={handleClickTopic}
+                            topics={topicList}
+                            loadMessageList={loadMessageList}
                         />
                     )}
                 </section>
-                <ForumForm type={activeTopicId ? "message" : "topic"} />
+                <ForumForm
+                    type={activeTopicId ? "message" : "topic"}
+                    setUpdate={setUpdate}
+                />
             </Main>
         </>
     );

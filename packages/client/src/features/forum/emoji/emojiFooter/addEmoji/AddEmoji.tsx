@@ -1,42 +1,14 @@
 import cls from "./AddEmoji.module.scss";
 import { EmojiList } from "../../EmojiList";
 import { FC } from "react";
-import { Emoji } from "@/types/types";
-import { Dispatch } from "react";
 
 type Props = {
-    emojis: Emoji[];
-    userId: number | null | undefined;
-    setChanges: Dispatch<boolean>;
+    apiUpdateEmoji: (content: string) => void;
 };
 
-export const AddEmoji: FC<Props> = ({ emojis, userId, setChanges }) => {
+export const AddEmoji: FC<Props> = ({ apiUpdateEmoji }) => {
     const addNewEmoji = (targetEmoji: string) => {
-        const checkIndexEmoji: number = emojis.findIndex(item => {
-            console.log(item.content);
-            return item.content === targetEmoji;
-        });
-        console.log(emojis);
-
-        if (userId) {
-            if (emojis[checkIndexEmoji]) {
-                const checkUserId = emojis[checkIndexEmoji].users.findIndex(
-                    id => {
-                        return id === userId;
-                    },
-                );
-                if (!emojis[checkIndexEmoji].users[checkUserId]) {
-                    emojis[checkIndexEmoji].users.push(userId);
-                    setChanges(true);
-                }
-            } else {
-                emojis.push({
-                    content: targetEmoji,
-                    users: [userId],
-                });
-                setChanges(true);
-            }
-        }
+        apiUpdateEmoji(targetEmoji);
     };
 
     return (

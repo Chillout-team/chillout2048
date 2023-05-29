@@ -1,35 +1,31 @@
-import { FC } from "react";
-import { IForumMessage } from "@/types/types";
+import { IForumTopic } from "@/types/types";
 import cls from "./ForumMessagesList.module.scss";
 import noPic from "@/assets/img/no-pic.svg";
 import { EmojiFooter } from "../emoji/emojiFooter/EmojiFooter";
+import { useParams } from "react-router-dom";
+import { FC } from "react";
 
-interface IForumMessagesListProps {
-    messages: IForumMessage[];
+interface Props {
+    topic: IForumTopic | undefined;
 }
 
 /* Компонент списка сообщений форума. */
-export const ForumMessagesList: FC<IForumMessagesListProps> = ({
-    messages,
-}) => {
+export const ForumMessagesList: FC<Props> = ({ topic }) => {
+    const { id: topicId } = useParams();
+
     return (
         <div className={cls.messageList}>
-            {messages ? (
-                messages.map(
-                    ({
-                        messageId,
-                        authorName,
-                        authorAvatar,
-                        messageDate,
-                        messagetext,
-                        emoji,
-                    }) => {
-                        const avatar = authorAvatar ? authorAvatar : noPic;
+            {topic ? (
+                topic.messages.map(
+                    ({ id: messageId, user, message, messageDate, emojis }) => {
+                        const avatarUrl = user.avatar ? user.avatar : noPic;
                         return (
                             <div key={messageId}>
                                 <div className={cls.messageTitle}>
                                     <div className={cls.messageAuthor}>
-                                        {authorName}
+                                        {user.display_name
+                                            ? user.display_name
+                                            : user.login}
                                     </div>
                                     <div className={cls.messageDate}>
                                         {messageDate}
@@ -39,11 +35,17 @@ export const ForumMessagesList: FC<IForumMessagesListProps> = ({
                                     <div
                                         className={cls.authorAvatar}
                                         style={{
-                                            backgroundImage: `url(${avatar})`,
+                                            backgroundImage: `url(${avatarUrl})`,
                                         }}></div>
                                     <div className={cls.messageText}>
-                                        <p>{messagetext}</p>
-                                        <EmojiFooter emojis={emoji} />
+                                        <p>{message}</p>
+                                        {emojis && (
+                                            <EmojiFooter
+                                                emojis={emojis}
+                                                topic_id={topicId as string}
+                                                message_id={messageId}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>

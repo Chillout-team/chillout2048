@@ -3,13 +3,20 @@ import { Button } from "@/components/common/button/Button";
 import { TextArea } from "@/components/common/textarea/TextArea";
 import cls from "./ForumForm.module.scss";
 import { EmojiButton } from "../emoji/emojiButton/EmojiButton";
+import { forumAPI } from "@/api/forum";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { IUserData } from "@/types/types";
+import { Dispatch } from "react";
 
 interface IForumFormProps {
     type: "message" | "topic";
+    setUpdate: Dispatch<boolean>;
 }
 
 /** Компонент формы форума. */
-export const ForumForm: FC<IForumFormProps> = ({ type }) => {
+export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
     const [formText, setFormText] = useState("");
     const [errorText, setErrorText] = useState("");
 
@@ -18,10 +25,43 @@ export const ForumForm: FC<IForumFormProps> = ({ type }) => {
         setFormText(target.value);
     };
 
-    const onSubmitForm = (event: React.FormEvent): void => {
+    const { id } = useParams();
+
+    const userData: IUserData | null = useSelector(
+        (state: RootState) => state.user?.user,
+    );
+
+    const onSubmitForm = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
-        if (formText.trim()) {
-            console.log("Отправить текст:", formText);
+        if (formText.trim() && userData) {
+            if (type === "message" && id) {
+                const data = {
+                    topic_id: id,
+                    message: formText.trim(),
+                    user: userData,
+                };
+                try {
+                    const res = await forumAPI.sendMessage(data);
+                    if (res === "OK") {
+                        setUpdate(true);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            } else if (type === "topic") {
+                const data = {
+                    message: formText.trim(),
+                    user: userData,
+                };
+                try {
+                    const res = await forumAPI.createNewTopic(data);
+                    if (res === "OK") {
+                        setUpdate(true);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
             setFormText("");
             setErrorText("");
         } else {
