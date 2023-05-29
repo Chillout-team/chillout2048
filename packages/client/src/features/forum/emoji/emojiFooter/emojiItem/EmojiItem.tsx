@@ -5,7 +5,6 @@ import cls from "./EmojiItem.module.scss";
 type Props = {
     emoji: Emoji;
     userId: number | null | undefined;
-    // eslint-disable-next-line no-unused-vars
     apiUpdateEmoji: (content: string) => void;
 };
 

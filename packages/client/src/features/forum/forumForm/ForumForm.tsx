@@ -40,18 +40,26 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                     message: formText.trim(),
                     user: userData,
                 };
-                const res = await forumAPI.sendMessage(data);
-                if (res === "OK") {
-                    setUpdate(true);
+                try {
+                    const res = await forumAPI.sendMessage(data);
+                    if (res === "OK") {
+                        setUpdate(true);
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
             } else if (type === "topic") {
                 const data = {
                     message: formText.trim(),
                     user: userData,
                 };
-                const res = await forumAPI.createNewTopic(data);
-                if (res === "OK") {
-                    setUpdate(true);
+                try {
+                    const res = await forumAPI.createNewTopic(data);
+                    if (res === "OK") {
+                        setUpdate(true);
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
             }
             setFormText("");

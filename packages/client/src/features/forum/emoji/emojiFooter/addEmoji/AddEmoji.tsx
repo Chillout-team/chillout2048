@@ -3,7 +3,6 @@ import { EmojiList } from "../../EmojiList";
 import { FC } from "react";
 
 type Props = {
-    // eslint-disable-next-line no-unused-vars
     apiUpdateEmoji: (content: string) => void;
 };
 

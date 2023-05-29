@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
     topics: IForumTopic[] | undefined;
-    // eslint-disable-next-line no-unused-vars
     loadMessageList: (id: string) => void;
 }
 

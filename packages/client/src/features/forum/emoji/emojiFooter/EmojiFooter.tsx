@@ -24,9 +24,13 @@ export const EmojiFooter: FC<Props> = ({ emojis, topic_id, message_id }) => {
                 message_id,
                 userId: userData.id,
             };
-            const res = await forumAPI.updateEmoji(data);
-            if (res) {
-                setActualEmojis(res);
+            try {
+                const res = await forumAPI.updateEmoji(data);
+                if (res) {
+                    setActualEmojis(res);
+                }
+            } catch (error) {
+                console.log(error);
             }
         }
     };

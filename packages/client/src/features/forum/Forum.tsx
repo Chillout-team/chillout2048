@@ -17,13 +17,23 @@ export const Forum: FC = () => {
     const [update, setUpdate] = useState(false);
 
     const loadTopicList = async () => {
-        const topicList = await forumAPI.loadTopicList();
-        setTopicList(topicList);
+        try {
+            const topicList = await forumAPI.loadTopicList();
+            setTopicList(topicList);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const loadMessageList = async (id?: string) => {
-        const topic = await forumAPI.loadTopic(id || (activeTopicId as string));
-        setTopic(topic);
+        try {
+            const topic = await forumAPI.loadTopic(
+                id || (activeTopicId as string),
+            );
+            setTopic(topic);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
