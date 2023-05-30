@@ -1,12 +1,6 @@
 version: "3.9"
 
 services:
-    mongo:
-        image: mongo
-        restart: always
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
     client:
         container_name: prakticum-client
         image: prakticum-client
@@ -37,10 +31,9 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             SERVER_PORT: ${SERVER_PORT}
-        command: ./wait_for.sh mongo:27017 -- node init.js
+        command: ./wait_for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
         depends_on:
             - postgres
-            - mongo
         networks:
             - chillout2048
     postgres:

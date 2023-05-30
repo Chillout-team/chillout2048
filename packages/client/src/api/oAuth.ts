@@ -1,6 +1,6 @@
 import { baseAPI } from "./api";
 
-const REDIRECT_URI = "http://localhost:3000/oauth";
+const REDIRECT_URI = "http://localhost:3000";
 
 export const oAuth = {
     singin: async () => {
