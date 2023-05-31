@@ -42,9 +42,9 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                 };
                 try {
                     const res = await forumAPI.sendMessage(data);
-                    if (res === "OK") {
+                    // if (res === "OK") {
                         setUpdate(true);
-                    }
+                    // }
                 } catch (error) {
                     console.log(error);
                 }
@@ -55,9 +55,9 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                 };
                 try {
                     const res = await forumAPI.createNewTopic(data);
-                    if (res === "OK") {
+                    // if (res === "OK") {
                         setUpdate(true);
-                    }
+                    // }
                 } catch (error) {
                     console.log(error);
                 }
