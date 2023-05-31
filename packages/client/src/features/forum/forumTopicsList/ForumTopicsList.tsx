@@ -23,7 +23,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                 topics.map(
                     ({
                         topic_id,
-                        title,
+                        name,
                         messagesCount,
                         lastMessage,
                         lastMessageDate,
@@ -34,7 +34,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                                 className={cls.topic}
                                 onClick={() => handleClickTopic(topic_id)}>
                                 <div className={cls.topicInfo}>
-                                    <h3 className={cls.topicTitle}>{title}</h3>
+                                    <h3 className={cls.topicTitle}>{name}</h3>
                                     <p className={cls.topicDescription}>
                                         {lastMessage}
                                     </p>

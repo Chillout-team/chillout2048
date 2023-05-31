@@ -48,7 +48,7 @@ export interface IUserState {
 export interface IForumTopic {
     messages: IForumMessage[];
     topic_id: string;
-    title: string;
+    name: string;
     messagesCount: number;
     lastMessage: string;
     lastMessageDate: string;
