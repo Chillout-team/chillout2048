@@ -1,5 +1,5 @@
 import { EmojiList } from "../EmojiList";
-import cls from "./emojiButton.module.scss";
+import cls from "./EmojiButton.module.scss";
 import { FC } from "react";
 import { Dispatch } from "react";
 

@@ -4,11 +4,12 @@ import { ForumTopics } from "./models/forumTopics";
 import { Users } from "./models/users";
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } =
     process.env;
 
 const sequelizeOptions: SequelizeOptions = {
-    host: "localhost",
+    host: POSTGRES_HOST,
+    //host: "localhost",
     port: Number(POSTGRES_PORT),
     username: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
