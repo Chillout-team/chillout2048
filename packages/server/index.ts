@@ -12,6 +12,8 @@ import { render } from "../client/dist/ssr/entry-server.cjs";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
+import { checkAuth } from "./middlewares/checkAuth";
+import { apiRepository } from "./repository/apiRepository";
 
 
 const app = express();
@@ -37,8 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", async (req, res, next) => {
     try {
-        //const isAuth =  await checkAuth(req);
-        const isAuth =  true
+        const isAuth =  await checkAuth(req);
+        //const isAuth =  true
         if (!isAuth) {
             res.status(403).send({
                 message: "User is not authorized",
@@ -58,7 +60,7 @@ app.use("/api", async (req, res, next) => {
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
 app.get("/", (req, res: Response) => {
-    const result = render(req.url);
+    const result = render(req.url, apiRepository(req.headers['cookie']));
     const template = path.resolve(
         __dirname,
         "../client/dist/client/index.html",

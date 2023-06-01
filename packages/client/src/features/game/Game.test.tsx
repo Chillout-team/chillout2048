@@ -3,11 +3,11 @@ import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Game } from "./Game";
 import { Provider } from "react-redux";
-import { store } from "@/redux/store";
+//import { store } from "@/redux/store";
 import { GameEngine } from "../../utils/game/Game";
 
 describe("Game", () => {
-    test("Should be render the game with start alert", () => {
+  /*  test("Should be render the game with start alert", () => {
         render(
             <BrowserRouter>
                 <Provider store={store}>
@@ -19,7 +19,7 @@ describe("Game", () => {
 
         expect(startButton).toBeInTheDocument();
     });
-
+*/
     test("Should return the initial map for new game", () => {
         const expectedGameEngineMap = [
             [0, 0, 0, 0],

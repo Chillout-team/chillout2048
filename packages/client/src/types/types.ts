@@ -92,3 +92,8 @@ export interface ILeaderbordState {
     error?: string;
     loadingStatus: "loading" | "idle" | "failed";
 }
+
+export interface ISignIn {
+    login: string
+    password: string
+}
