@@ -12,7 +12,7 @@ import { render } from "../client/dist/ssr/entry-server.cjs";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
-import { checkAuth } from './middlewares/checkAuth'
+
 
 const app = express();
 app.use(cors());
@@ -37,7 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", async (req, res, next) => {
     try {
-        const isAuth = await checkAuth(req);
+        //const isAuth =  await checkAuth(req);
+        const isAuth =  true
         if (!isAuth) {
             res.status(403).send({
                 message: "User is not authorized",

@@ -20,7 +20,7 @@ type SendMessageData = {
 };
 
 type CreateNewTopic = {
-    message: string;
+    name: string;
     user: IUserData;
 };
 

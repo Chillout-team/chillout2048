@@ -50,7 +50,7 @@ export const ForumForm: FC<IForumFormProps> = ({ type, setUpdate }) => {
                 }
             } else if (type === "topic") {
                 const data = {
-                    message: formText.trim(),
+                    name: formText.trim(),
                     user: userData,
                 };
                 try {

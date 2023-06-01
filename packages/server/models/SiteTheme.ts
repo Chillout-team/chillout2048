@@ -22,12 +22,12 @@ export class SiteTheme extends Model<SiteTheme> {
     override id!: number;
 
     @Index
-    @AllowNull(false)
+    @AllowNull(true)
     @Unique
     @Column(DataType.STRING)
     theme!: string;
 
-    @AllowNull(false)
+    @AllowNull(true)
     @Column(DataType.STRING)
     description!: string;
 }
