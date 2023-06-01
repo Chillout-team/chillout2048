@@ -78,38 +78,3 @@ export const messageController = () => {
         },
     };
 };
-
-// const data = {
-//     topic_id: 1,
-//     name: "General Discussion",
-//     createdAt: "2021-01-01T00:00:00.000Z",
-//     user: {
-//         user_id: 2,
-//         login: "user2",
-//         avatar: null,
-//     },
-//     messages: [
-//         {
-//             topic_id: 1,
-//             message_id: 1,
-//             message: "Hello World!",
-//             createdAt: "2021-01-01T12:00:00.000Z",
-//             user: {
-//                 user_id: 1,
-//                 login: "user1",
-//                 avatar: null,
-//             },
-//         },
-//         {
-//             topic_id: 1,
-//             message_id: 2,
-//             message: "Hello World!",
-//             createdAt: "2021-01-01T12:00:00.000Z",
-//             user: {
-//                 user_id: 2,
-//                 login: "user2",
-//                 avatar: null,
-//             },
-//         },
-//     ],
-// };
