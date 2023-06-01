@@ -39,4 +39,7 @@ export class ForumMessages extends Model {
 
     @BelongsTo(() => Users)
     user!: Users;
+
+    @Column(DataType.TIME)
+    override createdAt!: string;
 }

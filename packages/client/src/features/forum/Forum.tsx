@@ -5,14 +5,14 @@ import { ForumMessagesList } from "./forumMessagesList/ForumMessagesList";
 import { ForumTopicsList } from "./forumTopicsList/ForumTopicsList";
 import cls from "./Forum.module.scss";
 import { Header } from "@/components/common/header/Header";
-import { IForumTopic } from "@/types/types";
+import { IForumTopic, Topic } from "@/types/types";
 import { useParams } from "react-router-dom";
 import { forumAPI } from "@/api/forum";
 
 /** Страница форума. */
 export const Forum: FC = () => {
     const [topicList, setTopicList] = useState<IForumTopic[]>();
-    const [topic, setTopic] = useState<IForumTopic>();
+    const [topic, setTopic] = useState<Topic>();
     const { id: activeTopicId } = useParams();
     const [update, setUpdate] = useState(false);
 

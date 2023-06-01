@@ -7,9 +7,30 @@ import { requestValidator } from "../utils/requestValidator";
 
 export const messageController = () => {
     return {
-        async getForumMessages(_: Request, res: Response) {
+        async getForumMessages(req: Request, res: Response) {
+            const { id } = req.params;
             try {
-                const data = await ForumMessages.findAll({
+                const targetTopic = await ForumTopics.findAll({
+                    where: {
+                        topic_id: id,
+                    },
+                    attributes: ["topic_id", "name", "createdAt"],
+                    include: [
+                        {
+                            model: Users,
+                            attributes: [
+                                "user_id",
+                                "login",
+                                "avatar",
+                                "display_name",
+                            ],
+                        },
+                    ],
+                });
+                const topicMessages = await ForumMessages.findAll({
+                    where: {
+                        topic_id: id,
+                    },
                     attributes: ["message_id", "message", "createdAt"],
                     include: [
                         {
@@ -17,18 +38,16 @@ export const messageController = () => {
                             attributes: [
                                 "user_id",
                                 "login",
-                                "display_name",
                                 "avatar",
+                                "display_name",
                             ],
                         },
-                        {
-                            model: ForumTopics,
-                            attributes: ["topic_id", "name"],
-                        },
                     ],
-                    order: [["createdAt", "ASC"]],
+                    order: [["message_id", "ASC"]],
                 });
-                return res.status(200).send(data);
+
+                const topic = targetTopic[0];
+                return res.status(200).send({ topic, topicMessages });
             } catch (e) {
                 return res.status(500).send({
                     message:
@@ -59,3 +78,38 @@ export const messageController = () => {
         },
     };
 };
+
+// const data = {
+//     topic_id: 1,
+//     name: "General Discussion",
+//     createdAt: "2021-01-01T00:00:00.000Z",
+//     user: {
+//         user_id: 2,
+//         login: "user2",
+//         avatar: null,
+//     },
+//     messages: [
+//         {
+//             topic_id: 1,
+//             message_id: 1,
+//             message: "Hello World!",
+//             createdAt: "2021-01-01T12:00:00.000Z",
+//             user: {
+//                 user_id: 1,
+//                 login: "user1",
+//                 avatar: null,
+//             },
+//         },
+//         {
+//             topic_id: 1,
+//             message_id: 2,
+//             message: "Hello World!",
+//             createdAt: "2021-01-01T12:00:00.000Z",
+//             user: {
+//                 user_id: 2,
+//                 login: "user2",
+//                 avatar: null,
+//             },
+//         },
+//     ],
+// };
