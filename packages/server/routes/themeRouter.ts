@@ -3,5 +3,5 @@ import { themeController } from "../controllers/themeController";
 
 export const themeRouter = Router();
 
-themeRouter.get("/theme", themeController().getThemeById);
-themeRouter.post("/theme/:id", themeController().updateTheme);
+themeRouter.get("/:id", themeController().getThemeById);
+themeRouter.post("/:id", themeController().updateTheme);

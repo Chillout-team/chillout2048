@@ -1,31 +1,33 @@
 import { Request, Response } from "express";
-import { SiteTheme } from "../models/SiteTheme";
 import { UserTheme } from "../models/userTheme";
 
 export class ThemeController {
     public async getThemeById(req: Request, res: Response): Promise<void> {
-        const { id } = req.params;
+        const id = parseInt(req.params.id, 10);
 
         try {
-            const userTheme = await UserTheme.findByPk(id, {
-                include: [SiteTheme],
-            });
+            let userTheme = await UserTheme.findByPk(id);
 
             if (!userTheme) {
-                res.status(404).json({ message: "User theme not found" });
-                return;
+                // Если темы пользователя нет в базе, создаем ее
+                userTheme = await UserTheme.create({
+                    id: id,
+                    theme: "light",
+                    themeId: 1,
+                });
             }
 
             res.status(200).send(userTheme);
         } catch (error) {
-            res.status(500).send({ message: "Internal server error" });
+            res.status(500).send({ message: error });
         }
     }
 
     public async updateTheme(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        const { theme } = req.body;
-
+        const { theme, themeId } = req.body;
+        console.log("params", req.params);
+        console.log("req.body", req.body);
         try {
             const userTheme = await UserTheme.findByPk(id);
 
@@ -35,6 +37,7 @@ export class ThemeController {
             }
 
             userTheme.theme = theme;
+            userTheme.themeId = themeId;
             await userTheme.save();
 
             res.json(userTheme);

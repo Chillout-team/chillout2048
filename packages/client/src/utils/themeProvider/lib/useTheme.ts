@@ -1,25 +1,25 @@
-import { useContext } from "react";
-import {
-    LOCAL_STORAGE_THEME_KEY,
-    THEME,
-    ThemeContext,
-} from "../lib/ThemeContext";
+import { THEME } from "../lib/ThemeContext";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import selector from "./selector";
+import { setTheme } from "@/redux/actions/authAction";
 
 interface IUseThemeResult {
     toggleTheme: () => void;
-    theme: THEME;
+    theme: string;
 }
 
 export const useTheme = (): IUseThemeResult => {
-    const { theme = THEME.LIGHT, setTheme } = useContext(ThemeContext);
+    const dispatch = useAppDispatch();
 
+    const { theme, userId } = useAppSelector(selector);
     const toggleTheme = () => {
-        if (theme && setTheme) {
+        if (theme && userId) {
             const newTheme = theme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
-            setTheme(newTheme);
-            localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
+
+            dispatch(setTheme({ userId, theme: newTheme, themeId: 1 }));
+            // localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme)
         }
     };
 
-    return { theme, toggleTheme };
+    return { theme: theme, toggleTheme };
 };

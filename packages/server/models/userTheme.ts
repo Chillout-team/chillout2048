@@ -3,19 +3,17 @@ import {
     AutoIncrement,
     Column,
     DataType,
-    ForeignKey,
     Model,
     PrimaryKey,
     Table,
 } from "sequelize-typescript";
-import { SiteTheme } from "./SiteTheme";
 
 @Table({
     timestamps: false,
     paranoid: true,
     tableName: "user_theme",
 })
-export class UserTheme extends Model<UserTheme> {
+export class UserTheme extends Model {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
@@ -25,8 +23,7 @@ export class UserTheme extends Model<UserTheme> {
     @Column(DataType.STRING)
     theme!: string;
 
-    @ForeignKey(() => SiteTheme)
-    @AllowNull(false)
+    @AllowNull(true)
     @Column(DataType.INTEGER)
-    themeId!: string;
+    themeId!: number;
 }

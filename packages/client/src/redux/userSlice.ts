@@ -1,7 +1,7 @@
 import { IUserState } from "@/types/types";
 import { AnyAction, AsyncThunk, createSlice } from "@reduxjs/toolkit";
 import noPic from "@/assets/img/no-pic.svg";
-import { getUser, logout } from "./actions/authAction";
+import { getUser, logout, setTheme } from "./actions/authAction";
 import { YANDEX_API_URL } from "@/consts/common";
 import {
     changeAvatar,
@@ -21,6 +21,7 @@ const initialState: IUserState = {
         password: "",
         avatar: noPic,
     },
+    theme: null,
     error: "",
     loadingStatus: "idle",
 };
@@ -52,6 +53,14 @@ export const userSlice = createSlice({
                     avatar: action.payload.avatar
                         ? `${YANDEX_API_URL}resources${action.payload.avatar}`
                         : initialState.user?.avatar,
+                };
+                state.theme = action.payload.theme;
+            })
+            .addCase(setTheme.fulfilled, (state, action) => {
+                state.theme = {
+                    id: action.meta.arg.userId,
+                    theme: action.meta.arg.theme,
+                    themeId: action.meta.arg.themeId,
                 };
             })
             .addCase(logout.fulfilled, (state, action) => {

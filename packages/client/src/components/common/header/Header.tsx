@@ -43,7 +43,7 @@ export const Header = ({ extraClass = "" }: Props) => {
                     <Link to={ROUTES.FORUM.path}>Форум</Link>
                     <Link to={ROUTES.LEADERBOARD.path}>Рейтинг</Link>
                 </div>
-                <ThemeSwitcher />
+                {isAuthorized && <ThemeSwitcher />}
                 {renderSignMenu}
             </nav>
         </header>
