@@ -92,4 +92,6 @@
 # SSR
 
 1. Сборка на клиенте `yarn build --scope=client`
-2. Запуск сервера `yarn dev --scope=server`
+2. Сборка сервера `yarn build --scope=server`
+
+

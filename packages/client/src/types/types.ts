@@ -39,8 +39,15 @@ export interface IUserData {
     avatar?: string;
 }
 
+export interface ITheme {
+    id: number;
+    theme: string;
+    themeId: number;
+}
+
 export interface IUserState {
     user: IUserData | null;
+    theme: ITheme | null;
     error?: string;
     loadingStatus: "loading" | "idle" | "failed";
 }
