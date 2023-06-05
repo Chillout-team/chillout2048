@@ -26,8 +26,7 @@ export class ThemeController {
     public async updateTheme(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const { theme, themeId } = req.body;
-        console.log("params", req.params);
-        console.log("req.body", req.body);
+
         try {
             const userTheme = await UserTheme.findByPk(id);
 
