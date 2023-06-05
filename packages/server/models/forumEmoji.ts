@@ -1,29 +1,30 @@
 import {
     AllowNull,
-    AutoIncrement,
     Column,
     DataType,
     ForeignKey,
     Model,
-    PrimaryKey,
     Table,
+    BelongsTo,
 } from "sequelize-typescript";
 import { ForumMessages } from "./forumMessages";
+import { Users } from "./users";
 
 @Table({ modelName: "emoji" })
 export class ForumEmoji extends Model {
-    @PrimaryKey
-    @AutoIncrement
-    @AllowNull(false)
-    @Column(DataType.INTEGER)
-    emoji_id!: number;
-
     @ForeignKey(() => ForumMessages)
     @AllowNull(false)
     @Column
     message_id!: number;
 
     @AllowNull(false)
+    @Column(DataType.INTEGER)
+    topic_id!: number;
+
+    @AllowNull(false)
     @Column(DataType.STRING)
     emoji!: string;
+
+    @BelongsTo(() => Users)
+    user!: Users[];
 }
