@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { FC } from "react";
 
 interface Props {
-    topic: Topic | undefined;
+    topic?: Topic;
 }
 
 /* Компонент списка сообщений форума. */

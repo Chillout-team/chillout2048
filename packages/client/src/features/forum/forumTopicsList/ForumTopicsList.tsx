@@ -5,7 +5,7 @@ import cls from "./ForumTopicsList.module.scss";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-    topics: IForumTopic[] | undefined;
+    topics?: IForumTopic[];
     loadMessageList: (id: string) => void;
 }
 
