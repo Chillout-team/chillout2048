@@ -6,13 +6,11 @@ import express, { Response } from "express";
 import { postgreDBConnect } from "./db";
 dotenv.config();
 
-
 // @ts-ignore
 import { render } from "../client/dist/ssr/entry-server.cjs";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
-
 
 const app = express();
 app.use(cors());
@@ -38,15 +36,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", async (req, res, next) => {
     try {
         //const isAuth =  await checkAuth(req);
-        const isAuth =  true
+        const isAuth = true;
         if (!isAuth) {
             res.status(403).send({
                 message: "User is not authorized",
             });
             return;
         } else {
-        app.use(express.json());
-        apiRouter(req, res, next);
+            app.use(express.json());
+            apiRouter(req, res, next);
         }
     } catch (e) {
         res.status(500).send({

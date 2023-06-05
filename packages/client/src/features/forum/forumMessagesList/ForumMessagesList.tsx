@@ -46,7 +46,7 @@ export const ForumMessagesList: FC<Props> = ({ topic }) => {
                             user,
                             message,
                             createdAt,
-                            emojis,
+                            emojis = [],
                         }) => {
                             const avatarUrl = user.avatar ? user.avatar : noPic;
                             return (
