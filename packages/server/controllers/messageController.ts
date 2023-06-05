@@ -10,7 +10,7 @@ export const messageController = () => {
         async getForumMessages(req: Request, res: Response) {
             const { id } = req.params;
             try {
-                const targetTopic = await ForumTopics.findAll({
+                const targetTopic = await ForumTopics.findOne({
                     where: {
                         topic_id: id,
                     },
@@ -46,8 +46,9 @@ export const messageController = () => {
                     order: [["message_id", "ASC"]],
                 });
 
-                const topic = targetTopic[0];
-                return res.status(200).send({ topic, topicMessages });
+                return res
+                    .status(200)
+                    .send({ topic: targetTopic, topicMessages });
             } catch (e) {
                 return res.status(500).send({
                     message:

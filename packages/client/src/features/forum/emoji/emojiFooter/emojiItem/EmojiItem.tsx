@@ -4,7 +4,7 @@ import cls from "./EmojiItem.module.scss";
 
 type Props = {
     emoji: Emoji;
-    userId?: number;
+    userId?: number | null;
     apiUpdateEmoji: (content: string) => void;
 };
 
