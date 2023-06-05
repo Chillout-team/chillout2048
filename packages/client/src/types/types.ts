@@ -45,13 +45,15 @@ export interface IUserState {
     loadingStatus: "loading" | "idle" | "failed";
 }
 
+export interface ITopic {
+    createdAt: string;
+    name: string;
+    topic_id: number;
+    user: IUserData;
+}
+
 export type Topic = {
-    topic: {
-        createdAt: string;
-        name: string;
-        topic_id: number;
-        user: IUserData;
-    };
+    topic: ITopic;
     topicMessages: IForumMessage[];
 };
 
