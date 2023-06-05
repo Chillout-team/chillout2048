@@ -1,14 +1,7 @@
 import React, { FC, ReactNode, useMemo, useState } from "react";
-import {
-    LOCAL_STORAGE_THEME_KEY,
-    THEME,
-    ThemeContext,
-} from "../lib/ThemeContext";
+import { THEME, ThemeContext } from "../lib/ThemeContext";
 
-//TODO временно закоментировала, т.к. не собирался ssr
-const defaultTheme =
-    //(localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as THEME) ||
-    THEME.LIGHT;
+const defaultTheme = THEME.LIGHT;
 
 interface IThemeProvider {
     children: ReactNode;

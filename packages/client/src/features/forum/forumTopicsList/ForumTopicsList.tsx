@@ -23,7 +23,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                 topics.map(
                     ({
                         topic_id,
-                         name,
+                        name,
                         messagesCount,
                         lastMessage,
                         lastMessageDate,
