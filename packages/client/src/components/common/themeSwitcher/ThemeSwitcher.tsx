@@ -4,7 +4,7 @@ import { THEME, useTheme } from "@/utils/themeProvider";
 import moonPic from "@/assets/img/moon.svg";
 import sunPic from "@/assets/img/sun.svg";
 
-const getIcon = (theme: THEME): string => {
+const getIcon = (theme: string): string => {
     switch (theme) {
         case THEME.DARK:
             return moonPic;

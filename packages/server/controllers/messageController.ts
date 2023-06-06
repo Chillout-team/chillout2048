@@ -7,9 +7,30 @@ import { requestValidator } from "../utils/requestValidator";
 
 export const messageController = () => {
     return {
-        async getForumMessages(_: Request, res: Response) {
+        async getForumMessages(req: Request, res: Response) {
+            const { id } = req.params;
             try {
-                const data = await ForumMessages.findAll({
+                const targetTopic = await ForumTopics.findOne({
+                    where: {
+                        topic_id: id,
+                    },
+                    attributes: ["topic_id", "name", "createdAt"],
+                    include: [
+                        {
+                            model: Users,
+                            attributes: [
+                                "user_id",
+                                "login",
+                                "avatar",
+                                "display_name",
+                            ],
+                        },
+                    ],
+                });
+                const topicMessages = await ForumMessages.findAll({
+                    where: {
+                        topic_id: id,
+                    },
                     attributes: ["message_id", "message", "createdAt"],
                     include: [
                         {
@@ -17,18 +38,17 @@ export const messageController = () => {
                             attributes: [
                                 "user_id",
                                 "login",
-                                "display_name",
                                 "avatar",
+                                "display_name",
                             ],
                         },
-                        {
-                            model: ForumTopics,
-                            attributes: ["topic_id", "name"],
-                        },
                     ],
-                    order: [["createdAt", "ASC"]],
+                    order: [["message_id", "ASC"]],
                 });
-                return res.status(200).send(data);
+
+                return res
+                    .status(200)
+                    .send({ topic: targetTopic, topicMessages });
             } catch (e) {
                 return res.status(500).send({
                     message:

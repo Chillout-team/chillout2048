@@ -10,7 +10,7 @@ export const topicController = () => {
     return {
         async getForumTopics(_: Request, res: Response) {
             try {
-                const data = await ForumTopics.findAll({
+                const topics = await ForumTopics.findAll({
                     attributes: [
                         "topic_id",
                         "name",
@@ -18,13 +18,14 @@ export const topicController = () => {
                             literal(
                                 '(SELECT count(m.message_id) FROM messages AS m WHERE m.topic_id = "topics"."topic_id")',
                             ),
-                            "messages",
+                            "messagesCount",
                         ],
+                        "createdAt",
                     ],
                     include: [
                         {
                             model: Users,
-                            attributes: ["user_id", "login"],
+                            attributes: ["user_id", "login", "avatar"],
                         },
                         {
                             model: ForumMessages,
@@ -35,7 +36,7 @@ export const topicController = () => {
                     ],
                     order: [["createdAt", "ASC"]],
                 });
-                return res.status(200).send(data);
+                return res.status(200).send(topics);
             } catch (e) {
                 return res.status(500).send({
                     message: (e as Error).message || "Get forum topics error.",

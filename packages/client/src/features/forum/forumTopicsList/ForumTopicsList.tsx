@@ -5,7 +5,7 @@ import cls from "./ForumTopicsList.module.scss";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-    topics: IForumTopic[] | undefined;
+    topics?: IForumTopic[];
     loadMessageList: (id: string) => void;
 }
 
@@ -23,10 +23,10 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                 topics.map(
                     ({
                         topic_id,
-                         name,
+                        name,
                         messagesCount,
                         lastMessage,
-                        lastMessageDate,
+                        createdAt,
                     }) => {
                         return (
                             <li
@@ -36,7 +36,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                                 <div className={cls.topicInfo}>
                                     <h3 className={cls.topicTitle}>{name}</h3>
                                     <p className={cls.topicDescription}>
-                                        {lastMessage}
+                                        {lastMessage || "Нет комментариев"}
                                     </p>
                                 </div>
                                 <div
@@ -52,7 +52,7 @@ export const ForumTopicsList: FC<Props> = ({ topics, loadMessageList }) => {
                                 </div>
                                 <div
                                     className={`${cls.topicColumn} ${cls.topicDate}`}>
-                                    {lastMessageDate}
+                                    {new Date(createdAt).toLocaleString()}
                                 </div>
                             </li>
                         );

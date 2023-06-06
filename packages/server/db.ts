@@ -3,19 +3,25 @@ import { ForumMessages } from "./models/forumMessages";
 import { ForumTopics } from "./models/forumTopics";
 import { Users } from "./models/users";
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
+import { UserTheme } from "./models/userTheme";
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } =
-    process.env;
+const {
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    POSTGRES_DB,
+    POSTGRES_PORT,
+    POSTGRES_HOST,
+} = process.env;
 
 const sequelizeOptions: SequelizeOptions = {
     host: POSTGRES_HOST,
-    //host: "localhost",
+    // host: "localhost",
     port: Number(POSTGRES_PORT),
     username: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
+    password: `${POSTGRES_PASSWORD}`,
     database: POSTGRES_DB,
     dialect: "postgres",
-    models: [Users, ForumTopics, ForumMessages, ForumEmoji],
+    models: [Users, ForumTopics, ForumMessages, ForumEmoji, UserTheme],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
