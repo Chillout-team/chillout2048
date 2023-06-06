@@ -35,4 +35,7 @@ export class ForumTopics extends Model {
 
     @HasMany(() => ForumMessages, "topic_id")
     messages!: ForumMessages[];
+
+    @Column(DataType.TIME)
+    override createdAt!: string;
 }

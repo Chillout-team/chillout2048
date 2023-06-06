@@ -52,13 +52,25 @@ export interface IUserState {
     loadingStatus: "loading" | "idle" | "failed";
 }
 
+export interface ITopic {
+    createdAt: string;
+    name: string;
+    topic_id: number;
+    user: IUserData;
+}
+
+export type Topic = {
+    topic: ITopic;
+    topicMessages: IForumMessage[];
+};
+
 export interface IForumTopic {
     messages: IForumMessage[];
     topic_id: string;
     name: string;
     messagesCount: number;
     lastMessage: string;
-    lastMessageDate: string;
+    createdAt: string;
 }
 
 export interface Emoji {
@@ -67,10 +79,10 @@ export interface Emoji {
 }
 
 export interface IForumMessage {
-    id: string;
+    message_id: string;
     topic_id: string;
     user: IUserForum;
-    messageDate: string;
+    createdAt: string;
     message: string;
     emojis?: Emoji[];
 }
