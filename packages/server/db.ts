@@ -1,4 +1,4 @@
-import { ForumEmoji } from "./models/forumEmoji";
+import { Emojis } from "./models/forumEmoji";
 import { ForumMessages } from "./models/forumMessages";
 import { ForumTopics } from "./models/forumTopics";
 import { Users } from "./models/users";
@@ -21,7 +21,7 @@ const sequelizeOptions: SequelizeOptions = {
     password: `${POSTGRES_PASSWORD}`,
     database: POSTGRES_DB,
     dialect: "postgres",
-    models: [Users, ForumTopics, ForumMessages, ForumEmoji, UserTheme],
+    models: [Users, ForumTopics, ForumMessages, Emojis, UserTheme],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
@@ -29,7 +29,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export async function postgreDBConnect() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
         console.log("Connection has been established successfully.");
     } catch (error) {
         console.error("Unable to connect to the database:", error);

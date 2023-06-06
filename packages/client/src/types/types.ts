@@ -62,6 +62,7 @@ export interface ITopic {
 export type Topic = {
     topic: ITopic;
     topicMessages: IForumMessage[];
+    topicEmojis: Emoji[];
 };
 
 export interface IForumTopic {
@@ -74,8 +75,9 @@ export interface IForumTopic {
 }
 
 export interface Emoji {
-    content: string;
-    users: number[];
+    message_id: string;
+    emoji: string;
+    users_id: number[];
 }
 
 export interface IForumMessage {

@@ -4,21 +4,21 @@ import cls from "./EmojiItem.module.scss";
 
 type Props = {
     emoji: Emoji;
-    userId?: number | null;
+    user_id?: number | null;
     apiUpdateEmoji: (content: string) => void;
 };
 
 export const EmojiCount: FC<Props> = ({ emoji, apiUpdateEmoji }) => {
-    const { users } = emoji;
+    const { users_id } = emoji;
 
     const updateEmoji = () => {
-        apiUpdateEmoji(emoji.content);
+        apiUpdateEmoji(emoji.emoji);
     };
     return (
         <>
-            <div className={cls.emojiCount}>{users.length}</div>
+            <div className={cls.emojiCount}>{users_id.length}</div>
             <div className={cls.emojiContent} onClick={() => updateEmoji()}>
-                {emoji.content}
+                {emoji.emoji}
             </div>
         </>
     );

@@ -9,3 +9,4 @@ forumRouters.post("/topic/", topicController().addForumTopic);
 
 forumRouters.get("/topic/:id", messageController().getForumMessages);
 forumRouters.post("/message/", messageController().addForumMessage);
+forumRouters.post("/message/emoji", messageController().updateForumEmojis);

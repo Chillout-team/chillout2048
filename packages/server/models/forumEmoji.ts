@@ -5,26 +5,24 @@ import {
     ForeignKey,
     Model,
     Table,
-    BelongsTo,
 } from "sequelize-typescript";
-import { ForumMessages } from "./forumMessages";
-import { Users } from "./users";
-
-@Table({ modelName: "emoji" })
-export class ForumEmoji extends Model {
-    @ForeignKey(() => ForumMessages)
+import { ForumTopics } from "./forumTopics";
+@Table({ modelName: "emojis" })
+export class Emojis extends Model {
     @AllowNull(false)
     @Column
     message_id!: number;
 
+    @ForeignKey(() => ForumTopics)
     @AllowNull(false)
-    @Column(DataType.INTEGER)
+    @Column
     topic_id!: number;
 
     @AllowNull(false)
     @Column(DataType.STRING)
     emoji!: string;
 
-    @BelongsTo(() => Users)
-    user!: Users[];
+    @AllowNull(false)
+    @Column(DataType.ARRAY(DataType.INTEGER))
+    users_id!: number[];
 }
