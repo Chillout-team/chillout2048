@@ -25,10 +25,10 @@ type CreateNewTopic = {
 };
 
 type UpdateEmoji = {
-    content: string;
+    emoji: string;
     topic_id: string;
     message_id: string;
-    userId: number;
+    user_id: number;
 };
 
 export const forumAPI = {
@@ -74,7 +74,7 @@ export const forumAPI = {
 
     updateEmoji: async (data: UpdateEmoji): Promise<Emoji[]> => {
         try {
-            const res = await baseAPI.put(`/forum/message/emoji`, {
+            const res = await baseAPI.post(`/forum/message/emoji`, {
                 ...data,
             });
             return res.data;

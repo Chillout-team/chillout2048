@@ -12,6 +12,7 @@ import {
 } from "sequelize-typescript";
 import { Users } from "./users";
 import { ForumMessages } from "./forumMessages";
+import { Sequelize } from "sequelize";
 
 @Table({ modelName: "topics" })
 export class ForumTopics extends Model {
@@ -36,6 +37,9 @@ export class ForumTopics extends Model {
     @HasMany(() => ForumMessages, "topic_id")
     messages!: ForumMessages[];
 
-    @Column(DataType.TIME)
-    override createdAt!: string;
+    @Column({
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        type: DataType.DATE,
+    })
+    override createdAt!: Date;
 }

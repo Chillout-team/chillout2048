@@ -16,13 +16,13 @@ export const EmojiFooter: FC<Props> = ({ emojis, topic_id, message_id }) => {
     const { userData } = useAuthorization();
     const [actualEmojis, setActualEmojis] = useState<Emoji[]>(emojis);
 
-    const apiUpdateEmoji = async (content: string) => {
-        if (content.trim() && userData.id) {
+    const apiUpdateEmoji = async (emoji: string) => {
+        if (emoji.trim() && userData.id) {
             const data = {
-                content: content,
+                emoji,
                 topic_id,
                 message_id,
-                userId: userData.id,
+                user_id: userData.id,
             };
             try {
                 const res = await forumAPI.updateEmoji(data);
@@ -42,12 +42,12 @@ export const EmojiFooter: FC<Props> = ({ emojis, topic_id, message_id }) => {
     return (
         <div className={cls.emojiList}>
             {actualEmojis.map((item, index) => {
-                if (item.users.length) {
+                if (item.users_id.length) {
                     return (
                         <div className={cls.emoji} key={index}>
                             <EmojiCount
                                 emoji={item}
-                                userId={userData.id}
+                                user_id={userData.id}
                                 apiUpdateEmoji={apiUpdateEmoji}
                             />
                         </div>

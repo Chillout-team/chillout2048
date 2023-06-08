@@ -27,10 +27,22 @@ export const Forum: FC = () => {
 
     const loadMessageList = async (id?: string) => {
         try {
-            const topic = await forumAPI.loadTopic(
+            const topic: Topic = await forumAPI.loadTopic(
                 id || (activeTopicId as string),
             );
-            setTopic(topic);
+            const { topicMessages } = topic;
+
+            if (topicMessages.length) {
+                const topicMessages = topic.topicMessages.map(message => {
+                    const emojis = topic.topicEmojis.filter(
+                        emoji => emoji.message_id === message.message_id,
+                    );
+                    return { emojis, ...message };
+                });
+                setTopic({ ...topic, topicMessages });
+            } else {
+                setTopic(topic);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -58,8 +70,11 @@ export const Forum: FC = () => {
                             {activeTopicId ? "Обсуждение игры" : "Список тем"}
                         </h2>
                     </header>
-                    {activeTopicId ? (
-                        <ForumMessagesList topic={topic} />
+                    {activeTopicId && topic ? (
+                        <ForumMessagesList
+                            topic={topic.topic}
+                            topicMessages={topic.topicMessages}
+                        />
                     ) : (
                         <ForumTopicsList
                             topics={topicList}
