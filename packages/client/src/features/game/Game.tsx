@@ -21,6 +21,7 @@ import chopTrack from "@/assets/sounds/chop.wav";
 import gameOverTrack from "@/assets/sounds/gameover.mp3";
 import winTrack from "@/assets/sounds/win.mp3";
 import newGameTrack from "@/assets/sounds/newgame.wav";
+import { Modal } from "@/components/common/popup/Modal";
 
 type GameOverStatus = "win" | "lose" | "none";
 
@@ -39,6 +40,7 @@ export const Game = () => {
         Number(localStorage.getItem("bestScore")) || 0,
     );
     const [hasSound, setHasSound] = useState(false);
+    const [modalActive, setModalActive] = useState(false);
 
     const dispatch = useAppDispatch();
 
@@ -60,6 +62,20 @@ export const Game = () => {
     useEffect(() => {
         score && hasSound && scoreIncreasePlay();
     }, [score, hasSound]);
+
+    useEffect(() => {
+        const isSupported = navigator && "getBattery" in navigator;
+
+        if (isSupported) {
+            navigator.getBattery().then(battery => {
+                battery.onlevelchange = () => {
+                    if (battery.level === 0.1) {
+                        setModalActive(true);
+                    }
+                };
+            });
+        }
+    }, []);
 
     useEffect(() => {
         if (gameOver === "win" || gameOver === "lose") {
@@ -196,6 +212,10 @@ export const Game = () => {
                     </div>
                 </div>
             </Main>
+            <Modal
+                active={modalActive}
+                setActive={setModalActive}
+                title="🔋10% - батарея почти разряжена. Рекомендуем подключить зарядное устройство."></Modal>
         </>
     );
 };
