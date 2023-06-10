@@ -73,6 +73,14 @@ services:
             - postgres
         networks:
             - chillout2048
+    nginx:
+        container_name: nginx
+        image: nginx        
+        restart: always
+        ports:
+            - 80:80
+        depends_on:
+            - client
 
 volumes:
     postgres-data:
