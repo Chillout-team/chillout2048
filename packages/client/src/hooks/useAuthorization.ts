@@ -23,7 +23,6 @@ export const useAuthorization = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        localStorage.removeItem("auth");
     };
 
     return { userData, isAuthorized, handleLogout };

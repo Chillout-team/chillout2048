@@ -89,7 +89,7 @@ export const Game = () => {
             }
             const localValue = Number(localStorage.getItem("bestScore")) || 0;
             if (score > localValue) {
-                localStorage.setItem("bestScore", `${score}`);
+                localStorage?.setItem("bestScore", `${score}`);
                 setBestScore(score);
             }
         }
