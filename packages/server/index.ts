@@ -55,7 +55,7 @@ app.use("/api", async (req, res, next) => {
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
-app.get("/", (req, res: Response) => {
+app.get("*", (req, res: Response) => {
     const result = render(req.url);
     const template = path.resolve(
         __dirname,
