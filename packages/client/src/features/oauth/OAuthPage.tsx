@@ -17,7 +17,7 @@ export const OAuthPage = () => {
             const res = await oAuth.takeToken(code);
             if (res?.data === "OK") {
                 setAuthSuccessful(true);
-                localStorage.setItem("auth", "true");
+                localStorage?.setItem("auth", "true");
             }
         } else if (localStorage.getItem("auth")) {
             setAuthSuccessful(true);

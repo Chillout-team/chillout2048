@@ -55,7 +55,7 @@ app.use("/api", async (req, res, next) => {
 
 app.use(express.static(path.resolve(__dirname, "../client/dist/client")));
 
-app.get("/", (req, res: Response) => {
+app.get("*", (req, res: Response) => {
     const result = render(req.url);
     const template = path.resolve(
         __dirname,
@@ -63,14 +63,8 @@ app.get("/", (req, res: Response) => {
     );
     const htmlString = fs.readFileSync(template, "utf-8");
 
-    const store = {};
-    const appStore = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-        store,
-    )}</script>`;
-
     const newString = htmlString
         .replace("<!--ssr-outlet-->", result)
-        .replace("<!--ssr-store-->", appStore);
     res.send(newString);
 });
 

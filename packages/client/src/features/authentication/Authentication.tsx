@@ -38,7 +38,6 @@ export const Authentication: FC<IAuthenticationProps> = ({ mode }) => {
                 : await authAPI.signin(values);
             const result = await dispatch(getUser());
             if (result.meta.requestStatus === "fulfilled") {
-                localStorage.setItem("auth", "true");
                 navigate(ROUTES.PROFILE.path);
             }
         } catch (err) {
