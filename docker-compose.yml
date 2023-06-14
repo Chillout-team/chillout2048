@@ -70,6 +70,9 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             SERVER_PORT: ${SERVER_PORT}
+            LETSENCRYPT_HOST: ${APP_HOSTNAME}
+            VIRTUAL_HOST: ${APP_HOSTNAME}
+            VIRTUAL_PORT: ${SERVER_PORT}
         command: ./wait_for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
         depends_on:
             - postgres
