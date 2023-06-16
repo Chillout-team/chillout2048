@@ -13,11 +13,13 @@ export const OAuthPage = () => {
         const urlParams = new URLSearchParams(queryString);
         const code = urlParams.get("code");
 
-        if (!localStorage.getItem("auth") && code) {
+        if (code) {
             const res = await oAuth.takeToken(code);
             if (res?.data === "OK") {
                 setAuthSuccessful(true);
                 localStorage?.setItem("auth", "true");
+            } else {
+                setAuthSuccessful(false);
             }
         } else if (localStorage.getItem("auth")) {
             setAuthSuccessful(true);
