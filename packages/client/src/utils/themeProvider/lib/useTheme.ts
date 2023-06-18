@@ -17,7 +17,6 @@ export const useTheme = (): IUseThemeResult => {
             const newTheme = theme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
 
             dispatch(setTheme({ userId, theme: newTheme, themeId: 1 }));
-            // localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme)
         }
     };
 

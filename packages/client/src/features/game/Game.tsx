@@ -36,9 +36,7 @@ export const Game = () => {
     const [isPlay, setIsPlay] = useState(false);
     const [gameOver, setGameOver] = useState("none");
     const [score, setScore] = useState(0);
-    const [bestScore, setBestScore] = useState(
-        Number(localStorage.getItem("bestScore")) || 0,
-    );
+    const [bestScore, setBestScore] = useState(0);
     const [hasSound, setHasSound] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
@@ -87,9 +85,14 @@ export const Game = () => {
                     }),
                 );
             }
-            const localValue = Number(localStorage.getItem("bestScore")) || 0;
-            if (score > localValue) {
-                localStorage.setItem("bestScore", `${score}`);
+            if (localStorage) {
+                const localValue =
+                    Number(localStorage.getItem("bestScore")) || 0;
+                if (score > localValue) {
+                    localStorage?.setItem("bestScore", `${score}`);
+                    setBestScore(score);
+                }
+            } else {
                 setBestScore(score);
             }
         }
