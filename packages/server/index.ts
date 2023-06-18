@@ -11,6 +11,9 @@ import { render } from "../client/dist/ssr/entry-server.cjs";
 import { apiRouter } from "./routes/apiRouter";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { YANDEX_API_URL } from "./consts/common";
+import helmet from "helmet";
+
+const isDev = process.env.NODE_ENV === "development";
 
 const app = express();
 app.use(cors());
@@ -32,6 +35,37 @@ app.use(
 );
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://ya-praktikum.tech/",
+                ],
+                "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://fonts.googleapis.com/"
+                ],
+                "img-src": [
+                    "'self'",
+                    "data:",
+                    "https://ya-praktikum.tech/",
+                ],
+                "connect-src": [
+                    "'self'",
+                    "https://ya-praktikum.tech/",
+                    ...(isDev ? "http://localhost:*" : []),
+                ],
+            },
+        },
+        xPoweredBy: false,
+    })
+)
 
 app.use("/api", async (req, res, next) => {
     try {
