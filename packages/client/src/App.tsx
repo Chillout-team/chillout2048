@@ -14,6 +14,7 @@ import { useTheme } from "@/utils/themeProvider";
 
 function App() {
     const { theme } = useTheme();
+    console.log("TEST APP")
 
     return (
         <div className={classNames("app", {}, [theme])}>
