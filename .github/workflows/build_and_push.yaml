@@ -47,5 +47,13 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker service update --image ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }} prakticum-client
-            docker service update --image ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }} prakticum-server
+            # Остановка и удаление текущих контейнеров (если нужно)
+            docker stop prakticum-client || true
+            docker stop prakticum-server || true
+            
+            docker rm prakticum-client || true
+            docker rm prakticum-server || true
+            
+            # Запуск нового контейнера с использованием обновленного образа
+            docker run -d --name prakticum-client -p 3000:80 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}
+            docker run -d --name prakticum-server -p 3001:3001 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
