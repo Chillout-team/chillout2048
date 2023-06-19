@@ -59,5 +59,5 @@ jobs:
             docker pull ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
             
             # Запуск нового контейнера с использованием обновленного образа
-            docker run -d --name prakticum-client -p 3000:80 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}
-            docker run -d --name prakticum-server -p 3001:3001 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+            docker run -d --name prakticum-client -p 2999:80 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}
+            docker run -d --name prakticum-server -p 3000:3000 ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
