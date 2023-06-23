@@ -1,0 +1,17 @@
+.root {
+    display: grid;
+    grid-template-columns: 100px auto 100px;
+    border-bottom: 2px solid var(--color-green);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    div {
+        padding: 9px;
+        color: var(--main-text-color);
+    }
+
+    .__orange {
+        color: var(--color-orange);
+    }
+}
