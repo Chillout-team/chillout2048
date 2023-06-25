@@ -7,6 +7,8 @@ services:
         restart: always
         ports:
             - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+        depends_on: 
+            - acme-companion
         environment:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_USER: ${POSTGRES_USER}
@@ -68,17 +70,47 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             SERVER_PORT: ${SERVER_PORT}
+            LETSENCRYPT_HOST: ${APP_HOSTNAME}
+            VIRTUAL_HOST: ${APP_HOSTNAME}
+            VIRTUAL_PORT: ${SERVER_PORT}
         command: ./wait_for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
         depends_on:
             - postgres
         networks:
             - chillout2048
+    nginx-proxy:
+        image: nginxproxy/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - conf:/etc/nginx/conf.d
+            - vhost:/etc/nginx/vhost.d
+            - html:/usr/share/nginx/html
+            - certs:/etc/nginx/certs:ro
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        networks:
+            - chillout2048
+    acme-companion:
+        image: nginxproxy/acme-companion
+        container_name: nginx-proxy-acme
+        restart: always
+        depends_on:
+            - nginx-proxy
+        volumes_from:
+            - nginx-proxy
+        volumes:
+            - certs:/etc/nginx/certs:rw
+            - acme:/etc/acme.sh
+            - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
-    postgres-data:
-        external: false
-    pgadmin-data:
-        external: false
+    conf:
+    vhost:
+    html:
+    certs:
+    acme:
 
 networks:
     chillout2048:
